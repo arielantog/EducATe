@@ -1,5 +1,7 @@
 package controlador;
 
+import hibernate.HibernateUtil;
+
 import java.util.*;
 
 import negocio.Alumno;
@@ -12,6 +14,7 @@ import negocio.Tema;
 public class Sistema {
 
 	public Sistema() {
+		new HibernateUtil();
 		Alumnos = new HashSet<Alumno>();
 		Docentes = new HashSet<Docente>();
 		Juegos = new HashSet<Juego>();
