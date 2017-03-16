@@ -13,6 +13,7 @@ public class Alumno extends Persona {
 		super.setNombre(nombre);
 		super.setApellido(apellido);
 		Puntos = 0;
+		NivelLietner = 0;
 		Ensenianzas = new HashSet<Ensenianza>();
 		Avatar = new Avatar();
 	}
@@ -20,6 +21,7 @@ public class Alumno extends Persona {
 	private Integer Puntos;
 	private Collection<Ensenianza> Ensenianzas;
 	private Avatar Avatar;
+	private int NivelLietner;
 
 	public Integer agregarEnsenianza(Leccion leccion, boolean resultado) {
 		Ensenianza ensenianza = buscarEnsenianza(leccion);
@@ -45,6 +47,25 @@ public class Alumno extends Persona {
 
 	private Integer ensenianzaCalcularNivelRefuerzo(Ensenianza ensenianza, boolean resultado){
 		return ensenianza.calcularNivelRefuerzo(resultado);
+	}
+	
+	private Integer calcularNivelSiguiente(Integer[] Lietner){
+		this.setNivelLietner(getNivelLietner()+1);
+		Integer nuevoNivel = Lietner[this.getNivelLietner()];
+		if (nuevoNivel == null){
+			this.setNivelLietner(0);
+			return 0;
+		}
+		return nuevoNivel;
+	}
+	public Integer calcularSiguienteLeccion(Integer[] Lietner){
+		Integer nivel = calcularNivelSiguiente(Lietner);
+		for (Ensenianza ensenianza: Ensenianzas){
+			if (ensenianza.getNivelRefuerzo() == nivel)
+				return ensenianza.getLeccion().getId();
+		}
+		calcularSiguienteLeccion(Lietner);
+		return null;
 	}
 	
 
@@ -97,5 +118,11 @@ public class Alumno extends Persona {
 	}
 	public void setApellido(String apellido) {
 		setApellido(apellido);
+	}
+	public int getNivelLietner() {
+		return NivelLietner;
+	}
+	public void setNivelLietner(int nivelLietner) {
+		NivelLietner = nivelLietner;
 	}
 }

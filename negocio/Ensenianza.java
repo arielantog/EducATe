@@ -11,6 +11,7 @@ public class Ensenianza {
 	}
 
 	private static Integer ID = 0;
+	private static Integer NivelMax = 5;
 	private Integer Id;
 	private Leccion Leccion;
 	private Integer NivelRefuerzo;
@@ -19,14 +20,17 @@ public class Ensenianza {
 	
 	public Integer calcularNivelRefuerzo(boolean resultado) {
 		if (resultado)
-			NivelRefuerzo++;
+			if (getNivelRefuerzo() < NivelMax)
+				NivelRefuerzo++;
+			else if (getNivelRefuerzo() < NivelMax)
+				NivelRefuerzo = NivelMax;
 		else
 			NivelRefuerzo = 1;
 		return NivelRefuerzo;
 	}
 	
 	private Integer fechaActual() {
-		// TODO Auto-generated method stub
+		// TODO Obtener fecha actual
 		return null;
 	}
 	
@@ -37,6 +41,13 @@ public class Ensenianza {
 	public static void setID(Integer iD) {
 		ID = iD;
 	}
+	public static Integer getNivelMax() {
+		return NivelMax;
+	}
+	public static void setNivelMax(Integer nivelMax) {
+		NivelMax = nivelMax;
+	}
+
 	public Integer getId() {
 		return Id;
 	}

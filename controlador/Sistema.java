@@ -19,6 +19,7 @@ public class Sistema {
 		Docentes = new HashSet<Docente>();
 		Juegos = new HashSet<Juego>();
 		Temas = new HashSet<Tema>();
+		setLietner(calcularLietner());
 	}
 
 	private static Sistema Singleton;
@@ -26,6 +27,7 @@ public class Sistema {
 	private Collection<Docente> Docentes;
 	private Collection<Juego> Juegos;
 	private Collection<Tema> Temas;
+	private Integer[] Lietner;
 
 
 	public static Sistema getInstance() {
@@ -212,4 +214,96 @@ public class Sistema {
 		return null;
 	}
 	
+	public Integer elegirJuego(Integer alumno){
+		Alumno alumno2 = buscarAlumno(alumno);
+		if(alumno2!= null){
+			int leccion = alumno2.calcularSiguienteLeccion(Lietner);
+			for (Juego juego: Juegos)
+				for (Leccion leccion2: juego.getLecciones())
+					if (leccion2.getId() == leccion)
+						return juego.getId();
+		}
+		return null;
+		
+	}
+	
+	public Integer elegirJuego(Integer alumno, Integer tema){
+		//TODO elegir juego mediante un alumno y tema
+		return null;
+		
+	}
+	
+	private Integer[] calcularLietner() {
+		Integer[] lietnerValores = cargarLietner();
+		Integer[] lietners = new Integer[100];
+		int contador = 0;
+		@SuppressWarnings("unused")
+		int posicion = 0;
+		int cantidad = cantidadVector(lietnerValores);
+		boolean noPrimero = false;
+		//Agrego el 0
+		for (int i = 0;i<lietnerValores[0];i++){
+			lietners[i] = contador;
+			posicion = i;
+		}
+		contador++;
+		posicion++;
+		
+		//Por cada otro nivel que haya
+		for (int i = 1;i<=cantidad;i++){
+			//Copio la cadena
+			int cantidadAct = cantidadVector(lietners);
+			for (int j = 0;j<=cantidadAct;j++)
+			{
+				lietners[cantidadAct+j+1] = lietners[j];
+			}
+			cantidadAct = cantidadVector(lietners);
+			//Agrego el 0
+			if (noPrimero){
+				for (int j = 0;j<lietnerValores[0];j++){
+					lietners[cantidadAct+1] = 0;
+					cantidadAct++;
+				}
+			}
+			noPrimero = true;
+			//Agrego el nuevo valor
+			for(int j = 0;j<lietnerValores[cantidad];j++){
+				lietners[cantidadAct+j+1] = contador;
+			}
+			contador++;
+			
+		}
+		
+		
+		return lietners;
+	}
+
+	private int cantidadVector(Integer[] lietnerValores) {
+		int cantidad = 0;
+		int c = 0;
+		while (lietnerValores[c]!= null){
+			cantidad = c;
+			c++;
+		}
+		return cantidad;
+	}
+
+	private Integer[] cargarLietner() {
+		Integer[] lietnerValores = new Integer[10];
+		lietnerValores[0]= 1;
+		lietnerValores[1]= 1;
+		lietnerValores[2]= 1;
+		lietnerValores[3]= 1;
+		lietnerValores[4]= 1;
+		// TODO Esto se tiene que cargar desde una tabla de SQL
+		return lietnerValores;
+	}
+
+	public Integer[] getLietner() {
+		return Lietner;
+	}
+
+	public void setLietner(Integer[] lietner) {
+		Lietner = lietner;
+	}
 }
