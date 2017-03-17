@@ -15,18 +15,18 @@ public class Sistema {
 
 	public Sistema() {
 		new HibernateUtil();
-		Alumnos = new HashSet<Alumno>();
-		Docentes = new HashSet<Docente>();
-		Juegos = new HashSet<Juego>();
-		Temas = new HashSet<Tema>();
+		Alumnos = new ArrayList<Alumno>();
+		Docentes = new ArrayList<Docente>();
+		Juegos = new ArrayList<Juego>();
+		Temas = new ArrayList<Tema>();
 		setLietner(calcularLietner());
 	}
 
 	private static Sistema Singleton;
-	private Collection<Alumno> Alumnos;
-	private Collection<Docente> Docentes;
-	private Collection<Juego> Juegos;
-	private Collection<Tema> Temas;
+	private List<Alumno> Alumnos;
+	private List<Docente> Docentes;
+	private List<Juego> Juegos;
+	private List<Tema> Temas;
 	private Integer[] Lietner;
 
 
@@ -38,17 +38,20 @@ public class Sistema {
 		return null;
 	}
 
-	public Integer nuevoAlumno(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
+	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
 		Alumno alumno = buscarAlumno(tipoDocumento, nroDocumento);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido);
+			for (Tema tema: Temas)
+				for (Leccion leccion: tema.getLecciones())
+					alumno.agregarEnsenianza(leccion, false);
 			Alumnos.add(alumno);
 			return alumno.getId();
 		}
 		return 0;
 	}
 
-	public Integer nuevoDocente(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
+	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
 		if (docente == null){
 			docente = new Docente(tipoDocumento, nroDocumento, nombre, apellido);
@@ -58,7 +61,7 @@ public class Sistema {
 		return 0;
 	}
 
-	public Integer nuevoTema(String descripcion) {
+	public int nuevoTema(String descripcion) {
 		Tema tema = buscarTema(descripcion);
 		if (tema == null){
 			tema = new Tema(descripcion);
@@ -68,7 +71,7 @@ public class Sistema {
 		return 0;
 	}
 
-	public Integer nuevoJuego(String nombre, Integer tema) {
+	public int nuevoJuego(String nombre, int tema) {
 		Juego juego = buscarJuego(nombre);
 		if (juego == null){
 			Tema tema2 = buscarTema(tema);
@@ -79,14 +82,21 @@ public class Sistema {
 		return 0;
 	}
 
-	public Integer docenteAgregarCurso(Integer docente, String descripcion) {
+	public int docenteAgregarCurso(int docente, String descripcion) {
 		Docente docente2 = buscarDocente(docente);
 		if (docente2 != null)
 			return docente2.agregarCurso(descripcion);
 		return 0;
 	}
+	
+	public int temaAgregarLeccion(int tema, String descripcion) {
+		Tema tema2 = buscarTema(tema);
+		if (tema2 != null)
+			return tema2.agregarLeccion(descripcion);
+		return 0;
+	}
 
-	public Integer alumnoAgregarEnsenianza(Integer alumno, Integer leccion, boolean resultado) {
+	public int alumnoAgregarEnsenianza(int alumno, int leccion, boolean resultado) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null){
 			Leccion leccion2 = juegoBuscarLeccion(leccion);
@@ -96,14 +106,7 @@ public class Sistema {
 		return 0;
 	}
 
-	public Integer temaAgregarLeccion(Integer tema, String descripcion) {
-		Tema tema2 = buscarTema(tema);
-		if (tema2 != null)
-			return tema2.agregarLeccion(descripcion);
-		return 0;
-	}
-
-	public Integer juegoAgregarLeccion(Integer juego, Integer leccion) {
+	public int juegoAgregarLeccion(int juego, int leccion) {
 		Juego juego2 = buscarJuego(juego);
 		if (juego2 != null){
 			Leccion leccion2 = temaBuscarLeccion(leccion);
@@ -113,7 +116,7 @@ public class Sistema {
 		return 0;
 	}
 
-	public Integer cursoAgregarAlumno(Integer docente, Integer curso, Integer alumno) {
+	public int cursoAgregarAlumno(int docente, int curso, int alumno) {
 		Curso curso2 = docenteBuscarCurso(curso);
 		if (curso2 != null){
 			Alumno alumno2 = buscarAlumno(alumno);
@@ -123,7 +126,7 @@ public class Sistema {
 		return 0;
 	}
 
-	public Integer avatarAgregarElemento(Integer alumno, String descripcion, String tipo, String color) {
+	public int avatarAgregarElemento(int alumno, String descripcion, String tipo, String color) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null)
 			return alumno2.avatarAgregarElemento(descripcion, tipo, color);
@@ -137,42 +140,42 @@ public class Sistema {
 		return null;
 	}
 	
-	private Tema buscarTema(Integer id) {
+	private Tema buscarTema(int id) {
 		for (Tema tema: Temas)
 			if (tema.getId() == id)
 				return tema;
 		return null;
 	}
 
-	private Docente buscarDocente(String tipoDocumento, Integer nroDocumento) {
+	private Docente buscarDocente(String tipoDocumento, int nroDocumento) {
 		for (Docente docente: Docentes)
 			if (docente.getTipoDocumento().equals(tipoDocumento) && docente.getNroDocumento() == nroDocumento)
 				return docente;
 		return null;
 	}
 	
-	private Docente buscarDocente(Integer Id) {
+	private Docente buscarDocente(int Id) {
 		for (Docente docente: Docentes)
 			if (docente.getId() == Id)
 				return docente;
 		return null;
 	}
 
-	private Alumno buscarAlumno(String tipoDocumento, Integer nroDocumento) {
+	private Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
 		for (Alumno alumno: Alumnos)
 			if (alumno.getTipoDocumento().equals(tipoDocumento) && alumno.getNroDocumento() == nroDocumento)
 				return alumno;
 		return null;
 	}
 	
-	private Alumno buscarAlumno(Integer Id) {
+	private Alumno buscarAlumno(int Id) {
 		for (Alumno alumno: Alumnos)
 			if (alumno.getId() == Id)
 				return alumno;
 		return null;
 	}
 	
-	private Leccion temaBuscarLeccion(Integer leccion) {
+	private Leccion temaBuscarLeccion(int leccion) {
 		for (Tema tema: Temas){
 			Leccion leccion2 = tema.buscarLeccion(leccion);
 			if (leccion2 != null)
@@ -188,14 +191,14 @@ public class Sistema {
 		return null;
 	}
 	
-	private Juego buscarJuego(Integer Id) {
+	private Juego buscarJuego(int Id) {
 		for (Juego juego: Juegos)
 			if (juego.getId() == Id)
 				return juego;
 		return null;
 	}
 	
-	private Curso docenteBuscarCurso(Integer curso) {
+	private Curso docenteBuscarCurso(int curso) {
 		for (Docente docente: Docentes){
 			Curso curso2 = docente.buscarCurso(curso);
 			if (curso2 != null)
@@ -205,7 +208,7 @@ public class Sistema {
 		return null;
 	}
 	
-	private Leccion juegoBuscarLeccion(Integer leccion) {
+	private Leccion juegoBuscarLeccion(int leccion) {
 		for (Juego juego: Juegos){
 			Leccion leccion2 = juego.buscarLeccion(leccion);
 			if (leccion2 != null)
@@ -214,22 +217,33 @@ public class Sistema {
 		return null;
 	}
 	
-	public Integer elegirJuego(Integer alumno){
+	public int elegirJuegoSinTema(int alumno){
+		Juego juego = elegirJuego(alumno);
+		if (juego != null)
+			return juego.getId();
+		return 0;
+	}
+
+	private Juego elegirJuego(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if(alumno2!= null){
 			int leccion = alumno2.calcularSiguienteLeccion(Lietner);
 			for (Juego juego: Juegos)
 				for (Leccion leccion2: juego.getLecciones())
 					if (leccion2.getId() == leccion)
-						return juego.getId();
+						return juego;
 		}
 		return null;
-		
 	}
 	
-	public Integer elegirJuego(Integer alumno, Integer tema){
-		//TODO elegir juego mediante un alumno y tema
-		return null;
+	public int elegirJuegoConTema(int alumno, int tema){
+		Juego juego = elegirJuego(alumno);
+		if (juego != null)
+			if (juego.getTema().getId() == tema)
+				return juego.getId();
+			else
+				elegirJuegoConTema(alumno, tema);
+		return 0;
 		
 	}
 	
@@ -274,7 +288,6 @@ public class Sistema {
 			
 		}
 		
-		
 		return lietners;
 	}
 
@@ -303,7 +316,7 @@ public class Sistema {
 		return Lietner;
 	}
 
-	public void setLietner(Integer[] lietner) {
-		Lietner = lietner;
+	public void setLietner(Integer[] integers) {
+		Lietner = integers;
 	}
 }

@@ -8,14 +8,14 @@ public class Juego {
 		Id = ID++;
 		Nombre = nombre;
 		Tema = tema;
-		Lecciones = new HashSet<Leccion>();
+		Lecciones = new ArrayList<Leccion>();
 	}
 	
-	private static Integer ID = 0;
+	private static Integer ID = 1;
 	private Integer Id;
 	private String Nombre;
 	private Tema Tema;
-	private Collection<Leccion> Lecciones;
+	private List<Leccion> Lecciones;
 
 	public Integer agregarLeccion(Leccion leccion) {
 		if(!tengoLeccion(leccion)){
@@ -65,10 +65,10 @@ public class Juego {
 	public void setTema(Tema tema) {
 		Tema = tema;
 	}
-	public Collection<Leccion> getLecciones() {
+	public List<Leccion> getLecciones() {
 		return Lecciones;
 	}
-	public void setLecciones(Collection<Leccion> lecciones) {
+	public void setLecciones(List<Leccion> lecciones) {
 		Lecciones = lecciones;
 	}
 }

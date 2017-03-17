@@ -7,13 +7,13 @@ public class Tema {
 	public Tema(String descripcion) {
 		Id = ID++;
 		Descripcion = descripcion;
-		Lecciones = new HashSet<Leccion>();
+		Lecciones = new ArrayList<Leccion>();
 	}
 
-	private static Integer ID = 0;
+	private static Integer ID = 1;
 	private Integer Id;
 	private String Descripcion;
-	private Collection<Leccion> Lecciones;
+	private List<Leccion> Lecciones;
 
 	public Integer agregarLeccion(String descripcion) {
 		Leccion leccion = buscarLeccion(descripcion);
@@ -60,10 +60,10 @@ public class Tema {
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
-	public Collection<Leccion> getLecciones() {
+	public List<Leccion> getLecciones() {
 		return Lecciones;
 	}
-	public void setLecciones(Collection<Leccion> lecciones) {
+	public void setLecciones(List<Leccion> lecciones) {
 		Lecciones = lecciones;
 	}
 

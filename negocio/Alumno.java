@@ -7,19 +7,15 @@ public class Alumno extends Persona {
 
 	public Alumno(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		super.setId(super.getID()); 
-		super.setTipoDocumento(tipoDocumento);
-		super.setNroDocumento(nroDocumento);
-		super.setNombre(nombre);
-		super.setApellido(apellido);
+		super.setId(super.getID());
 		Puntos = 0;
 		NivelLietner = 0;
-		Ensenianzas = new HashSet<Ensenianza>();
+		Ensenianzas = new ArrayList<Ensenianza>();
 		Avatar = new Avatar();
 	}
 
 	private Integer Puntos;
-	private Collection<Ensenianza> Ensenianzas;
+	private List<Ensenianza> Ensenianzas;
 	private Avatar Avatar;
 	private int NivelLietner;
 
@@ -27,6 +23,7 @@ public class Alumno extends Persona {
 		Ensenianza ensenianza = buscarEnsenianza(leccion);
 		if (ensenianza == null){
 			ensenianza = new Ensenianza(leccion);
+			Ensenianzas.add(ensenianza);
 		}else{
 			ensenianzaCalcularNivelRefuerzo(ensenianza, resultado);
 		}
@@ -49,23 +46,22 @@ public class Alumno extends Persona {
 		return ensenianza.calcularNivelRefuerzo(resultado);
 	}
 	
-	private Integer calcularNivelSiguiente(Integer[] Lietner){
+	private Integer calcularNivelSiguiente(Integer[] lietner){
 		this.setNivelLietner(getNivelLietner()+1);
-		Integer nuevoNivel = Lietner[this.getNivelLietner()];
+		Integer nuevoNivel = lietner[this.getNivelLietner()];
 		if (nuevoNivel == null){
 			this.setNivelLietner(0);
 			return 0;
 		}
 		return nuevoNivel;
 	}
-	public Integer calcularSiguienteLeccion(Integer[] Lietner){
-		Integer nivel = calcularNivelSiguiente(Lietner);
+	public Integer calcularSiguienteLeccion(Integer[] lietner){
+		Integer nivel = calcularNivelSiguiente(lietner);
 		for (Ensenianza ensenianza: Ensenianzas){
 			if (ensenianza.getNivelRefuerzo() == nivel)
 				return ensenianza.getLeccion().getId();
 		}
-		calcularSiguienteLeccion(Lietner);
-		return null;
+		return calcularSiguienteLeccion(lietner);
 	}
 	
 
@@ -77,10 +73,10 @@ public class Alumno extends Persona {
 	public void setPuntos(Integer puntos) {
 		Puntos = puntos;
 	}
-	public Collection<Ensenianza> getEnsenianzas() {
+	public List<Ensenianza> getEnsenianzas() {
 		return Ensenianzas;
 	}
-	public void setEnsenianzas(Collection<Ensenianza> ensenianzas) {
+	public void setEnsenianzas(List<Ensenianza> ensenianzas) {
 		Ensenianzas = ensenianzas;
 	}
 	public Avatar getAvatar() {
@@ -88,36 +84,6 @@ public class Alumno extends Persona {
 	}
 	public void setAvatar(Avatar avatar) {
 		Avatar = avatar;
-	}
-	public Integer getId() {
-		return getId();
-	}
-	public void setId(Integer id) {
-		setId(id);
-	}
-	public String getTipoDocumento() {
-		return getTipoDocumento();
-	}
-	public void setTipoDocumento(String tipoDocumento) {
-		setTipoDocumento(tipoDocumento);
-	}
-	public Integer getNroDocumento() {
-		return getNroDocumento();
-	}
-	public void setNroDocumento(Integer nroDocumento) {
-		setNroDocumento(nroDocumento);
-	}
-	public String getNombre() {
-		return getNombre();
-	}
-	public void setNombre(String nombre) {
-		setNombre(nombre);
-	}
-	public String getApellido() {
-		return getApellido();
-	}
-	public void setApellido(String apellido) {
-		setApellido(apellido);
 	}
 	public int getNivelLietner() {
 		return NivelLietner;

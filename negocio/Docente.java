@@ -6,15 +6,11 @@ public class Docente extends Persona {
 
 	public Docente(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		super.setId(super.getID()); 
-		super.setTipoDocumento(tipoDocumento);
-		super.setNroDocumento(nroDocumento);
-		super.setNombre(nombre);
-		super.setApellido(apellido);
-		Cursos = new HashSet<Curso>();
+		super.setId(super.getID());
+		Cursos = new ArrayList<Curso>();
 	}
 
-	private Collection<Curso> Cursos;
+	private List<Curso> Cursos;
 
 	public Integer agregarCurso(String descripcion) {
 		Curso curso = buscarCurso(descripcion);
@@ -49,40 +45,10 @@ public class Docente extends Persona {
 	
 	
 	/*GETTERS Y SETTERS*/
-	public Integer getId() {
-		return getId();
-	}
-	public void setId(Integer id) {
-		setId(id);
-	}
-	public String getTipoDocumento() {
-		return getTipoDocumento();
-	}
-	public void setTipoDocumento(String tipoDocumento) {
-		setTipoDocumento(tipoDocumento);
-	}
-	public Integer getNroDocumento() {
-		return getNroDocumento();
-	}
-	public void setNroDocumento(Integer nroDocumento) {
-		setNroDocumento(nroDocumento);
-	}
-	public String getNombre() {
-		return getNombre();
-	}
-	public void setNombre(String nombre) {
-		setNombre(nombre);
-	}
-	public String getApellido() {
-		return getApellido();
-	}
-	public void setApellido(String apellido) {
-		setApellido(apellido);
-	}
-	public Collection<Curso> getCursos() {
+	public List<Curso> getCursos() {
 		return Cursos;
 	}
-	public void setCursos(Collection<Curso> cursos) {
+	public void setCursos(List<Curso> cursos) {
 		Cursos = cursos;
 	}
 }

@@ -7,7 +7,7 @@ public class Leccion {
 		Descripcion = descripcion;
 	}
 
-	private static Integer ID = 0;
+	private static Integer ID = 1;
 	private Integer Id;
 	private String Descripcion;
 	

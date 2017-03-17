@@ -7,13 +7,13 @@ public class Curso {
 	public Curso(String descripcion) {
 		Id = ID++;
 		Descripcion = descripcion;
-		Alumnos = new HashSet<Alumno>();
+		Alumnos = new ArrayList<Alumno>();
 	}
 
-	private static Integer ID = 0;
+	private static Integer ID = 1;
 	private Integer Id;
 	private String Descripcion;
-	private Collection<Alumno> Alumnos;
+	private List<Alumno> Alumnos;
 
 	public Integer agregarAlumno(Alumno alumno) {
 		if (tengoAlumno(alumno)){

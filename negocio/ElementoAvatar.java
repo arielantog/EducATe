@@ -9,7 +9,7 @@ public class ElementoAvatar {
 		Color = color;
 	}
 
-	private static Integer ID = 0;
+	private static Integer ID = 1;
 	private Integer Id;
 	private String Descripcion;
 	private String Tipo;

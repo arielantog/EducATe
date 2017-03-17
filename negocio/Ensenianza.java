@@ -1,5 +1,8 @@
 package negocio;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Ensenianza {
 
 
@@ -30,8 +33,11 @@ public class Ensenianza {
 	}
 	
 	private Integer fechaActual() {
-		// TODO Obtener fecha actual
-		return null;
+		Calendar fecha = new GregorianCalendar();
+		Integer fecha2 = fecha.get(Calendar.YEAR) * 10000 +
+						 fecha.get(Calendar.MONTH) * 100 + 
+						 fecha.get(Calendar.DAY_OF_MONTH);
+		return fecha2;
 	}
 	
 	/*GETTERS Y SETTERS*/

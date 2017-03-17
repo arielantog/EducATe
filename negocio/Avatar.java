@@ -6,12 +6,12 @@ public class Avatar {
 
 	public Avatar() {
 		Id = ID++;
-		ElementosAvatar = new HashSet<ElementoAvatar>();
+		ElementosAvatar = new ArrayList<ElementoAvatar>();
 	}
 
 	private static Integer ID = 0;
 	private Integer Id;
-	private Collection<ElementoAvatar> ElementosAvatar;
+	private List<ElementoAvatar> ElementosAvatar;
 
 	public Integer agregarElemento(String descripcion, String tipo, String color) {
 		ElementoAvatar elementoAvatar= buscarElemento(tipo);

@@ -11,7 +11,7 @@ public abstract class Persona {
 		Apellido = apellido;
 	}
 
-	private static Integer ID = 0;
+	protected static Integer ID = 0;
 	private Integer Id;
 	private String TipoDocumento;
 	private Integer NroDocumento;
