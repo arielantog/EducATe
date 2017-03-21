@@ -2,19 +2,18 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="Librerias Java/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/hibernate-commons-annotations.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/hibernate3.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/hsqldb.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/javassist-3.4.GA.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/jtds-1.2.5.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/slf4j-api-1.5.6.jar"/>
-	<classpathentry kind="lib" path="Librerias Java/slf4j-simple-1.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/javassist-3.4.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/jtds-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/slf4j-api-1.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/slf4j-simple-1.5.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

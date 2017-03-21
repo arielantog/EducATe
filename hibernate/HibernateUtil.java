@@ -13,8 +13,17 @@ public class HibernateUtil
         try
         {
         	 AnnotationConfiguration config = new AnnotationConfiguration();
-             config.addAnnotatedClass(TemaBeans.class);
-             sessionFactory = config.buildSessionFactory();
+             config.addAnnotatedClass(TemaBean.class);
+             config.addAnnotatedClass(LeccionBean.class);
+             config.addAnnotatedClass(PersonaBean.class);
+             config.addAnnotatedClass(AlumnoBean.class);
+             config.addAnnotatedClass(DocenteBean.class);
+             config.addAnnotatedClass(AvatarBean.class);
+             config.addAnnotatedClass(ElementoAvatarBean.class);
+             config.addAnnotatedClass(EnsenianzaBean.class);
+             config.addAnnotatedClass(CursoBean.class);
+             config.addAnnotatedClass(JuegoBean.class);
+             sessionFactory = config.buildSessionFactory(); 
         }
         catch (Throwable ex)
         {

@@ -2,15 +2,15 @@ package beans;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "Temas")
-public class TemaBeans {
+@Table(name="lecciones")
+public class LeccionBean {
 	@Id
+	@Column(name="leccionId")
 	private Integer Id;
 	private String Descripcion;
 	
-	
+	/*GETTERS AND SETTERS*/
 	public Integer getId() {
 		return Id;
 	}
@@ -23,4 +23,5 @@ public class TemaBeans {
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
+
 }
