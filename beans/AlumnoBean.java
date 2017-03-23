@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -16,6 +17,9 @@ public class AlumnoBean extends PersonaBean{
 	private AvatarBean Avatar;
 	private int NivelLietner;
 	
+	public AlumnoBean() {
+		Ensenianzas = new ArrayList<EnsenianzaBean>();
+	}
 	/*GETTERS AND SETTERS*/
 	public Integer getPuntos() {
 		return Puntos;
@@ -41,4 +45,8 @@ public class AlumnoBean extends PersonaBean{
 	public void setNivelLietner(int nivelLietner) {
 		NivelLietner = nivelLietner;
 	}
+	public void agregarEnsenianza(EnsenianzaBean ensenianzaBean) {
+		Ensenianzas.add(ensenianzaBean);
+	}
+
 }

@@ -46,6 +46,7 @@ public class Test {
 		
 		sistema.avatarAgregarElemento(alumno1, "No me acuerdo para qué es esto", "Gorra", "Rojo");
 		
+		//HASTA ACÁ HACE LOS PERSIST. FALTAN TODOS LOS BUSCAR
 		sistema.elegirJuegoSinTema(alumno1);
 		
 		sistema.elegirJuegoConTema(alumno1, tema1);

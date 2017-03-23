@@ -2,12 +2,17 @@ package negocio;
 
 import java.util.*;
 
+import beans.LeccionBean;
+import beans.TemaBean;
+import daos.TemaDao;
+
 public class Tema {
 
 	public Tema(String descripcion) {
 		Id = ID++;
 		Descripcion = descripcion;
 		Lecciones = new ArrayList<Leccion>();
+		TemaDao.getInstance().grabar(pasarBean());
 	}
 
 	private static Integer ID = 1;
@@ -20,6 +25,7 @@ public class Tema {
 		if (leccion == null){
 			Leccion leccion2 = new Leccion(descripcion);
 			Lecciones.add(leccion2);
+			TemaDao.getInstance().actualizar(pasarBean());
 			return leccion2.getId();
 		}
 		return 0;
@@ -66,6 +72,16 @@ public class Tema {
 	public void setLecciones(List<Leccion> lecciones) {
 		Lecciones = lecciones;
 	}
-
+	/*BEAN*/
+	public TemaBean pasarBean() {
+		TemaBean temaBean = new TemaBean();
+		temaBean.setId(getId());
+		temaBean.setDescripcion(getDescripcion());
+		for (Leccion leccion: Lecciones){
+			LeccionBean leccionBean = leccion.pasarBean();
+			temaBean.agregarLeccion(leccionBean);
+		}
+		return temaBean;
+	}
 	
 }

@@ -2,12 +2,17 @@ package negocio;
 
 import java.util.*;
 
+import daos.CursoDao;
+import beans.AlumnoBean;
+import beans.CursoBean;
+
 public class Curso {
 
 	public Curso(String descripcion) {
 		Id = ID++;
 		Descripcion = descripcion;
 		Alumnos = new ArrayList<Alumno>();
+		CursoDao.getInstance().grabar(pasarBean());
 	}
 
 	private static Integer ID = 1;
@@ -16,8 +21,9 @@ public class Curso {
 	private List<Alumno> Alumnos;
 
 	public Integer agregarAlumno(Alumno alumno) {
-		if (tengoAlumno(alumno)){
+		if (!tengoAlumno(alumno)){
 			Alumnos.add(alumno);
+			CursoDao.getInstance().actualizar(pasarBean());
 			return alumno.getId();
 		}
 		return 0;
@@ -48,5 +54,17 @@ public class Curso {
 	}
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
+	}
+	/*BEAN*/
+	public CursoBean pasarBean() {
+		CursoBean cursoBean = new CursoBean();
+		cursoBean.setId(getId());
+		cursoBean.setDescripcion(getDescripcion());
+		
+		for (Alumno alumno: Alumnos){
+			AlumnoBean alumnoBean = alumno.pasarBean();
+			cursoBean.agregarAlumno(alumnoBean);
+		}
+		return cursoBean;
 	}
 }

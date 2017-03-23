@@ -1,5 +1,8 @@
 package negocio;
 
+import daos.ElementoAvatarDao;
+import beans.ElementoAvatarBean;
+
 public class ElementoAvatar {
 
 	public ElementoAvatar(String descripcion, String tipo, String color) {
@@ -7,6 +10,7 @@ public class ElementoAvatar {
 		Descripcion = descripcion;
 		Tipo = tipo;
 		Color = color;
+		ElementoAvatarDao.getInstance().grabar(pasarBean());
 	}
 
 	private static Integer ID = 1;
@@ -46,5 +50,14 @@ public class ElementoAvatar {
 	}
 	public void setColor(String color) {
 		Color = color;
+	}
+	/*BEAN*/
+	public ElementoAvatarBean pasarBean() {
+		ElementoAvatarBean elementoAvatarBean = new ElementoAvatarBean();
+		elementoAvatarBean.setId(getId());
+		elementoAvatarBean.setDescripcion(getDescripcion());
+		elementoAvatarBean.setTipo(getTipo());
+		elementoAvatarBean.setColor(getColor());
+		return elementoAvatarBean;
 	}
 }

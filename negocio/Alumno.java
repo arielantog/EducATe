@@ -2,6 +2,10 @@ package negocio;
 
 import java.util.*;
 
+import daos.AlumnoDao;
+import beans.AlumnoBean;
+import beans.EnsenianzaBean;
+
 
 public class Alumno extends Persona {
 
@@ -12,6 +16,7 @@ public class Alumno extends Persona {
 		NivelLietner = 0;
 		Ensenianzas = new ArrayList<Ensenianza>();
 		Avatar = new Avatar();
+		AlumnoDao.getInstance().grabar(pasarBean());
 	}
 
 	private Integer Puntos;
@@ -90,5 +95,23 @@ public class Alumno extends Persona {
 	}
 	public void setNivelLietner(int nivelLietner) {
 		NivelLietner = nivelLietner;
+	}
+	/*BEAN*/
+	public AlumnoBean pasarBean() {
+		AlumnoBean alumnoBean = new AlumnoBean();
+		alumnoBean.setId(getId());
+		alumnoBean.setTipoDocumento(getTipoDocumento());
+		alumnoBean.setNroDocumento(getNroDocumento());
+		alumnoBean.setNombre(getNombre());
+		alumnoBean.setApellido(getApellido());
+		alumnoBean.setPuntos(getPuntos());
+		alumnoBean.setNivelLietner(getNivelLietner());
+		for (Ensenianza ensenianza: Ensenianzas){
+			EnsenianzaBean ensenianzaBean = ensenianza.pasarBean();
+			alumnoBean.agregarEnsenianza(ensenianzaBean);
+		}
+		alumnoBean.setAvatar(getAvatar().pasarBean());
+		
+		return alumnoBean;
 	}
 }

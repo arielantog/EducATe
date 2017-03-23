@@ -2,6 +2,10 @@ package negocio;
 
 import java.util.*;
 
+import beans.JuegoBean;
+import beans.LeccionBean;
+import daos.JuegoDao;
+
 public class Juego {
 
 	public Juego(String nombre, Tema tema) {
@@ -9,6 +13,7 @@ public class Juego {
 		Nombre = nombre;
 		Tema = tema;
 		Lecciones = new ArrayList<Leccion>();
+		JuegoDao.getInstance().grabar(pasarBean());
 	}
 	
 	private static Integer ID = 1;
@@ -20,6 +25,7 @@ public class Juego {
 	public Integer agregarLeccion(Leccion leccion) {
 		if(!tengoLeccion(leccion)){
 			Lecciones.add(leccion);
+			JuegoDao.getInstance().actualizar(pasarBean());
 			return leccion.getId();
 		}
 		return null;
@@ -70,5 +76,17 @@ public class Juego {
 	}
 	public void setLecciones(List<Leccion> lecciones) {
 		Lecciones = lecciones;
+	}
+	/*BEAN*/
+	public JuegoBean pasarBean() {
+		JuegoBean juegoBean = new JuegoBean();
+		juegoBean.setId(getId());
+		juegoBean.setNombre(getNombre());
+		juegoBean.setTema(getTema().pasarBean());
+		for (Leccion leccion: Lecciones){
+			LeccionBean leccionBean = leccion.pasarBean();
+			juegoBean.agregarLeccion(leccionBean);
+		}
+		return juegoBean;
 	}
 }

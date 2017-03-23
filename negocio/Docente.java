@@ -2,21 +2,28 @@ package negocio;
 
 import java.util.*;
 
+import daos.DocenteDao;
+import beans.CursoBean;
+import beans.DocenteBean;
+
 public class Docente extends Persona {
 
 	public Docente(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
 		super.setId(super.getID());
 		Cursos = new ArrayList<Curso>();
+		DocenteDao.getInstance().grabar(pasarBean());
+		
 	}
 
-	private List<Curso> Cursos;
+		private List<Curso> Cursos;
 
 	public Integer agregarCurso(String descripcion) {
 		Curso curso = buscarCurso(descripcion);
 		if (curso == null){
 			Curso curso2 = new Curso(descripcion);
 			Cursos.add(curso2);
+			DocenteDao.getInstance().actualizar(pasarBean());
 			return curso2.getId();
 		}
 		return 0;
@@ -50,5 +57,22 @@ public class Docente extends Persona {
 	}
 	public void setCursos(List<Curso> cursos) {
 		Cursos = cursos;
+	}
+	/*BEAN*/
+	public DocenteBean pasarBean() {
+		DocenteBean docenteBean = new DocenteBean();
+		docenteBean.setId(getId());
+		docenteBean.setTipoDocumento(getTipoDocumento());
+		docenteBean.setNroDocumento(getNroDocumento());
+		docenteBean.setNombre(getNombre());
+		docenteBean.setApellido(getApellido());
+		
+		for (Curso curso: Cursos){
+			CursoBean cursoBean = curso.pasarBean();
+			docenteBean.agregarCurso(cursoBean);
+		}
+			
+		
+		return docenteBean;
 	}
 }

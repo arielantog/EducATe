@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -17,6 +18,11 @@ public class CursoBean {
 				inverseJoinColumns	= @JoinColumn(name="alumnoId"))
 	private List<AlumnoBean> Alumnos;
 	
+	
+	
+	public CursoBean() {
+		Alumnos = new ArrayList<AlumnoBean>();
+	}
 	/*GETTERS Y SETTERS*/
 	public Integer getId() {
 		return Id;
@@ -35,6 +41,9 @@ public class CursoBean {
 	}
 	public void setAlumnos(List<AlumnoBean> alumnos) {
 		Alumnos = alumnos;
+	}
+	public void agregarAlumno(AlumnoBean alumnoBean) {
+		Alumnos.add(alumnoBean);
 	}
 
 }

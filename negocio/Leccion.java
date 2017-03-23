@@ -1,10 +1,14 @@
 package negocio;
 
+import daos.LeccionDao;
+import beans.LeccionBean;
+
 public class Leccion {
 
 	public Leccion(String descripcion) {
 		Id = ID++;
 		Descripcion = descripcion;
+		LeccionDao.getInstance().grabar(pasarBean());
 	}
 
 	private static Integer ID = 1;
@@ -25,12 +29,17 @@ public class Leccion {
 	public void setId(Integer id) {
 		Id = id;
 	}
-
 	public String getDescripcion() {
 		return Descripcion;
 	}
-
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
+	}
+	/*BEAN*/
+	public LeccionBean pasarBean() {
+		LeccionBean leccionBean = new LeccionBean();
+		leccionBean.setId(getId());
+		leccionBean.setDescripcion(getDescripcion());
+		return leccionBean;
 	}
 }

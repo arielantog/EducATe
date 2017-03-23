@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -14,6 +15,9 @@ public class AvatarBean {
 	@JoinColumn(name="avatarId") 
 	private List<ElementoAvatarBean> ElementosAvatar;
 	
+	public AvatarBean() {
+		ElementosAvatar = new ArrayList<ElementoAvatarBean>();
+	}
 	/*GETTERS Y SETTERS*/
 	public Integer getId() {
 		return Id;
@@ -27,5 +31,9 @@ public class AvatarBean {
 	public void setElementosAvatar(List<ElementoAvatarBean> elementosAvatar) {
 		ElementosAvatar = elementosAvatar;
 	}
+	public void agregarElementoAvatar(ElementoAvatarBean elementoAvatarBean) {
+		ElementosAvatar.add(elementoAvatarBean);
+	}
+
 
 }

@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -15,6 +16,10 @@ public class TemaBean {
 	@JoinColumn(name="temaId")
 	private List <LeccionBean> lecciones;
 	
+	
+	public TemaBean() {
+		lecciones = new ArrayList<LeccionBean>();
+	}
 	/*GETTERS AND SETTERS*/
 	public Integer getId() {
 		return Id;
@@ -33,6 +38,9 @@ public class TemaBean {
 	}
 	public void setLecciones(List<LeccionBean> lecciones) {
 		this.lecciones = lecciones;
+	}
+	public void agregarLeccion(LeccionBean leccionBean) {
+		lecciones.add(leccionBean);
 	}
 	
 }

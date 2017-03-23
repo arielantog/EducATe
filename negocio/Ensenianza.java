@@ -3,6 +3,8 @@ package negocio;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import beans.EnsenianzaBean;
+
 public class Ensenianza {
 
 
@@ -77,5 +79,14 @@ public class Ensenianza {
 	}
 	public void setFechaUltRepaso(Integer fechaUltRepaso) {
 		FechaUltRepaso = fechaUltRepaso;
+	}
+	/*BEAN*/
+	public EnsenianzaBean pasarBean() {
+		EnsenianzaBean ensenianzaBean = new EnsenianzaBean();
+		ensenianzaBean.setId(getId());
+		ensenianzaBean.setLeccion(getLeccion().pasarBean());
+		ensenianzaBean.setNivelRefuerzo(getNivelRefuerzo());
+		ensenianzaBean.setFechaUltRepaso(getFechaUltRepaso());
+		return ensenianzaBean;
 	}
 }
