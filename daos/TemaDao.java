@@ -1,7 +1,9 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Tema;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -20,6 +22,21 @@ public class TemaDao {
 		return instancia;
 	}
 
+	public void cargarVariableGlobal() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		try{
+			Query query = session.createQuery("select MAX(a.Id) from TemaBean a ");
+			int variableGlobal = (int) query.uniqueResult();
+			Tema.setID(variableGlobal+1);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+	}
 	public void grabar(TemaBean tema){
 		Session session = sf.openSession();
 		session.beginTransaction();

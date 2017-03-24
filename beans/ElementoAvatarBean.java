@@ -2,6 +2,8 @@ package beans;
 
 import javax.persistence.*;
 
+import negocio.ElementoAvatar;
+
 @Entity
 @Table(name="elementosAvatar")
 public class ElementoAvatarBean {
@@ -36,6 +38,10 @@ public class ElementoAvatarBean {
 	}
 	public void setColor(String color) {
 		Color = color;
+	}
+	public ElementoAvatar pasarNegocio() {
+		ElementoAvatar elementoAvatar = new ElementoAvatar(Id, Descripcion, Tipo, Color);
+		return elementoAvatar;
 	}
 
 }

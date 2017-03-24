@@ -4,15 +4,12 @@ public abstract class Persona {
 
 
 	public Persona(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
-		Id = ID++;
 		TipoDocumento = tipoDocumento;
 		NroDocumento = nroDocumento;
 		Nombre = nombre;
 		Apellido = apellido;
 	}
 
-	protected static Integer ID = 0;
-	private Integer Id;
 	private String TipoDocumento;
 	private Integer NroDocumento;
 	private String Nombre;
@@ -20,19 +17,6 @@ public abstract class Persona {
 	
 	
 	/*GETTERS Y SETTERS*/
-	
-	public static Integer getID() {
-		return ID;
-	}
-	public static void setID(Integer iD) {
-		ID = iD;
-	}
-	public Integer getId() {
-		return Id;
-	}
-	public void setId(Integer id) {
-		Id = id;
-	}
 	public String getTipoDocumento() {
 		return TipoDocumento;
 	}

@@ -14,6 +14,11 @@ public class Curso {
 		Alumnos = new ArrayList<Alumno>();
 		CursoDao.getInstance().grabar(pasarBean());
 	}
+	public Curso(int id, String descripcion) {
+		Id = id;
+		Descripcion = descripcion;
+		Alumnos = new ArrayList<Alumno>();
+	}
 
 	private static Integer ID = 1;
 	private Integer Id;

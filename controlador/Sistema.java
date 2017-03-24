@@ -4,6 +4,14 @@ import hibernate.HibernateUtil;
 
 import java.util.*;
 
+import daos.AlumnoDao;
+import daos.AvatarDao;
+import daos.CursoDao;
+import daos.DocenteDao;
+import daos.ElementoAvatarDao;
+import daos.JuegoDao;
+import daos.LeccionDao;
+import daos.TemaDao;
 import negocio.Alumno;
 import negocio.Curso;
 import negocio.Docente;
@@ -20,6 +28,18 @@ public class Sistema {
 		Juegos = new ArrayList<Juego>();
 		Temas = new ArrayList<Tema>();
 		setLietner(calcularLietner());
+		cargarVariablesGlobales();
+	}
+
+	private void cargarVariablesGlobales() {
+		AlumnoDao.getInstance().cargarVariableGlobal();
+		AvatarDao.getInstance().cargarVariableGlobal();
+		CursoDao.getInstance().cargarVariableGlobal();
+		DocenteDao.getInstance().cargarVariableGlobal();
+		ElementoAvatarDao.getInstance().cargarVariableGlobal();
+		JuegoDao.getInstance().cargarVariableGlobal();
+		LeccionDao.getInstance().cargarVariableGlobal();
+		TemaDao.getInstance().cargarVariableGlobal();
 	}
 
 	private static Sistema Singleton;
@@ -151,6 +171,7 @@ public class Sistema {
 		for (Docente docente: Docentes)
 			if (docente.getTipoDocumento().equals(tipoDocumento) && docente.getNroDocumento() == nroDocumento)
 				return docente;
+		//return DocenteDao.getInstance().buscar(tipoDocumento,nroDocumento);
 		return null;
 	}
 	

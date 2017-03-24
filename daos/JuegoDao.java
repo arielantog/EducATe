@@ -1,7 +1,9 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Juego;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -19,6 +21,21 @@ public class JuegoDao {
 		return instancia;
 	}
 
+	public void cargarVariableGlobal() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		try{
+			Query query = session.createQuery("select MAX(a.Id) from JuegoBean a ");
+			int variableGlobal = (int) query.uniqueResult();
+			Juego.setID(variableGlobal+1);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+	}
 	public void grabar(JuegoBean juego){
 		Session session = sf.openSession();
 		session.beginTransaction();

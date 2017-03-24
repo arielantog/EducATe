@@ -12,6 +12,12 @@ public class ElementoAvatar {
 		Color = color;
 		ElementoAvatarDao.getInstance().grabar(pasarBean());
 	}
+	public ElementoAvatar(int id,String descripcion, String tipo, String color) {
+		Id = id;
+		Descripcion = descripcion;
+		Tipo = tipo;
+		Color = color;
+	}
 
 	private static Integer ID = 1;
 	private Integer Id;

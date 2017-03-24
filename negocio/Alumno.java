@@ -11,14 +11,23 @@ public class Alumno extends Persona {
 
 	public Alumno(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		super.setId(super.getID());
+		Id = ID++;
 		Puntos = 0;
 		NivelLietner = 0;
 		Ensenianzas = new ArrayList<Ensenianza>();
 		Avatar = new Avatar();
 		AlumnoDao.getInstance().grabar(pasarBean());
 	}
+	public Alumno(int id,String tipoDocumento, Integer nroDocumento, String nombre, String apellido, int puntos, int nivelLietner) {
+		super(tipoDocumento, nroDocumento, nombre, apellido);
+		Id = id;
+		Puntos = puntos;
+		NivelLietner = nivelLietner;
+		Ensenianzas = new ArrayList<Ensenianza>();
+	}
 
+	private static Integer ID = 1;
+	private Integer Id;
 	private Integer Puntos;
 	private List<Ensenianza> Ensenianzas;
 	private Avatar Avatar;
@@ -33,6 +42,9 @@ public class Alumno extends Persona {
 			ensenianzaCalcularNivelRefuerzo(ensenianza, resultado);
 		}
 		return null;
+	}
+	public void agregarEnsenianza(Ensenianza ensenianza) {
+		Ensenianzas.add(ensenianza);
 	}
 
 
@@ -71,7 +83,18 @@ public class Alumno extends Persona {
 	
 
 	/*GETTERS Y SETTERS*/
-	
+	public static Integer getID() {
+		return ID;
+	}
+	public static void setID(Integer iD) {
+		ID = iD;
+	}
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
 	public Integer getPuntos() {
 		return Puntos;
 	}
@@ -114,4 +137,5 @@ public class Alumno extends Persona {
 		
 		return alumnoBean;
 	}
+
 }

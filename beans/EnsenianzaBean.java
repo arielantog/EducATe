@@ -2,6 +2,8 @@ package beans;
 
 import javax.persistence.*;
 
+import negocio.Ensenianza;
+
 @Entity
 @Table(name="ensenianzas")
 public class EnsenianzaBean {
@@ -46,6 +48,11 @@ public class EnsenianzaBean {
 	}
 	public void setFechaUltRepaso(Integer fechaUltRepaso) {
 		FechaUltRepaso = fechaUltRepaso;
+	}
+	public Ensenianza pasarNegocio() {
+		Ensenianza ensenianza = new Ensenianza(Id, NivelRefuerzo, FechaUltRepaso);
+		ensenianza.setLeccion(Leccion.pasarNegocio());
+		return ensenianza;
 	}
 
 }

@@ -2,6 +2,8 @@ package beans;
 
 import javax.persistence.*;
 
+import negocio.Leccion;
+
 @Entity
 @Table(name="lecciones")
 public class LeccionBean {
@@ -22,6 +24,10 @@ public class LeccionBean {
 	}
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
+	}
+	public Leccion pasarNegocio() {
+		Leccion leccion = new Leccion(Id, Descripcion);
+		return leccion;
 	}
 
 }

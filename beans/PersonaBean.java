@@ -5,20 +5,13 @@ import javax.persistence.*;
 @MappedSuperclass
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class PersonaBean {
-	@Id
-	private Integer Id;
+
 	private String TipoDocumento;
 	private Integer NroDocumento;
 	private String Nombre;
 	private String Apellido;
 	
 	/*GETTERS AND SETTERS*/
-	public Integer getId() {
-		return Id;
-	}
-	public void setId(Integer id) {
-		Id = id;
-	}
 	public String getTipoDocumento() {
 		return TipoDocumento;
 	}

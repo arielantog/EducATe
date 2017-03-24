@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.Curso;
+
 @Entity
 @Table (name="cursos")
 public class CursoBean {
@@ -44,6 +46,13 @@ public class CursoBean {
 	}
 	public void agregarAlumno(AlumnoBean alumnoBean) {
 		Alumnos.add(alumnoBean);
+	}
+	public Curso pasarNegocio() {
+		Curso curso = new Curso(Id, Descripcion);
+		for (AlumnoBean alumnoBean: Alumnos){
+			curso.agregarAlumno(alumnoBean.pasarNegocio());
+		}
+		return curso;
 	}
 
 }

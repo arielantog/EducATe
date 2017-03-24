@@ -10,13 +10,20 @@ public class Docente extends Persona {
 
 	public Docente(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		super.setId(super.getID());
+		Id = ID++;
 		Cursos = new ArrayList<Curso>();
 		DocenteDao.getInstance().grabar(pasarBean());
 		
 	}
+	public Docente(int Id, String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
+		super(tipoDocumento, nroDocumento, nombre, apellido);
+		this.Id = Id;
+		Cursos = new ArrayList<Curso>();
+	}
 
-		private List<Curso> Cursos;
+	private static Integer ID = 1;
+	private Integer Id;
+	private List<Curso> Cursos;
 
 	public Integer agregarCurso(String descripcion) {
 		Curso curso = buscarCurso(descripcion);
@@ -27,6 +34,9 @@ public class Docente extends Persona {
 			return curso2.getId();
 		}
 		return 0;
+	}
+	public void agregarCurso(Curso curso) {
+		Cursos.add(curso);
 	}
 
 	public Integer cursoAgregarAlumno(Integer Curso, Alumno Alumno) {
@@ -52,6 +62,18 @@ public class Docente extends Persona {
 	
 	
 	/*GETTERS Y SETTERS*/
+	public static Integer getID() {
+		return ID;
+	}
+	public static void setID(Integer iD) {
+		ID = iD;
+	}
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
 	public List<Curso> getCursos() {
 		return Cursos;
 	}
@@ -75,4 +97,5 @@ public class Docente extends Persona {
 		
 		return docenteBean;
 	}
+	
 }

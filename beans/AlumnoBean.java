@@ -5,9 +5,13 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.Alumno;
+
 @Entity
 @Table(name="alumnos")
 public class AlumnoBean extends PersonaBean{
+	@Id
+	private int Id;
 	private Integer Puntos;
 	@OneToMany
 	@JoinColumn (name="alumnoId")
@@ -21,6 +25,12 @@ public class AlumnoBean extends PersonaBean{
 		Ensenianzas = new ArrayList<EnsenianzaBean>();
 	}
 	/*GETTERS AND SETTERS*/
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
 	public Integer getPuntos() {
 		return Puntos;
 	}
@@ -47,6 +57,14 @@ public class AlumnoBean extends PersonaBean{
 	}
 	public void agregarEnsenianza(EnsenianzaBean ensenianzaBean) {
 		Ensenianzas.add(ensenianzaBean);
+	}
+	public Alumno pasarNegocio() {
+		Alumno alumno = new Alumno(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), Puntos, NivelLietner);
+		alumno.setAvatar(Avatar.pasarNegocio());
+		for (EnsenianzaBean ensenianzaBean: Ensenianzas){
+			alumno.agregarEnsenianza(ensenianzaBean.pasarNegocio());
+		}
+		return alumno;
 	}
 
 }

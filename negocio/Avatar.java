@@ -13,6 +13,10 @@ public class Avatar {
 		ElementosAvatar = new ArrayList<ElementoAvatar>();
 		AvatarDao.getInstance().grabar(pasarBean());
 	}
+	public Avatar(int id) {
+		Id = id;
+		ElementosAvatar = new ArrayList<ElementoAvatar>();
+	}
 
 	private static Integer ID = 1;
 	private Integer Id;
@@ -27,6 +31,10 @@ public class Avatar {
 			return elementoAvatar.getId();
 		}		
 		return 0;
+	}
+	public void agregarElemento(ElementoAvatar elementoAvatar) {
+		ElementosAvatar.add(elementoAvatar);
+		
 	}
 
 	private ElementoAvatar buscarElemento(String tipo) {

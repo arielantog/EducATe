@@ -1,10 +1,13 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Docente;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import beans.AlumnoBean;
 import beans.DocenteBean;
 
 
@@ -20,6 +23,21 @@ public class DocenteDao {
 		return instancia;
 	}
 
+	public void cargarVariableGlobal() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		try{
+			Query query = session.createQuery("select MAX(a.Id) from DocenteBean a ");
+			int variableGlobal = (int) query.uniqueResult();
+			Docente.setID(variableGlobal+1);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+	}
 	public void grabar(DocenteBean docente){
 		Session session = sf.openSession();
 		session.beginTransaction();
@@ -37,110 +55,43 @@ public class DocenteDao {
 		session.getTransaction().commit();
 		session.close();
 	}
-
-/*	public void cargarVariableGlobal(Integer oficinaVentaID) {
+	public void eliminar(AlumnoBean alumno)
+	{
 		Session session = sf.openSession();
 		session.beginTransaction();
-		try{
-			Query query = session.createQuery("select MAX(c.clienteID.nroCliente) from ClienteBean c "
-											+ "where c.clienteID.nroOficina = ?");
-			query.setInteger(0, oficinaVentaID);
-			int variableGlobal = (int) query.uniqueResult();
-			Cliente.setNumeroCliente(variableGlobal+1);
-		}
-		catch(Exception e){
-			System.out.println(e);
-		}
+		session.delete(alumno);
 		session.flush();
 		session.getTransaction().commit();
 		session.close();
-		
 	}
-
-	public Cliente buscarCliente(int nroOficinaVenta, int nroCliente) {
+	public Docente buscar(int Id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from ClienteBean c where c.clienteID.nroOficina = ? "
-															+ "and c.clienteID.nroCliente = ? ");
-		query.setInteger(0, nroOficinaVenta);
-		query.setInteger(1, nroCliente);
-		Cliente cliente = null;
+		DocenteBean docenteBean = (DocenteBean) session.get(Docente.class, Id);
+		Docente docente = docenteBean.pasarNegocio();
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return docente;
+	}
+	public Docente buscar(String tipoDocumento, int nroDocumento) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from DocenteBean a where a.tipoDocumento = ? "
+															+ "and a.nroDocumento = ? ");
+		query.setString(0, tipoDocumento);
+		query.setInteger(1, nroDocumento);
+		Docente docente = null;
 		try{
-			ClienteBean clienteBean = (ClienteBean) query.uniqueResult();
-			cliente = clienteBean.pasarNegocio();
+			DocenteBean docenteBean = (DocenteBean) query.uniqueResult();
+			docente = docenteBean.pasarNegocio();
 		}catch (Exception e){
 			
 		}
 		session.flush();
 		session.getTransaction().commit();
 		session.close();
-		return cliente;
+		return docente;
 	}
-	
-	public void eliminarCliente(ClienteBean cliente)
-	{
-		Session session = sf.openSession();
-		session.beginTransaction();
-		session.delete(cliente);
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
-	}
-	
-	public void modificarCliente(ClienteBean cliente)
-	{
-		Session session = sf.openSession();
-		session.beginTransaction();
-		//session.update(cliente);
-		Query query = session.createQuery("update ClienteBean c set c.cuit = :cuit, c.razonSocial = :razonSocial, c.condicionVenta = :condicionVenta, " +
-				"c.descuentos = :descuento where c.clienteID.nroCliente = :nroCliente and c.clienteID.nroOficina = :nroOficina");
-		query.setString("cuit", cliente.getCuit());
-		query.setString("razonSocial", cliente.getRazonSocial());
-		query.setString("condicionVenta", cliente.getCondicionVenta());
-		query.setFloat("descuento", cliente.getDescuentos());
-		query.setInteger("nroCliente", cliente.getClienteID().getNroCliente());
-		query.setInteger("nroOficina", cliente.getClienteID().getNroOficina());
-		query.executeUpdate();
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
-	}
-	
-	public Cliente buscarClientePorOficina(int nroCliente, int nroOficina) 
-	{
-		Session session = sf.openSession();
-		session.beginTransaction();
-		Query query = session.createQuery("from ClienteBean c where c.clienteID.nroCliente = :nroCliente and c.clienteID.nroOficina = :nroOficina");
-		query.setInteger("nroCliente", nroCliente);
-		query.setInteger("nroOficina", nroOficina);
-		Cliente cliente = null;
-		try{
-			ClienteBean clienteBean = (ClienteBean) query.uniqueResult();
-			cliente = clienteBean.pasarNegocio();
-		}catch (Exception e){
-			
-		}
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
-		return cliente;
-	}
-	
-	public void asignarDescuento(ClienteBean clienteBean, DescuentoClienteBean descuentoCliente) 
-	{
-		Session session = sf.openSession();
-		session.beginTransaction();
-		Query query = session.createQuery("update ClienteBean cb set cb.descuentoCliente.descuentoClienteID.descuentoClienteID = :nroDescuento, " +
-				"cb.descuentoCliente.descuentoClienteID.nroOficinaVenta = :nroOficina where cb.clienteID.nroCliente = :nroCliente " +
-				"and cb.clienteID.nroOficina = :nroOficina");
-				
-		query.setInteger("nroDescuento", descuentoCliente.getDescuentoClienteID().getDescuentoClienteID());
-		query.setInteger("nroOficina", clienteBean.getClienteID().getNroOficina());
-		query.setInteger("nroCliente", clienteBean.getClienteID().getNroCliente());
-		query.executeUpdate();
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
-	}*/
 
 }

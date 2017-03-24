@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.Avatar;
+
 @Entity
 @Table(name="avatares") 
 public class AvatarBean {
@@ -33,6 +35,13 @@ public class AvatarBean {
 	}
 	public void agregarElementoAvatar(ElementoAvatarBean elementoAvatarBean) {
 		ElementosAvatar.add(elementoAvatarBean);
+	}
+	public Avatar pasarNegocio() {
+		Avatar avatar = new Avatar();
+		for (ElementoAvatarBean elementoAvatarBean: ElementosAvatar){
+			avatar.agregarElemento(elementoAvatarBean.pasarNegocio());
+		}
+		return avatar;
 	}
 
 

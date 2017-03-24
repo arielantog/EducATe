@@ -10,6 +10,10 @@ public class Leccion {
 		Descripcion = descripcion;
 		LeccionDao.getInstance().grabar(pasarBean());
 	}
+	public Leccion(int id, String descripcion) {
+		Id = id;
+		Descripcion = descripcion;
+	}
 
 	private static Integer ID = 1;
 	private Integer Id;

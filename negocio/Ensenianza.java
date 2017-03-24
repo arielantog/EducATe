@@ -15,6 +15,12 @@ public class Ensenianza {
 		FechaUltRepaso = fechaActual();
 	}
 
+	public Ensenianza(int id, int nivelRefuerzo, int fechaUltRepaso) {
+		Id = id;
+		NivelRefuerzo = 0;
+		FechaUltRepaso = fechaActual();
+	}
+
 	private static Integer ID = 0;
 	private static Integer NivelMax = 5;
 	private Integer Id;
