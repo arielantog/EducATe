@@ -64,7 +64,7 @@ public class AlumnoDao {
 		session.getTransaction().commit();
 		session.close();
 	}
-	/*public Alumno buscar(int Id) {
+	public Alumno buscar(int Id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		AlumnoBean alumnoBean = (AlumnoBean) session.get(Alumno.class, Id);
@@ -92,7 +92,7 @@ public class AlumnoDao {
 		session.getTransaction().commit();
 		session.close();
 		return alumno;
-	}*/
+	}
 
 
 }

@@ -16,6 +16,12 @@ public class Juego {
 		JuegoDao.getInstance().grabar(pasarBean());
 	}
 	
+	//Para el DAO
+	public Juego() {
+		super();
+
+	}
+
 	private static Integer ID = 1;
 	private Integer Id;
 	private String Nombre;

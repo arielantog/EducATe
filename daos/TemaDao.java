@@ -55,4 +55,24 @@ public class TemaDao {
 		session.close();
 		
 	}
+
+	public Tema buscarTema(String descipcion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from TemaBean t where t.getDescripcion() = ?");
+		query.setString(0, descipcion);
+		Tema tema = null;
+		try{
+			TemaBean temaBean = (TemaBean) query.uniqueResult();
+			tema = temaBean.pasarNegocio();
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return tema;
+	}
+	
+	
 }

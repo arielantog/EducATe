@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.Tema;
+
 @Entity
 @Table(name = "temas")
 public class TemaBean {
@@ -41,6 +43,13 @@ public class TemaBean {
 	}
 	public void agregarLeccion(LeccionBean leccionBean) {
 		lecciones.add(leccionBean);
+	}
+	
+	public Tema pasarNegocio(){
+		//No entiendo por que en Tema hay un solo constructor y por ejemplo en Alumno hay dos
+		//y el segundo se utiliza para esta parte
+		Tema tema = new Tema(Descripcion);
+		return tema;
 	}
 	
 }

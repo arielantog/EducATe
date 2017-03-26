@@ -53,4 +53,23 @@ public class JuegoDao {
 		session.getTransaction().commit();
 		session.close();
 	}
+
+	public Juego buscar(String nombre) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from JuegoBean where Nombre = ?");
+		query.setString(0, nombre);
+		Juego juego = null;
+		try{
+			JuegoBean juegoBean = (JuegoBean) query.uniqueResult();
+			juego = juegoBean.pasarNegocio();
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return juego;
+	}
+
 }

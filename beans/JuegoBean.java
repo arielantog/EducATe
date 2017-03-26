@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.Juego;
+
 @Entity
 @Table (name="juegos")
 public class JuegoBean {
@@ -50,6 +52,17 @@ public class JuegoBean {
 	}
 	public void agregarLeccion(LeccionBean leccionBean) {
 		Lecciones.add(leccionBean);
+	}
+	public Juego pasarNegocio() {
+		Juego juego = new Juego();
+		juego.setId(getId());
+		juego.setNombre(getNombre());
+		juego.setTema(Tema.pasarNegocio());
+		for(LeccionBean lecciones: Lecciones){
+			juego.agregarLeccion(lecciones.pasarNegocio());
+		}
+		
+		return juego;
 	}
 
 }

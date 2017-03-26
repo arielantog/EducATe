@@ -156,7 +156,8 @@ public class Sistema {
 	private Tema buscarTema(String descipcion) {
 		for (Tema tema: Temas)
 			if (tema.getDescripcion().equals(descipcion))
-				return tema;
+				//return tema;
+				return TemaDao.getInstance().buscarTema(descipcion);
 		return null;
 	}
 	
@@ -170,8 +171,8 @@ public class Sistema {
 	private Docente buscarDocente(String tipoDocumento, int nroDocumento) {
 		for (Docente docente: Docentes)
 			if (docente.getTipoDocumento().equals(tipoDocumento) && docente.getNroDocumento() == nroDocumento)
-				return docente;
-		//return DocenteDao.getInstance().buscar(tipoDocumento,nroDocumento);
+				//return docente;
+				return DocenteDao.getInstance().buscar(tipoDocumento,nroDocumento);
 		return null;
 	}
 	
@@ -185,7 +186,8 @@ public class Sistema {
 	private Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
 		for (Alumno alumno: Alumnos)
 			if (alumno.getTipoDocumento().equals(tipoDocumento) && alumno.getNroDocumento() == nroDocumento)
-				return alumno;
+				//return alumno;
+				return AlumnoDao.getInstance().buscar(tipoDocumento, nroDocumento);
 		return null;
 	}
 	
@@ -208,7 +210,8 @@ public class Sistema {
 	private Juego buscarJuego(String nombre) {
 		for(Juego juego: Juegos)
 			if (juego.getNombre().equals(nombre))
-				return juego;
+				//return juego;
+				return JuegoDao.getInstance().buscar(nombre);
 		return null;
 	}
 	
