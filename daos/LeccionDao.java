@@ -30,7 +30,7 @@ public class LeccionDao {
 			Leccion.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen Lecciones");
 		}
 		session.flush();
 		session.getTransaction().commit();
@@ -51,5 +51,23 @@ public class LeccionDao {
 		session.flush();
 		session.getTransaction().commit();
 		session.close();
+	}
+
+	public Leccion buscar(String descripcion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from LeccionBean a where descripcion = ? ");
+		query.setString(0, descripcion);
+		Leccion leccion = null;
+		try{
+			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
+			leccion = leccionBean.pasarNegocio();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return leccion;
 	}
 }

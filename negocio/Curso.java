@@ -31,6 +31,7 @@ public class Curso {
 			CursoDao.getInstance().actualizar(pasarBean());
 			return alumno.getId();
 		}
+		System.out.println("El alumno ya está agregado en el curso");
 		return 0;
 	}
 
@@ -38,7 +39,7 @@ public class Curso {
 		for (Alumno alumno2: Alumnos)
 			if (alumno2.getId() == alumno.getId())
 				return true;
-		return false;
+		return CursoDao.getInstance().tengoAlumno(getId(), alumno.getId());
 	}
 	
 	/*GETTERS Y SETTERS*/
@@ -71,5 +72,9 @@ public class Curso {
 			cursoBean.agregarAlumno(alumnoBean);
 		}
 		return cursoBean;
+	}
+	public void agregarAlumno(Alumno alumno, boolean b) {
+		//Se utiliza para pasarBean
+		Alumnos.add(alumno);
 	}
 }

@@ -37,7 +37,7 @@ public class AvatarBean {
 		ElementosAvatar.add(elementoAvatarBean);
 	}
 	public Avatar pasarNegocio() {
-		Avatar avatar = new Avatar();
+		Avatar avatar = new Avatar(Id);
 		for (ElementoAvatarBean elementoAvatarBean: ElementosAvatar){
 			avatar.agregarElemento(elementoAvatarBean.pasarNegocio());
 		}

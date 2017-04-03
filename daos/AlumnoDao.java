@@ -33,7 +33,7 @@ public class AlumnoDao {
 			Alumno.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen Alumnos");
 		}
 		session.flush();
 		session.getTransaction().commit();
@@ -67,7 +67,7 @@ public class AlumnoDao {
 	public Alumno buscar(int Id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		AlumnoBean alumnoBean = (AlumnoBean) session.get(Alumno.class, Id);
+		AlumnoBean alumnoBean = (AlumnoBean) session.get(AlumnoBean.class, Id);
 		Alumno alumno = alumnoBean.pasarNegocio();
 		session.flush();
 		session.getTransaction().commit();
@@ -77,8 +77,8 @@ public class AlumnoDao {
 	public Alumno buscar(String tipoDocumento, int nroDocumento) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from AlumnoBean a where a.getTipoDocumento() = ? "
-															+ "and a.getNroDocumento() = ? ");
+		Query query = session.createQuery("from AlumnoBean where tipoDocumento = ? "
+				+ "and nroDocumento = ? ");
 		query.setString(0, tipoDocumento);
 		query.setInteger(1, nroDocumento);
 		Alumno alumno = null;

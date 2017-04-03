@@ -1,12 +1,14 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Leccion;
 import negocio.Tema;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import beans.LeccionBean;
 import beans.TemaBean;
 
 
@@ -31,7 +33,7 @@ public class TemaDao {
 			Tema.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen temas");
 		}
 		session.flush();
 		session.getTransaction().commit();
@@ -56,10 +58,21 @@ public class TemaDao {
 		
 	}
 
-	public Tema buscarTema(String descipcion) {
+	public Tema buscar(int Id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from TemaBean t where t.getDescripcion() = ?");
+		TemaBean temaBean = (TemaBean) session.get(TemaBean.class, Id);
+		Tema tema = temaBean.pasarNegocio();
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return tema;
+	}
+	
+	public Tema buscar(String descipcion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from TemaBean where descripcion = ?");
 		query.setString(0, descipcion);
 		Tema tema = null;
 		try{
@@ -72,6 +85,24 @@ public class TemaDao {
 		session.getTransaction().commit();
 		session.close();
 		return tema;
+	}
+
+	public Leccion buscarConLeccion(int leccion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("SELECT b FROM TemaBean a JOIN a.lecciones b WHERE b.Id = ?");
+		query.setInteger(0, leccion);
+		Leccion leccion2 = null;
+		try{
+			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
+			leccion2 = leccionBean.pasarNegocio();
+		}catch(Exception e){
+			System.out.print(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return leccion2;
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.*;
 
 import beans.LeccionBean;
 import beans.TemaBean;
+import daos.LeccionDao;
 import daos.TemaDao;
 
 public class Tema {
@@ -13,6 +14,11 @@ public class Tema {
 		Descripcion = descripcion;
 		Lecciones = new ArrayList<Leccion>();
 		TemaDao.getInstance().grabar(pasarBean());
+	}
+	public Tema(int id, String descripcion) {
+		Id = id;
+		Descripcion = descripcion;
+		Lecciones = new ArrayList<Leccion>();
 	}
 
 	private static Integer ID = 1;
@@ -28,14 +34,15 @@ public class Tema {
 			TemaDao.getInstance().actualizar(pasarBean());
 			return leccion2.getId();
 		}
-		return 0;
+		System.out.println("La lección ya existe");
+		return leccion.getId();
 	}
 
 	public Leccion buscarLeccion(String descripcion) {
 		for(Leccion leccion: Lecciones)
 			if(leccion.getDescripcion().equals(descripcion))
 				return leccion;
-		return null;
+		return LeccionDao.getInstance().buscar(descripcion);
 	}
 	
 	public Leccion buscarLeccion(Integer Id) {
@@ -82,6 +89,9 @@ public class Tema {
 			temaBean.agregarLeccion(leccionBean);
 		}
 		return temaBean;
+	}
+	public void agregarLeccion(Leccion leccion) {
+		Lecciones.add(leccion);
 	}
 	
 }

@@ -1,6 +1,7 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Curso;
 import negocio.Docente;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import beans.AlumnoBean;
+import beans.CursoBean;
 import beans.DocenteBean;
 
 
@@ -32,7 +34,7 @@ public class DocenteDao {
 			Docente.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen docentes");
 		}
 		session.flush();
 		session.getTransaction().commit();
@@ -67,7 +69,7 @@ public class DocenteDao {
 	public Docente buscar(int Id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		DocenteBean docenteBean = (DocenteBean) session.get(Docente.class, Id);
+		DocenteBean docenteBean = (DocenteBean) session.get(DocenteBean.class, Id);
 		Docente docente = docenteBean.pasarNegocio();
 		session.flush();
 		session.getTransaction().commit();
@@ -77,8 +79,8 @@ public class DocenteDao {
 	public Docente buscar(String tipoDocumento, int nroDocumento) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from DocenteBean a where a.tipoDocumento = ? "
-															+ "and a.nroDocumento = ? ");
+		Query query = session.createQuery("from DocenteBean where tipoDocumento = ? "
+															+ "and nroDocumento = ? ");
 		query.setString(0, tipoDocumento);
 		query.setInteger(1, nroDocumento);
 		Docente docente = null;
@@ -92,6 +94,27 @@ public class DocenteDao {
 		session.getTransaction().commit();
 		session.close();
 		return docente;
+	}
+
+	public Curso buscarCurso(int docente, int curso) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select b from DocenteBean a join a.Cursos b "
+				+ " where a.Id = ? and b.Id = ?");
+		query.setInteger(0, docente);
+		query.setInteger(1, curso);
+		Curso curso2 = null;
+		try{
+			CursoBean cursoBean = (CursoBean) query.uniqueResult();
+			curso2 = cursoBean.pasarNegocio();
+		}catch (Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return curso2;
+		
 	}
 
 }

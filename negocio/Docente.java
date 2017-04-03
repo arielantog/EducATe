@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.*;
 
+import daos.CursoDao;
 import daos.DocenteDao;
 import beans.CursoBean;
 import beans.DocenteBean;
@@ -33,7 +34,8 @@ public class Docente extends Persona {
 			DocenteDao.getInstance().actualizar(pasarBean());
 			return curso2.getId();
 		}
-		return 0;
+		System.out.println("El curso ya existe");
+		return curso.getId();
 	}
 	public void agregarCurso(Curso curso) {
 		Cursos.add(curso);
@@ -57,7 +59,7 @@ public class Docente extends Persona {
 		for (Curso curso: Cursos)
 			if (curso.getDescripcion().equals(curso.getDescripcion()))
 				return curso;
-		return null;
+		return CursoDao.getInstance().buscar(descripcion);
 	}
 	
 	

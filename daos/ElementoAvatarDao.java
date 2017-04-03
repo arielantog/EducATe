@@ -30,7 +30,7 @@ public class ElementoAvatarDao {
 			ElementoAvatar.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen Elementos de Avatar");
 		}
 		session.flush();
 		session.getTransaction().commit();

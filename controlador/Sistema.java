@@ -68,7 +68,8 @@ public class Sistema {
 			Alumnos.add(alumno);
 			return alumno.getId();
 		}
-		return 0;
+		System.out.println("El alumno ya existe");
+		return alumno.getId();
 	}
 
 	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
@@ -78,7 +79,8 @@ public class Sistema {
 			Docentes.add(docente);
 			return docente.getId();
 		}
-		return 0;
+		System.out.println("El docente ya existe");
+		return docente.getId();
 	}
 
 	public int nuevoTema(String descripcion) {
@@ -88,7 +90,8 @@ public class Sistema {
 			Temas.add(tema);
 			return tema.getId();
 		}
-		return 0;
+		System.out.println("El tema ya existe");
+		return tema.getId();
 	}
 
 	public int nuevoJuego(String nombre, int tema) {
@@ -99,13 +102,15 @@ public class Sistema {
 			Juegos.add(juego);
 			return juego.getId();
 		}
-		return 0;
+		System.out.println("El juego ya existe");
+		return juego.getId();
 	}
 
 	public int docenteAgregarCurso(int docente, String descripcion) {
 		Docente docente2 = buscarDocente(docente);
 		if (docente2 != null)
 			return docente2.agregarCurso(descripcion);
+		System.out.println("El docente no existe");
 		return 0;
 	}
 	
@@ -113,6 +118,7 @@ public class Sistema {
 		Tema tema2 = buscarTema(tema);
 		if (tema2 != null)
 			return tema2.agregarLeccion(descripcion);
+		System.out.println("El tema no existe");
 		return 0;
 	}
 
@@ -122,7 +128,10 @@ public class Sistema {
 			Leccion leccion2 = juegoBuscarLeccion(leccion);
 			if (leccion2 != null)
 				return alumno2.agregarEnsenianza(leccion2, resultado);
-		}
+			else
+				System.out.println("La lección no existe");
+		}else
+			System.out.println("El alumno no existe");
 		return 0;
 	}
 
@@ -132,17 +141,23 @@ public class Sistema {
 			Leccion leccion2 = temaBuscarLeccion(leccion);
 			if (leccion2 != null)
 				return juego2.agregarLeccion(leccion2);
-		}
+			else
+				System.out.println("La lección no existe");
+		}else
+			System.out.println("El juego no existe");
 		return 0;
 	}
 
 	public int cursoAgregarAlumno(int docente, int curso, int alumno) {
-		Curso curso2 = docenteBuscarCurso(curso);
+		Curso curso2 = docenteBuscarCurso(docente, curso);
 		if (curso2 != null){
 			Alumno alumno2 = buscarAlumno(alumno);
 			if (alumno2 != null)
 				return curso2.agregarAlumno(alumno2);
-		}
+			else
+				System.out.println("El alumno no existe");
+		}else
+			System.out.println("El curso no existe");
 		return 0;
 	}
 
@@ -150,52 +165,50 @@ public class Sistema {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null)
 			return alumno2.avatarAgregarElemento(descripcion, tipo, color);
+		System.out.println("El alumno no existe");
 		return 0;
 	}
 
 	private Tema buscarTema(String descipcion) {
 		for (Tema tema: Temas)
 			if (tema.getDescripcion().equals(descipcion))
-				//return tema;
-				return TemaDao.getInstance().buscarTema(descipcion);
-		return null;
+				return tema;
+		return TemaDao.getInstance().buscar(descipcion);
 	}
 	
 	private Tema buscarTema(int id) {
 		for (Tema tema: Temas)
 			if (tema.getId() == id)
 				return tema;
-		return null;
+		return TemaDao.getInstance().buscar(id);
 	}
 
 	private Docente buscarDocente(String tipoDocumento, int nroDocumento) {
 		for (Docente docente: Docentes)
 			if (docente.getTipoDocumento().equals(tipoDocumento) && docente.getNroDocumento() == nroDocumento)
-				//return docente;
-				return DocenteDao.getInstance().buscar(tipoDocumento,nroDocumento);
-		return null;
+				return docente;
+		return DocenteDao.getInstance().buscar(tipoDocumento,nroDocumento);
 	}
 	
 	private Docente buscarDocente(int Id) {
 		for (Docente docente: Docentes)
 			if (docente.getId() == Id)
 				return docente;
-		return null;
+		return DocenteDao.getInstance().buscar(Id);
 	}
 
 	private Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
 		for (Alumno alumno: Alumnos)
 			if (alumno.getTipoDocumento().equals(tipoDocumento) && alumno.getNroDocumento() == nroDocumento)
-				//return alumno;
-				return AlumnoDao.getInstance().buscar(tipoDocumento, nroDocumento);
-		return null;
+				return alumno;
+		return AlumnoDao.getInstance().buscar(tipoDocumento, nroDocumento);
 	}
 	
 	private Alumno buscarAlumno(int Id) {
 		for (Alumno alumno: Alumnos)
 			if (alumno.getId() == Id)
 				return alumno;
-		return null;
+		return AlumnoDao.getInstance().buscar(Id);
 	}
 	
 	private Leccion temaBuscarLeccion(int leccion) {
@@ -204,32 +217,37 @@ public class Sistema {
 			if (leccion2 != null)
 				return leccion2;
 		}
+		Leccion leccion2 = TemaDao.getInstance().buscarConLeccion(leccion);
+		if (leccion2 != null){
+			return leccion2;
+		}
+		System.out.println("No existe Tema con esa Lección");
 		return null;
 	}
 
 	private Juego buscarJuego(String nombre) {
 		for(Juego juego: Juegos)
 			if (juego.getNombre().equals(nombre))
-				//return juego;
-				return JuegoDao.getInstance().buscar(nombre);
-		return null;
+				return juego;
+		return JuegoDao.getInstance().buscar(nombre);
 	}
 	
 	private Juego buscarJuego(int Id) {
 		for (Juego juego: Juegos)
 			if (juego.getId() == Id)
 				return juego;
-		return null;
+		return JuegoDao.getInstance().buscar(Id);
 	}
 	
-	private Curso docenteBuscarCurso(int curso) {
-		for (Docente docente: Docentes){
-			Curso curso2 = docente.buscarCurso(curso);
-			if (curso2 != null)
-				return curso2;
+	private Curso docenteBuscarCurso(int docente, int curso) {
+		for (Docente docente2: Docentes){
+			if (docente2.getId() == docente){
+				Curso curso2 = docente2.buscarCurso(curso);
+				if (curso2 != null)
+					return curso2;
+			}
 		}
-			
-		return null;
+		return DocenteDao.getInstance().buscarCurso(docente, curso);
 	}
 	
 	private Leccion juegoBuscarLeccion(int leccion) {
@@ -256,7 +274,8 @@ public class Sistema {
 				for (Leccion leccion2: juego.getLecciones())
 					if (leccion2.getId() == leccion)
 						return juego;
-		}
+		}else
+			System.out.println("El alumno no existe");
 		return null;
 	}
 	
@@ -267,6 +286,7 @@ public class Sistema {
 				return juego.getId();
 			else
 				elegirJuegoConTema(alumno, tema);
+		System.out.println("El alumno no existe");
 		return 0;
 		
 	}

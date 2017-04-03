@@ -50,7 +50,7 @@ public class CursoBean {
 	public Curso pasarNegocio() {
 		Curso curso = new Curso(Id, Descripcion);
 		for (AlumnoBean alumnoBean: Alumnos){
-			curso.agregarAlumno(alumnoBean.pasarNegocio());
+			curso.agregarAlumno(alumnoBean.pasarNegocio(),true);
 		}
 		return curso;
 	}

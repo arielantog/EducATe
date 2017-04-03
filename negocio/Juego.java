@@ -16,10 +16,10 @@ public class Juego {
 		JuegoDao.getInstance().grabar(pasarBean());
 	}
 	
-	//Para el DAO
-	public Juego() {
-		super();
-
+	public Juego(int id, String nombre) {
+		Id = id;
+		Nombre = nombre;
+		Lecciones = new ArrayList<Leccion>();
 	}
 
 	private static Integer ID = 1;
@@ -34,7 +34,8 @@ public class Juego {
 			JuegoDao.getInstance().actualizar(pasarBean());
 			return leccion.getId();
 		}
-		return null;
+		System.out.println("Ya existe la lección en el juego");
+		return leccion.getId();
 	}
 	
 	public Leccion buscarLeccion(Integer leccion) {
@@ -94,5 +95,10 @@ public class Juego {
 			juegoBean.agregarLeccion(leccionBean);
 		}
 		return juegoBean;
+	}
+
+	public void agregarLeccion(Leccion leccion, boolean b) {
+		//Se utiliza para pasar negocio
+		Lecciones.add(leccion);	
 	}
 }

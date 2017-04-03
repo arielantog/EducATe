@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.Leccion;
 import negocio.Tema;
 
 @Entity
@@ -46,9 +47,16 @@ public class TemaBean {
 	}
 	
 	public Tema pasarNegocio(){
-		//No entiendo por que en Tema hay un solo constructor y por ejemplo en Alumno hay dos
-		//y el segundo se utiliza para esta parte
-		Tema tema = new Tema(Descripcion);
+		/*Turco: No entiendo por que en Tema hay un solo constructor y por ejemplo en Alumno hay dos
+		y el segundo se utiliza para esta parte*/
+		/*Ariel: Porque el primero le asigna un Id y lo guarda como un registro nuevo.
+		El segundo le asigna el Id que ya tenía y no lo guarda*/
+		Tema tema = new Tema(Id, Descripcion);
+		for (LeccionBean leccionBean: lecciones)
+		{
+			Leccion leccion = leccionBean.pasarNegocio();
+			tema.agregarLeccion(leccion);
+		}
 		return tema;
 	}
 	

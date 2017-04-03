@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import beans.AlumnoBean;
 import beans.CursoBean;
 
 public class CursoDao {
@@ -30,7 +31,7 @@ public class CursoDao {
 			Curso.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen cursos");
 		}
 		session.flush();
 		session.getTransaction().commit();
@@ -52,5 +53,44 @@ public class CursoDao {
 		session.flush();
 		session.getTransaction().commit();
 		session.close();
+	}
+
+	public Curso buscar(String descripcion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from CursoBean where descripcion = ?");
+		query.setString(0, descripcion);
+		Curso curso = null;
+		try{
+			CursoBean cursoBean = (CursoBean) query.uniqueResult();
+			curso = cursoBean.pasarNegocio();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return curso;
+	}
+
+	public boolean tengoAlumno(Integer curso, Integer alumno) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select b from CursoBean a join a.Alumnos b "
+				+ " where a.Id = ? and b.Id = ? ");
+		query.setInteger(0, curso);
+		query.setInteger(1, alumno);
+		try{
+			AlumnoBean alumnoBean = (AlumnoBean) query.uniqueResult();
+			if (alumnoBean != null){
+				return true;
+			}
+		}catch (Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return false;
 	}
 }

@@ -28,3 +28,5 @@ select *
 from curso_alumno
 select *
 from elementosAvatar
+select *
+from ensenianzas

@@ -30,7 +30,7 @@ public class JuegoDao {
 			Juego.setID(variableGlobal+1);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("No existen Juegos");
 		}
 		session.flush();
 		session.getTransaction().commit();
@@ -54,10 +54,21 @@ public class JuegoDao {
 		session.close();
 	}
 
+	public Juego buscar(int id) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		JuegoBean juegoBean = (JuegoBean) session.get(JuegoBean.class, id);
+		Juego juego = juegoBean.pasarNegocio();
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return juego;
+	}
+	
 	public Juego buscar(String nombre) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from JuegoBean where Nombre = ?");
+		Query query = session.createQuery("from JuegoBean a where a.Nombre = ?");
 		query.setString(0, nombre);
 		Juego juego = null;
 		try{

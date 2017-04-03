@@ -30,7 +30,8 @@ public class Avatar {
 			AvatarDao.getInstance().actualizar(pasarBean());
 			return elementoAvatar.getId();
 		}		
-		return 0;
+		System.out.println("El elemento avatar ya existe en el avatar");
+		return elementoAvatar.getId();
 	}
 	public void agregarElemento(ElementoAvatar elementoAvatar) {
 		ElementosAvatar.add(elementoAvatar);
@@ -41,7 +42,7 @@ public class Avatar {
 		for (ElementoAvatar elementoAvatar: ElementosAvatar)
 			if (elementoAvatar.getTipo().equals(tipo))
 				return elementoAvatar;
-		return null;
+		return AvatarDao.getInstance().buscarElemento(getId(),tipo);
 	}
 
 	

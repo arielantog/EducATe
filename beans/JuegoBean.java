@@ -54,12 +54,10 @@ public class JuegoBean {
 		Lecciones.add(leccionBean);
 	}
 	public Juego pasarNegocio() {
-		Juego juego = new Juego();
-		juego.setId(getId());
-		juego.setNombre(getNombre());
+		Juego juego = new Juego(Id, Nombre);
 		juego.setTema(Tema.pasarNegocio());
 		for(LeccionBean lecciones: Lecciones){
-			juego.agregarLeccion(lecciones.pasarNegocio());
+			juego.agregarLeccion(lecciones.pasarNegocio(),true);
 		}
 		
 		return juego;
