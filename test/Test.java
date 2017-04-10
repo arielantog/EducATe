@@ -41,8 +41,7 @@ public class Test {
 		sistema.juegoAgregarLeccion(juego1, leccion6);
 		sistema.juegoAgregarLeccion(juego1, leccion7);
 		
-		//TODO Las enseñanzas no se están persistiendo
-		//TODO Una vez que se persistan, actualizar el alumno en la base
+
 		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini");
 		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado");
 
@@ -51,12 +50,9 @@ public class Test {
 		
 		sistema.avatarAgregarElemento(alumno1, "No me acuerdo para qué es esto", "Gorra", "Rojo");
 		
-		//Dejé hasta acá sin probar. Hay que correrlo una vez con el Create And Drop
-		//Y una segunda vez sin esa propiedad.
-		//Ahora falla porque el alumno no tiene ensenianzas
 		int juegoId =sistema.elegirJuegoSinTema(alumno1);
 		System.out.println("Juego elegido:" +juegoId);
-		
-		sistema.elegirJuegoConTema(alumno1, tema1);
+		juegoId = sistema.elegirJuegoConTema(alumno1, tema1);
+		System.out.println("Juego elegido:" +juegoId);
 	}
 }

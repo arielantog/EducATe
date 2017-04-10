@@ -1,5 +1,8 @@
 package daos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hibernate.HibernateUtil;
 import negocio.Juego;
 
@@ -81,6 +84,45 @@ public class JuegoDao {
 		session.getTransaction().commit();
 		session.close();
 		return juego;
+	}
+
+	public int cantidadJuegos() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select COUNT(a.Id) from JuegoBean a ");
+		int cantidad = 0;
+		try{
+			long cantidad2 = (long) query.uniqueResult();
+			cantidad = (int) cantidad2;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return cantidad;
+	}
+
+	public List<Juego> cargarJuegos() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from JuegoBean");
+		List<Juego> juegos = new ArrayList<Juego>();
+		try{
+			@SuppressWarnings("unchecked")
+			List<JuegoBean> juegosBean = (List<JuegoBean>) query.list();
+			for (JuegoBean juegoBean: juegosBean){
+				Juego juego = juegoBean.pasarNegocio();
+				juegos.add(juego);
+			}
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return juegos;
+		
 	}
 
 }

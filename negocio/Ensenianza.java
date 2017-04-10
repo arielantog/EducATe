@@ -21,7 +21,7 @@ public class Ensenianza {
 		FechaUltRepaso = fechaActual();
 	}
 
-	private static Integer ID = 0;
+	private static Integer ID = 1;
 	private static Integer NivelMax = 5;
 	private Integer Id;
 	private Leccion Leccion;

@@ -9,6 +9,7 @@ import daos.AvatarDao;
 import daos.CursoDao;
 import daos.DocenteDao;
 import daos.ElementoAvatarDao;
+import daos.EnsenianzaDao;
 import daos.JuegoDao;
 import daos.LeccionDao;
 import daos.TemaDao;
@@ -40,6 +41,7 @@ public class Sistema {
 		JuegoDao.getInstance().cargarVariableGlobal();
 		LeccionDao.getInstance().cargarVariableGlobal();
 		TemaDao.getInstance().cargarVariableGlobal();
+		EnsenianzaDao.getInstance().cargarVariableGlobal();
 	}
 
 	private static Sistema Singleton;
@@ -65,6 +67,7 @@ public class Sistema {
 			for (Tema tema: Temas)
 				for (Leccion leccion: tema.getLecciones())
 					alumno.agregarEnsenianza(leccion, false);
+			AlumnoDao.getInstance().actualizar(alumno.pasarBean());
 			Alumnos.add(alumno);
 			return alumno.getId();
 		}
@@ -266,19 +269,6 @@ public class Sistema {
 		return 0;
 	}
 
-	private Juego elegirJuego(int alumno) {
-		Alumno alumno2 = buscarAlumno(alumno);
-		if(alumno2!= null){
-			int leccion = alumno2.calcularSiguienteLeccion(Lietner);
-			for (Juego juego: Juegos)
-				for (Leccion leccion2: juego.getLecciones())
-					if (leccion2.getId() == leccion)
-						return juego;
-		}else
-			System.out.println("El alumno no existe");
-		return null;
-	}
-	
 	public int elegirJuegoConTema(int alumno, int tema){
 		Juego juego = elegirJuego(alumno);
 		if (juego != null)
@@ -288,7 +278,38 @@ public class Sistema {
 				elegirJuegoConTema(alumno, tema);
 		System.out.println("El alumno no existe");
 		return 0;
-		
+	}
+	
+	private Juego elegirJuego(int alumno) {
+		Alumno alumno2 = buscarAlumno(alumno);
+		if(alumno2!= null){
+			int leccion = alumno2.calcularSiguienteLeccion(Lietner);
+			comprobarJuegos();
+			for (Juego juego: Juegos)
+				for (Leccion leccion2: juego.getLecciones())
+					if (leccion2.getId() == leccion)
+						return juego;
+		}else
+			System.out.println("El alumno no existe");
+		return null;
+	}
+
+	private void comprobarJuegos() {
+		int cantidadJuegos = JuegoDao.getInstance().cantidadJuegos();
+		if (Juegos.size() < cantidadJuegos){
+			List<Juego> juegos = JuegoDao.getInstance().cargarJuegos();
+			boolean existe = false;
+			for (Juego juego2: juegos){
+				for (Juego juego: Juegos){
+					if (juego.getId() == juego2.getId())
+						existe = true;
+				
+				}
+				if(existe != true)
+					Juegos.add(juego2);
+				existe = false;
+			}
+		}
 	}
 	
 	private Integer[] calcularLietner() {

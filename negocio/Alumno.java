@@ -3,6 +3,7 @@ package negocio;
 import java.util.*;
 
 import daos.AlumnoDao;
+import daos.EnsenianzaDao;
 import beans.AlumnoBean;
 import beans.EnsenianzaBean;
 
@@ -38,6 +39,7 @@ public class Alumno extends Persona {
 		if (ensenianza == null){
 			ensenianza = new Ensenianza(leccion);
 			Ensenianzas.add(ensenianza);
+			EnsenianzaDao.getInstance().grabar(ensenianza.pasarBean());
 		}else{
 			ensenianzaCalcularNivelRefuerzo(ensenianza, resultado);
 		}

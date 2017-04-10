@@ -67,7 +67,8 @@ public class AvatarDao {
 		ElementoAvatar elementoAvatar = null;
 		try{
 			ElementoAvatarBean elementoAvatarBean = (ElementoAvatarBean) query.uniqueResult();
-			elementoAvatar = elementoAvatarBean.pasarNegocio();
+			if (elementoAvatarBean != null)
+				elementoAvatar = elementoAvatarBean.pasarNegocio();
 		}catch (Exception e){
 			System.out.println(e);
 		}
