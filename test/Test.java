@@ -6,6 +6,10 @@ public class Test {
 
 	public static void main(String[] args) {
 		Sistema sistema = new Sistema();
+		sistema.agregarValorLietner(1,1);
+		sistema.agregarValorLietner(2,1);
+		sistema.agregarValorLietner(3,1);
+		sistema.agregarValorLietner(4,1);
 		
 		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa");
 		

@@ -4,6 +4,7 @@ import hibernate.HibernateUtil;
 
 import java.util.*;
 
+import beans.LietnerBean;
 import daos.AlumnoDao;
 import daos.AvatarDao;
 import daos.CursoDao;
@@ -12,6 +13,7 @@ import daos.ElementoAvatarDao;
 import daos.EnsenianzaDao;
 import daos.JuegoDao;
 import daos.LeccionDao;
+import daos.LietnerDao;
 import daos.TemaDao;
 import negocio.Alumno;
 import negocio.Curso;
@@ -28,8 +30,8 @@ public class Sistema {
 		Docentes = new ArrayList<Docente>();
 		Juegos = new ArrayList<Juego>();
 		Temas = new ArrayList<Tema>();
-		setLietner(calcularLietner());
 		cargarVariablesGlobales();
+		setLietner(calcularLietner());
 	}
 
 	private void cargarVariablesGlobales() {
@@ -368,12 +370,15 @@ public class Sistema {
 
 	private Integer[] cargarLietner() {
 		Integer[] lietnerValores = new Integer[10];
-		lietnerValores[0]= 1;
-		lietnerValores[1]= 1;
-		lietnerValores[2]= 1;
-		lietnerValores[3]= 1;
-		lietnerValores[4]= 1;
-		// TODO Esto se tiene que cargar desde una tabla de SQL
+		lietnerValores = LietnerDao.getInstance().cargarValores();
+		if (lietnerValores[0] == null){
+			//Default
+			lietnerValores[0] = 1;
+			lietnerValores[1] = 1;
+			lietnerValores[2] = 1;
+			lietnerValores[3] = 1;
+			lietnerValores[4] = 1;
+		}
 		return lietnerValores;
 	}
 
@@ -383,5 +388,17 @@ public class Sistema {
 
 	public void setLietner(Integer[] integers) {
 		Lietner = integers;
+	}
+	
+	public int agregarValorLietner(int pos, int valor){
+		negocio.Lietner lietner = new negocio.Lietner(pos, valor);
+		LietnerBean lietnerBean = lietner.pasarBean();
+		boolean existe = LietnerDao.getInstance().existe(pos);
+		if (existe)
+			LietnerDao.getInstance().actualizar(lietnerBean);
+		else
+			LietnerDao.getInstance().grabar(lietnerBean);
+		Lietner = LietnerDao.getInstance().cargarValores();
+		return lietner.getId();
 	}
 }

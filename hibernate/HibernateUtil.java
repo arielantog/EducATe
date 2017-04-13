@@ -23,6 +23,7 @@ public class HibernateUtil
              config.addAnnotatedClass(EnsenianzaBean.class);
              config.addAnnotatedClass(CursoBean.class);
              config.addAnnotatedClass(JuegoBean.class);
+             config.addAnnotatedClass(LietnerBean.class);
              sessionFactory = config.buildSessionFactory(); 
         }
         catch (Throwable ex)

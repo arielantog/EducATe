@@ -1,15 +1,4 @@
-drop table curso_alumno
-drop table cursos
-drop table elementosAvatar
-drop table ensenianzas
-drop table lecciones
-drop table juegos
-drop table alumnos
-drop table avatares
-drop table docentes
-drop table temas
-
-
+use EducATe
 select *
 from docentes
 select *
@@ -30,3 +19,5 @@ select *
 from elementosAvatar
 select *
 from ensenianzas
+select *
+from lietner
