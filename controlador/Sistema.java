@@ -5,22 +5,25 @@ import hibernate.HibernateUtil;
 import java.util.*;
 
 import beans.LietnerBean;
+import daos.AlimentoDao;
 import daos.AlumnoDao;
 import daos.AvatarDao;
 import daos.CursoDao;
 import daos.DocenteDao;
-import daos.ElementoAvatarDao;
 import daos.EnsenianzaDao;
 import daos.JuegoDao;
 import daos.LeccionDao;
 import daos.LietnerDao;
 import daos.TemaDao;
+import daos.TipoAvatarDao;
+import negocio.Alimento;
 import negocio.Alumno;
 import negocio.Curso;
 import negocio.Docente;
 import negocio.Juego;
 import negocio.Leccion;
 import negocio.Tema;
+import negocio.TipoAvatar;
 
 public class Sistema {
 
@@ -30,8 +33,11 @@ public class Sistema {
 		Docentes = new ArrayList<Docente>();
 		Juegos = new ArrayList<Juego>();
 		Temas = new ArrayList<Tema>();
+		Alimentos = new ArrayList<Alimento>();
+		TipoAvatares = new ArrayList<TipoAvatar>();
 		cargarVariablesGlobales();
 		setLietner(calcularLietner());
+		TipoAvatarDao.getInstance().buscar(1);
 	}
 
 	private void cargarVariablesGlobales() {
@@ -39,11 +45,12 @@ public class Sistema {
 		AvatarDao.getInstance().cargarVariableGlobal();
 		CursoDao.getInstance().cargarVariableGlobal();
 		DocenteDao.getInstance().cargarVariableGlobal();
-		ElementoAvatarDao.getInstance().cargarVariableGlobal();
 		JuegoDao.getInstance().cargarVariableGlobal();
 		LeccionDao.getInstance().cargarVariableGlobal();
 		TemaDao.getInstance().cargarVariableGlobal();
 		EnsenianzaDao.getInstance().cargarVariableGlobal();
+		AlimentoDao.getInstance().cargarVariableGlobal();
+		TipoAvatarDao.getInstance().cargarVariableGlobal();
 	}
 
 	private static Sistema Singleton;
@@ -51,6 +58,8 @@ public class Sistema {
 	private List<Docente> Docentes;
 	private List<Juego> Juegos;
 	private List<Tema> Temas;
+	private List<TipoAvatar> TipoAvatares;
+	private List<Alimento> Alimentos;
 	private Integer[] Lietner;
 
 
@@ -110,7 +119,42 @@ public class Sistema {
 		System.out.println("El juego ya existe");
 		return juego.getId();
 	}
-
+	
+	public int nuevoTipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre){
+		TipoAvatar tipoAvatar = buscarTipoAvatar(nombre);
+		if (tipoAvatar == null){
+			tipoAvatar = new TipoAvatar(nombre, alimentoMax, nivel, tiempoHambre);
+			TipoAvatares.add(tipoAvatar);
+			return tipoAvatar.getId();
+		}
+		System.out.println("El tipoAvatar ya existe");
+		return tipoAvatar.getId();
+	}
+	
+	public int nuevoAlimento(String nombre, int proteinas, int precio){
+		Alimento alimento = buscarAlimento(nombre);
+		if (alimento == null){
+			alimento = new Alimento(nombre, proteinas, precio);
+			Alimentos.add(alimento);
+			return alimento.getId();
+		}
+		System.out.println("El alimento ya existe");
+		return alimento.getId();
+	}
+	
+	public int tipoAvatarAgregarAlimento(int alimento, int tipoAvatar){
+		Alimento alimento2 = buscarAlimento(alimento);
+		if (alimento2 != null){
+			TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
+			if (tipoAvatar2 != null)
+				return tipoAvatar2.agregarAlimento(alimento2, true);
+			else
+				System.out.println("La tipo avatar no existe");
+		}else
+			System.out.println("El alimento no existe");
+		return 0;
+	}
+	
 	public int docenteAgregarCurso(int docente, String descripcion) {
 		Docente docente2 = buscarDocente(docente);
 		if (docente2 != null)
@@ -163,14 +207,6 @@ public class Sistema {
 				System.out.println("El alumno no existe");
 		}else
 			System.out.println("El curso no existe");
-		return 0;
-	}
-
-	public int avatarAgregarElemento(int alumno, String descripcion, String tipo, String color) {
-		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null)
-			return alumno2.avatarAgregarElemento(descripcion, tipo, color);
-		System.out.println("El alumno no existe");
 		return 0;
 	}
 
@@ -262,6 +298,34 @@ public class Sistema {
 				return leccion2;
 		}
 		return null;
+	}
+	
+	private TipoAvatar buscarTipoAvatar(String nombre) {
+		for(TipoAvatar tipoAvatar: TipoAvatares)
+			if (tipoAvatar.getNombre().equals(nombre))
+				return tipoAvatar;
+		return TipoAvatarDao.getInstance().buscar(nombre);
+	}
+	
+	private TipoAvatar buscarTipoAvatar(int Id) {
+		for (TipoAvatar tipoAvatar: TipoAvatares)
+			if (tipoAvatar.getId() == Id)
+				return tipoAvatar;
+		return TipoAvatarDao.getInstance().buscar(Id);
+	}
+	
+	private Alimento buscarAlimento(String nombre) {
+		for(Alimento alimento: Alimentos)
+			if (alimento.getNombre().equals(nombre))
+				return alimento;
+		return AlimentoDao.getInstance().buscar(nombre);
+	}
+	
+	private Alimento buscarAlimento(int Id) {
+		for (Alimento alimento: Alimentos)
+			if (alimento.getId() == Id)
+				return alimento;
+		return AlimentoDao.getInstance().buscar(Id);
 	}
 	
 	public int elegirJuegoSinTema(int alumno){

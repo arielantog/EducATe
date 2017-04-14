@@ -45,6 +45,17 @@ public class Test {
 		sistema.juegoAgregarLeccion(juego1, leccion6);
 		sistema.juegoAgregarLeccion(juego1, leccion7);
 		
+		int comida1 = sistema.nuevoAlimento("Comida1", 2, 20);
+		int comida2 = sistema.nuevoAlimento("Comida2", 4, 40);
+		int comida3 = sistema.nuevoAlimento("Comida3", 5, 50);
+		
+		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 1, 2000);
+		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1, 1000);
+		
+		sistema.tipoAvatarAgregarAlimento(comida1, tipoAvatar1);
+		sistema.tipoAvatarAgregarAlimento(comida2, tipoAvatar1);
+		sistema.tipoAvatarAgregarAlimento(comida2, tipoAvatar2);
+		sistema.tipoAvatarAgregarAlimento(comida3, tipoAvatar2);
 
 		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini");
 		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado");
@@ -52,7 +63,7 @@ public class Test {
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
 		
-		sistema.avatarAgregarElemento(alumno1, "No me acuerdo para qué es esto", "Gorra", "Rojo");
+		
 		
 		int juegoId =sistema.elegirJuegoSinTema(alumno1);
 		System.out.println("Juego elegido:" +juegoId);

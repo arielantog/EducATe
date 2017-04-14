@@ -49,11 +49,6 @@ public class Alumno extends Persona {
 		Ensenianzas.add(ensenianza);
 	}
 
-
-	public Integer avatarAgregarElemento(String descripcion, String tipo, String color) {
-		return Avatar.agregarElemento(descripcion, tipo, color);
-	}
-
 	private Ensenianza buscarEnsenianza(Leccion leccion) {
 		for (Ensenianza ensenianza: Ensenianzas)
 			if (ensenianza.getLeccion().getId() == leccion.getId())

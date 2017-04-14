@@ -2,14 +2,12 @@ package daos;
 
 import hibernate.HibernateUtil;
 import negocio.Avatar;
-import negocio.ElementoAvatar;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import beans.AvatarBean;
-import beans.ElementoAvatarBean;
 
 public class AvatarDao {
 	private static AvatarDao instancia;
@@ -57,24 +55,4 @@ public class AvatarDao {
 		
 	}
 
-	public ElementoAvatar buscarElemento(Integer avatar, String tipo) {
-		Session session = sf.openSession();
-		session.beginTransaction();
-		Query query = session.createQuery("select b from AvatarBean a join a.ElementosAvatar b "
-				+ " where a.Id = ? and b.Tipo = ? ");
-		query.setInteger(0, avatar);
-		query.setString(1, tipo);
-		ElementoAvatar elementoAvatar = null;
-		try{
-			ElementoAvatarBean elementoAvatarBean = (ElementoAvatarBean) query.uniqueResult();
-			if (elementoAvatarBean != null)
-				elementoAvatar = elementoAvatarBean.pasarNegocio();
-		}catch (Exception e){
-			System.out.println(e);
-		}
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
-		return elementoAvatar;
-	}
 }

@@ -19,11 +19,12 @@ public class HibernateUtil
              config.addAnnotatedClass(AlumnoBean.class);
              config.addAnnotatedClass(DocenteBean.class);
              config.addAnnotatedClass(AvatarBean.class);
-             config.addAnnotatedClass(ElementoAvatarBean.class);
              config.addAnnotatedClass(EnsenianzaBean.class);
              config.addAnnotatedClass(CursoBean.class);
              config.addAnnotatedClass(JuegoBean.class);
              config.addAnnotatedClass(LietnerBean.class);
+             config.addAnnotatedClass(AlimentoBean.class);
+             config.addAnnotatedClass(TipoAvatarBean.class);
              sessionFactory = config.buildSessionFactory(); 
         }
         catch (Throwable ex)

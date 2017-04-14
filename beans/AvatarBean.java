@@ -1,8 +1,5 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.*;
 
 import negocio.Avatar;
@@ -13,13 +10,10 @@ public class AvatarBean {
 	@Id
 	@Column(name="avatarId")
 	private Integer Id;
-	@OneToMany
-	@JoinColumn(name="avatarId") 
-	private List<ElementoAvatarBean> ElementosAvatar;
+	@OneToOne
+	@JoinColumn(name="tipoAvatarId")
+	private TipoAvatarBean TipoAvatar;
 	
-	public AvatarBean() {
-		ElementosAvatar = new ArrayList<ElementoAvatarBean>();
-	}
 	/*GETTERS Y SETTERS*/
 	public Integer getId() {
 		return Id;
@@ -27,20 +21,16 @@ public class AvatarBean {
 	public void setId(Integer id) {
 		Id = id;
 	}
-	public List<ElementoAvatarBean> getElementosAvatar() {
-		return ElementosAvatar;
+	public TipoAvatarBean getTipoAvatar() {
+		return TipoAvatar;
 	}
-	public void setElementosAvatar(List<ElementoAvatarBean> elementosAvatar) {
-		ElementosAvatar = elementosAvatar;
+	public void setTipoAvatar(TipoAvatarBean tipoAvatar) {
+		TipoAvatar = tipoAvatar;
 	}
-	public void agregarElementoAvatar(ElementoAvatarBean elementoAvatarBean) {
-		ElementosAvatar.add(elementoAvatarBean);
-	}
+	/*NEGOCIO*/
 	public Avatar pasarNegocio() {
 		Avatar avatar = new Avatar(Id);
-		for (ElementoAvatarBean elementoAvatarBean: ElementosAvatar){
-			avatar.agregarElemento(elementoAvatarBean.pasarNegocio());
-		}
+		avatar.setTipoAvatar(TipoAvatar.pasarNegocio());
 		return avatar;
 	}
 

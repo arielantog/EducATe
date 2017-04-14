@@ -16,8 +16,12 @@ from avatares
 select *
 from curso_alumno
 select *
-from elementosAvatar
-select *
 from ensenianzas
 select *
 from lietner
+select *
+from tipoAvatar
+select *
+from alimentos
+select *
+from tipoAvatar_alimento

@@ -1,51 +1,33 @@
 package negocio;
 
-import java.util.*;
-
 import daos.AvatarDao;
+import daos.TipoAvatarDao;
 import beans.AvatarBean;
-import beans.ElementoAvatarBean;
 
 public class Avatar {
 
 	public Avatar() {
 		Id = ID++;
-		ElementosAvatar = new ArrayList<ElementoAvatar>();
+		tipoAvatar = buscarTipoAvatar(1);
 		AvatarDao.getInstance().grabar(pasarBean());
+	}
+	
+	private TipoAvatar buscarTipoAvatar(int id) {
+		TipoAvatar tipoAvatar = TipoAvatarDao.getInstance().buscar(id);
+		if (tipoAvatar == null)
+			//TODO Primer organismo si no existiese.
+			tipoAvatar = new TipoAvatar("Célula", 10,1,100);
+		return tipoAvatar;
 	}
 	public Avatar(int id) {
 		Id = id;
-		ElementosAvatar = new ArrayList<ElementoAvatar>();
+
 	}
 
 	private static Integer ID = 1;
 	private Integer Id;
-	private List<ElementoAvatar> ElementosAvatar;
+	private TipoAvatar tipoAvatar;
 
-	public Integer agregarElemento(String descripcion, String tipo, String color) {
-		ElementoAvatar elementoAvatar= buscarElemento(tipo);
-		if (elementoAvatar == null){
-			elementoAvatar = new ElementoAvatar(descripcion, tipo, color);
-			ElementosAvatar.add(elementoAvatar);
-			AvatarDao.getInstance().actualizar(pasarBean());
-			return elementoAvatar.getId();
-		}		
-		System.out.println("El elemento avatar ya existe en el avatar");
-		return elementoAvatar.getId();
-	}
-	public void agregarElemento(ElementoAvatar elementoAvatar) {
-		ElementosAvatar.add(elementoAvatar);
-		
-	}
-
-	private ElementoAvatar buscarElemento(String tipo) {
-		for (ElementoAvatar elementoAvatar: ElementosAvatar)
-			if (elementoAvatar.getTipo().equals(tipo))
-				return elementoAvatar;
-		return AvatarDao.getInstance().buscarElemento(getId(),tipo);
-	}
-
-	
 	/*GETTERS Y SETTERS*/
 	public static Integer getID() {
 		return ID;
@@ -59,14 +41,17 @@ public class Avatar {
 	public void setId(Integer id) {
 		Id = id;
 	}
+	public TipoAvatar getTipoAvatar() {
+		return tipoAvatar;
+	}
+	public void setTipoAvatar(TipoAvatar tipoAvatar) {
+		this.tipoAvatar = tipoAvatar;
+	}
 	/*BEAN*/
 	public AvatarBean pasarBean() {
 		AvatarBean avatarBean = new AvatarBean();
 		avatarBean.setId(getId());
-		for (ElementoAvatar elementoAvatar: ElementosAvatar){
-			ElementoAvatarBean elementoAvatarBean = elementoAvatar.pasarBean();
-			avatarBean.agregarElementoAvatar(elementoAvatarBean);
-		}
+		avatarBean.setTipoAvatar(tipoAvatar.pasarBean());
 		return avatarBean;
 	}
 }

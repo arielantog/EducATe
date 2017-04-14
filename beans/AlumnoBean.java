@@ -11,6 +11,7 @@ import negocio.Alumno;
 @Table(name="alumnos")
 public class AlumnoBean extends PersonaBean{
 	@Id
+	@Column(name="alumnoId")
 	private int Id;
 	private Integer Puntos;
 	@OneToMany

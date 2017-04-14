@@ -53,6 +53,7 @@ public class JuegoBean {
 	public void agregarLeccion(LeccionBean leccionBean) {
 		Lecciones.add(leccionBean);
 	}
+	/*NEGOCIO*/
 	public Juego pasarNegocio() {
 		Juego juego = new Juego(Id, Nombre);
 		juego.setTema(Tema.pasarNegocio());
