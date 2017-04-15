@@ -1,8 +1,5 @@
 package negocio;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import beans.EnsenianzaBean;
 
 public class Ensenianza {
@@ -12,13 +9,13 @@ public class Ensenianza {
 		Id = ID++;
 		Leccion = leccion;
 		NivelRefuerzo = 0;
-		FechaUltRepaso = fechaActual();
+		FechaUltRepaso = new Fecha().fechaActual();
 	}
 
-	public Ensenianza(int id, int nivelRefuerzo, int fechaUltRepaso) {
+	public Ensenianza(int id, int nivelRefuerzo, long fechaUltRepaso2) {
 		Id = id;
-		NivelRefuerzo = 0;
-		FechaUltRepaso = fechaActual();
+		NivelRefuerzo = nivelRefuerzo;
+		FechaUltRepaso = fechaUltRepaso2;
 	}
 
 	private static Integer ID = 1;
@@ -26,26 +23,18 @@ public class Ensenianza {
 	private Integer Id;
 	private Leccion Leccion;
 	private Integer NivelRefuerzo;
-	private Integer FechaUltRepaso;
+	private long FechaUltRepaso;
 	
 	
 	public Integer calcularNivelRefuerzo(boolean resultado) {
 		if (resultado)
 			if (getNivelRefuerzo() < NivelMax)
 				NivelRefuerzo++;
-			else if (getNivelRefuerzo() < NivelMax)
+			else if (getNivelRefuerzo() >= NivelMax)
 				NivelRefuerzo = NivelMax;
 		else
 			NivelRefuerzo = 1;
 		return NivelRefuerzo;
-	}
-	
-	private Integer fechaActual() {
-		Calendar fecha = new GregorianCalendar();
-		Integer fecha2 = fecha.get(Calendar.YEAR) * 10000 +
-						 fecha.get(Calendar.MONTH) * 100 + 
-						 fecha.get(Calendar.DAY_OF_MONTH);
-		return fecha2;
 	}
 	
 	/*GETTERS Y SETTERS*/
@@ -80,10 +69,10 @@ public class Ensenianza {
 	public void setNivelRefuerzo(Integer nivelRefuerzo) {
 		NivelRefuerzo = nivelRefuerzo;
 	}
-	public Integer getFechaUltRepaso() {
+	public long getFechaUltRepaso() {
 		return FechaUltRepaso;
 	}
-	public void setFechaUltRepaso(Integer fechaUltRepaso) {
+	public void setFechaUltRepaso(long fechaUltRepaso) {
 		FechaUltRepaso = fechaUltRepaso;
 	}
 	/*BEAN*/
@@ -95,4 +84,10 @@ public class Ensenianza {
 		ensenianzaBean.setFechaUltRepaso(getFechaUltRepaso());
 		return ensenianzaBean;
 	}
+
+	public void actualizarFechaUltRepaso() {
+		this.FechaUltRepaso = new Fecha().fechaActual();
+		
+	}
+
 }

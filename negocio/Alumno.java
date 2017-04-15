@@ -28,6 +28,8 @@ public class Alumno extends Persona {
 	}
 
 	private static Integer ID = 1;
+	private static final int PuntosCorrecta = 100;
+	private static final int PuntosIncorrecta = 20;
 	private Integer Id;
 	private Integer Puntos;
 	private List<Ensenianza> Ensenianzas;
@@ -40,10 +42,22 @@ public class Alumno extends Persona {
 			ensenianza = new Ensenianza(leccion);
 			Ensenianzas.add(ensenianza);
 			EnsenianzaDao.getInstance().grabar(ensenianza.pasarBean());
+			return ensenianza.getId();
 		}else{
-			ensenianzaCalcularNivelRefuerzo(ensenianza, resultado);
+			ensenianza.calcularNivelRefuerzo(resultado);
+			ensenianza.actualizarFechaUltRepaso();
+			EnsenianzaDao.getInstance().actualizar(ensenianza.pasarBean());
+			calcularPuntos(resultado);
+			AlumnoDao.getInstance().actualizar(pasarBean());
 		}
-		return null;
+		return 0;
+	}
+	private void calcularPuntos(boolean resultado) {
+		if (resultado)
+			Puntos = Puntos + PuntosCorrecta;
+		else
+			Puntos = Puntos + PuntosIncorrecta;
+		
 	}
 	public void agregarEnsenianza(Ensenianza ensenianza) {
 		Ensenianzas.add(ensenianza);
@@ -54,10 +68,6 @@ public class Alumno extends Persona {
 			if (ensenianza.getLeccion().getId() == leccion.getId())
 				return ensenianza;
 		return null;
-	}
-
-	private Integer ensenianzaCalcularNivelRefuerzo(Ensenianza ensenianza, boolean resultado){
-		return ensenianza.calcularNivelRefuerzo(resultado);
 	}
 	
 	private Integer calcularNivelSiguiente(Integer[] lietner){
@@ -133,6 +143,41 @@ public class Alumno extends Persona {
 		alumnoBean.setAvatar(getAvatar().pasarBean());
 		
 		return alumnoBean;
+	}
+	
+	public void alimentarAvatar(Alimento alimento) {
+		if (Avatar.alimentar(alimento) == 1){
+			Puntos = Puntos - alimento.getPrecio();
+			AlumnoDao.getInstance().actualizar(pasarBean());
+		}
+	}
+	public int evolucionarAvatar() {
+		if (getPuntos() >= Avatar.getTipoAvatar().getPrecioEvolucion()){
+			if (Avatar.getHambre() >= 90){
+				Puntos = Puntos - Avatar.getTipoAvatar().getPrecioEvolucion();
+				Avatar.evolucionar();
+				AlumnoDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("El avatar no puede evolucionar si tiene hambre.");
+			}
+		}else{
+			System.out.println("Se necesitan más puntos para evolucionar.");
+		}
+		return 0;
+	}
+	public int revivirAvatar() {
+		if (Avatar.getHambre() == 0){
+			if (getPuntos() >= Avatar.getTipoAvatar().getPrecioRevivir()){
+				Avatar.revivir();
+				Puntos = Puntos - Avatar.getTipoAvatar().getPrecioRevivir();
+				AlumnoDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("Se necesitan más puntos para revivir.");
+			}
+		}else {
+			System.out.println("El avatar se encuentra vivo.");
+		}
+		return 0;
 	}
 
 }

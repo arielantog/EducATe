@@ -23,6 +23,8 @@ public class TipoAvatarBean {
 	private int alimentoMax;
 	private int nivel;
 	private int tiempoHambre;
+	private int precioEvolucion;
+	private int precioRevivir;
 	@ManyToMany
 	@JoinTable(name="tipoAvatar_alimento",
 				joinColumns			= @JoinColumn(name="tipoAvatarID"),
@@ -63,6 +65,12 @@ public class TipoAvatarBean {
 	public void setTiempoHambre(int tiempoHambre) {
 		this.tiempoHambre = tiempoHambre;
 	}
+	public int getPrecioEvolucion() {
+		return precioEvolucion;
+	}
+	public void setPrecioEvolucion(int precioEvolucion) {
+		this.precioEvolucion = precioEvolucion;
+	}
 	public List<AlimentoBean> getAlimentos() {
 		return alimentos;
 	}
@@ -72,9 +80,15 @@ public class TipoAvatarBean {
 	public void agregarAlimento(AlimentoBean alimentoBean) {
 		alimentos.add(alimentoBean);
 	}
+	public int getPrecioRevivir() {
+		return precioRevivir;
+	}
+	public void setPrecioRevivir(int precioRevivir) {
+		this.precioRevivir = precioRevivir;
+	}
 	/*NEGOCIO*/
 	public TipoAvatar pasarNegocio() {
-		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, nivel, tiempoHambre);
+		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, nivel, tiempoHambre, precioEvolucion, precioRevivir);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarNegocio());
 		}

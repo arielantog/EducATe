@@ -10,23 +10,27 @@ import beans.TipoAvatarBean;
 public class TipoAvatar {
 	
 	
-	public TipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre) {
+	public TipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir) {
 		Id = ID++;
 		this.nombre = nombre;
 		this.alimentoMax = alimentoMax;
 		this.nivel = nivel;
 		this.tiempoHambre = tiempoHambre;
+		this.precioEvolucion = precioEvolucion;
+		this.precioRevivir = precioRevivir;
 		this.alimentos = new ArrayList<Alimento>();
 		TipoAvatarDao.getInstance().grabar(pasarBean());
 	}
 	
 	public TipoAvatar(int id, String nombre, int alimentoMax, int nivel,
-			int tiempoHambre) {
+			int tiempoHambre, int precioEvolucion, int precioRevivir) {
 		Id = id;
 		this.nombre = nombre;
 		this.alimentoMax = alimentoMax;
 		this.nivel = nivel;
 		this.tiempoHambre = tiempoHambre;
+		this.precioEvolucion = precioEvolucion;
+		this.precioRevivir = precioRevivir;
 		this.alimentos = new ArrayList<Alimento>();
 	}
 
@@ -36,10 +40,18 @@ public class TipoAvatar {
 	private int alimentoMax;
 	private int nivel;
 	private int tiempoHambre;
+	private int precioEvolucion;
+	private int precioRevivir;
 	private List<Alimento> alimentos;
 	
 	
 	/*GETTERS Y SETTERS*/
+	public static int getID() {
+		return ID;
+	}
+	public static void setID(int iD) {
+		ID = iD;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -70,18 +82,27 @@ public class TipoAvatar {
 	public void setTiempoHambre(int tiempoHambre) {
 		this.tiempoHambre = tiempoHambre;
 	}
+	public int getPrecioEvolucion() {
+		return precioEvolucion;
+	}
+
+	public void setPrecioEvolucion(int precioEvolucion) {
+		this.precioEvolucion = precioEvolucion;
+	}
 	public List<Alimento> getAlimentos() {
 		return alimentos;
 	}
 	public void setAlimentos(List<Alimento> alimentos) {
 		this.alimentos = alimentos;
 	}
-	public static int getID() {
-		return ID;
+	public int getPrecioRevivir() {
+		return precioRevivir;
 	}
-	public static void setID(int iD) {
-		ID = iD;
+
+	public void setPrecioRevivir(int precioRevivir) {
+		this.precioRevivir = precioRevivir;
 	}
+	
 	/*BEAN*/
 	public TipoAvatarBean pasarBean() {
 		TipoAvatarBean tipoAvatarBean = new TipoAvatarBean();
@@ -90,6 +111,8 @@ public class TipoAvatar {
 		tipoAvatarBean.setAlimentoMax(alimentoMax);
 		tipoAvatarBean.setNivel(nivel);
 		tipoAvatarBean.setTiempoHambre(tiempoHambre);
+		tipoAvatarBean.setPrecioEvolucion(precioEvolucion);
+		tipoAvatarBean.setPrecioRevivir(precioRevivir);
 		for (Alimento alimento: alimentos){
 			AlimentoBean alimentoBean = alimento.pasarBean();
 			tipoAvatarBean.agregarAlimento(alimentoBean);
@@ -111,7 +134,7 @@ public class TipoAvatar {
 		return 0;
 	}
 
-	private boolean tengoAlimento(Alimento alimento) {
+	public boolean tengoAlimento(Alimento alimento) {
 		for (Alimento alimento2: alimentos){
 			if (alimento.getId() == alimento2.getId())
 				return true;

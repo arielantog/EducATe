@@ -16,7 +16,7 @@ public class EnsenianzaBean {
 	@JoinColumn(name="leccionId")
 	private LeccionBean Leccion;
 	private Integer NivelRefuerzo;
-	private Integer FechaUltRepaso;
+	private long FechaUltRepaso;
 	
 	/*GETTERS AND SETTERS*/
 	public static Integer getNivelMax() {
@@ -43,10 +43,10 @@ public class EnsenianzaBean {
 	public void setNivelRefuerzo(Integer nivelRefuerzo) {
 		NivelRefuerzo = nivelRefuerzo;
 	}
-	public Integer getFechaUltRepaso() {
+	public long getFechaUltRepaso() {
 		return FechaUltRepaso;
 	}
-	public void setFechaUltRepaso(Integer fechaUltRepaso) {
+	public void setFechaUltRepaso(long fechaUltRepaso) {
 		FechaUltRepaso = fechaUltRepaso;
 	}
 	public Ensenianza pasarNegocio() {

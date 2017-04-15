@@ -49,8 +49,8 @@ public class Test {
 		int comida2 = sistema.nuevoAlimento("Comida2", 4, 40);
 		int comida3 = sistema.nuevoAlimento("Comida3", 5, 50);
 		
-		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 1, 2000);
-		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1, 1000);
+		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 1, 2000,500,500);
+		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1, 1000,2000,1500);
 		
 		sistema.tipoAvatarAgregarAlimento(comida1, tipoAvatar1);
 		sistema.tipoAvatarAgregarAlimento(comida2, tipoAvatar1);
@@ -66,8 +66,26 @@ public class Test {
 		
 		
 		int juegoId =sistema.elegirJuegoSinTema(alumno1);
-		System.out.println("Juego elegido:" +juegoId);
+		System.out.println("Juego elegido:" + juegoId);
 		juegoId = sistema.elegirJuegoConTema(alumno1, tema1);
-		System.out.println("Juego elegido:" +juegoId);
+		System.out.println("Juego elegido:" + juegoId);
+		
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAlimentarAvatar(alumno1, comida1);
+		sistema.alumnoAlimentarAvatar(alumno1, comida3);
+		sistema.alumnoRevivirAvatar(alumno1);
+		sistema.alumnoEvolucionarAvatar(alumno1);
+		
+		
+		
+		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
+		//TODO Agregar el campo para la baja lógica y tener en cuenta para los SELECTs
 	}
 }

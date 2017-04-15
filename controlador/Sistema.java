@@ -120,10 +120,10 @@ public class Sistema {
 		return juego.getId();
 	}
 	
-	public int nuevoTipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre){
+	public int nuevoTipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir){
 		TipoAvatar tipoAvatar = buscarTipoAvatar(nombre);
 		if (tipoAvatar == null){
-			tipoAvatar = new TipoAvatar(nombre, alimentoMax, nivel, tiempoHambre);
+			tipoAvatar = new TipoAvatar(nombre, alimentoMax, nivel, tiempoHambre, precioEvolucion, precioRevivir);
 			TipoAvatares.add(tipoAvatar);
 			return tipoAvatar.getId();
 		}
@@ -152,6 +152,25 @@ public class Sistema {
 				System.out.println("La tipo avatar no existe");
 		}else
 			System.out.println("El alimento no existe");
+		return 0;
+	}
+	
+	public int alumnoAlimentarAvatar(int alumno, int alimento){
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null){
+			Alimento alimento2 = buscarAlimento(alimento);
+			if (alimento2 != null){
+				if(alumno2.getPuntos()>= alimento2.getPrecio()){
+					alumno2.alimentarAvatar(alimento2);
+				}else{
+					System.out.println("No hay suficientes puntos"); 
+				}
+			}else{
+				System.out.println("No existe el alimento");
+			}
+		}else{
+			System.out.println("No existe el alumno");
+		}
 		return 0;
 	}
 	
@@ -207,6 +226,26 @@ public class Sistema {
 				System.out.println("El alumno no existe");
 		}else
 			System.out.println("El curso no existe");
+		return 0;
+	}
+	
+	public int alumnoEvolucionarAvatar(int alumno) {
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null){
+			alumno2.evolucionarAvatar();
+		}else{
+			System.out.println("El alumno no existe");
+		}
+		return 0;
+	}
+	
+	public int alumnoRevivirAvatar(int alumno) {
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null){
+			alumno2.revivirAvatar();
+		}else{
+			System.out.println("El alumno no existe");
+		}
 		return 0;
 	}
 
@@ -465,4 +504,5 @@ public class Sistema {
 		Lietner = LietnerDao.getInstance().cargarValores();
 		return lietner.getId();
 	}
+
 }
