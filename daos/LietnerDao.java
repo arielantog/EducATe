@@ -77,4 +77,13 @@ public class LietnerDao {
 		session.close();
 		return false;
 	}
+
+	public void eliminar(LietnerBean lietner) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.delete(lietner);
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+	}
 }

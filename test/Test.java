@@ -10,6 +10,7 @@ public class Test {
 		sistema.agregarValorLietner(2,1);
 		sistema.agregarValorLietner(3,1);
 		sistema.agregarValorLietner(4,1);
+		sistema.eliminarValorLietner(4);
 		
 		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa");
 		

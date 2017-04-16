@@ -176,7 +176,7 @@ public class Sistema {
 	
 	public int docenteAgregarCurso(int docente, String descripcion) {
 		Docente docente2 = buscarDocente(docente);
-		if (docente2 != null)
+		if (docente2 != null && docente2.isActivo())
 			return docente2.agregarCurso(descripcion);
 		System.out.println("El docente no existe");
 		return 0;
@@ -547,6 +547,17 @@ public class Sistema {
 		System.out.println("El docente no existe");
 		return 0;
 		
+	}
+
+	public int eliminarValorLietner(int valor) {
+		negocio.Lietner lietner = new negocio.Lietner(valor, 0);
+		boolean existe = LietnerDao.getInstance().existe(valor);
+		if (existe){
+			LietnerBean lietnerBean = lietner.pasarBean();
+			LietnerDao.getInstance().eliminar(lietnerBean);
+		}
+		Lietner = LietnerDao.getInstance().cargarValores();
+		return 0;
 	}
 
 }
