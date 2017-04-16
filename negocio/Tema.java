@@ -13,18 +13,21 @@ public class Tema {
 		Id = ID++;
 		Descripcion = descripcion;
 		Lecciones = new ArrayList<Leccion>();
+		activo = true;
 		TemaDao.getInstance().grabar(pasarBean());
 	}
-	public Tema(int id, String descripcion) {
+	public Tema(int id, String descripcion, boolean activo) {
 		Id = id;
 		Descripcion = descripcion;
 		Lecciones = new ArrayList<Leccion>();
+		this.activo = activo;
 	}
 
 	private static Integer ID = 1;
 	private Integer Id;
 	private String Descripcion;
 	private List<Leccion> Lecciones;
+	private boolean activo;
 
 	public Integer agregarLeccion(String descripcion) {
 		Leccion leccion = buscarLeccion(descripcion);
@@ -79,11 +82,18 @@ public class Tema {
 	public void setLecciones(List<Leccion> lecciones) {
 		Lecciones = lecciones;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*BEAN*/
 	public TemaBean pasarBean() {
 		TemaBean temaBean = new TemaBean();
 		temaBean.setId(getId());
 		temaBean.setDescripcion(getDescripcion());
+		temaBean.setActivo(activo);
 		for (Leccion leccion: Lecciones){
 			LeccionBean leccionBean = leccion.pasarBean();
 			temaBean.agregarLeccion(leccionBean);
@@ -92,6 +102,21 @@ public class Tema {
 	}
 	public void agregarLeccion(Leccion leccion) {
 		Lecciones.add(leccion);
+	}
+	
+	public void eliminar() {
+		activo = false;
+		TemaDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String descripcion) {
+		setDescripcion(descripcion);
+		activo = true;
+		TemaDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String descripcion) {
+		setDescripcion(descripcion);
+		TemaDao.getInstance().actualizar(pasarBean());
 	}
 	
 }

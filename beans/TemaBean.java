@@ -18,6 +18,7 @@ public class TemaBean {
 	@OneToMany
 	@JoinColumn(name="temaId")
 	private List <LeccionBean> lecciones;
+	private boolean activo;
 	
 	
 	public TemaBean() {
@@ -42,16 +43,20 @@ public class TemaBean {
 	public void setLecciones(List<LeccionBean> lecciones) {
 		this.lecciones = lecciones;
 	}
-	public void agregarLeccion(LeccionBean leccionBean) {
-		lecciones.add(leccionBean);
+	public boolean isActivo() {
+		return activo;
 	}
-	
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	/*NEGOCIO*/
 	public Tema pasarNegocio(){
 		/*Turco: No entiendo por que en Tema hay un solo constructor y por ejemplo en Alumno hay dos
 		y el segundo se utiliza para esta parte*/
 		/*Ariel: Porque el primero le asigna un Id y lo guarda como un registro nuevo.
 		El segundo le asigna el Id que ya tenía y no lo guarda*/
-		Tema tema = new Tema(Id, Descripcion);
+		Tema tema = new Tema(Id, Descripcion, activo);
 		for (LeccionBean leccionBean: lecciones)
 		{
 			Leccion leccion = leccionBean.pasarNegocio();
@@ -59,5 +64,7 @@ public class TemaBean {
 		}
 		return tema;
 	}
-	
+	public void agregarLeccion(LeccionBean leccionBean) {
+		lecciones.add(leccionBean);
+	}
 }

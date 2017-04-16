@@ -10,7 +10,6 @@ public class Test {
 		sistema.agregarValorLietner(2,1);
 		sistema.agregarValorLietner(3,1);
 		sistema.agregarValorLietner(4,1);
-		sistema.eliminarValorLietner(4);
 		
 		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa");
 		
@@ -91,6 +90,16 @@ public class Test {
 		sistema.eliminarDocente(docente3);
 		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa");
 		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa");
+		
+		sistema.eliminarValorLietner(4);
+		sistema.agregarValorLietner(4,1);
+		
+		sistema.eliminarTema(tema1);
+		int tema7 = sistema.nuevoTema("Divisiones políticas");
+		sistema.modificarTema(tema7,"División política");
+		sistema.eliminarTema(tema7);
+		sistema.activarTema(tema1);
+		
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		//TODO Agregar el campo para la baja lógica y tener en cuenta para los SELECTs

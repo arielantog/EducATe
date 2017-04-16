@@ -104,7 +104,7 @@ public class Sistema {
 			Temas.add(tema);
 			return tema.getId();
 		}
-		System.out.println("El tema ya existe");
+		tema.activar(descripcion);
 		return tema.getId();
 	}
 
@@ -184,7 +184,7 @@ public class Sistema {
 	
 	public int temaAgregarLeccion(int tema, String descripcion) {
 		Tema tema2 = buscarTema(tema);
-		if (tema2 != null)
+		if (tema2 != null && tema2.isActivo())
 			return tema2.agregarLeccion(descripcion);
 		System.out.println("El tema no existe");
 		return 0;
@@ -531,7 +531,7 @@ public class Sistema {
 		Docente docente2 = buscarDocente(docente);
 		if (docente2 != null && docente2.isActivo()){
 			docente2.eliminar();
-			Alumnos.remove(docente2);
+			Docentes.remove(docente2);
 			return docente2.getId();
 		}
 		System.out.println("El docente no existe");
@@ -557,6 +557,39 @@ public class Sistema {
 			LietnerDao.getInstance().eliminar(lietnerBean);
 		}
 		Lietner = LietnerDao.getInstance().cargarValores();
+		return 0;
+	}
+
+	public int eliminarTema(int tema) {
+		Tema tema2 = buscarTema(tema);
+		if (tema2 != null && tema2.isActivo()){
+			tema2.eliminar();
+			Temas.remove(tema2);
+			return tema2.getId();
+		}
+		System.out.println("El tema no existe");
+		return 0;
+	}
+
+	public int modificarTema(int tema, String descripcion) {
+		Tema tema2 = buscarTema(tema);
+		if (tema2 != null && tema2.isActivo()){
+			tema2.modificar(descripcion);
+			return tema2.getId();
+		}
+		System.out.println("El tema no existe");
+		return 0;
+		
+	}
+
+	public int activarTema(int tema) {
+		Tema tema2 = buscarTema(tema);
+		if (tema2 != null && !tema2.isActivo()){
+			tema2.activar(tema2.getDescripcion());
+			Temas.add(tema2);
+			return tema2.getId();
+		}
+		System.out.println("El tema no existe");
 		return 0;
 	}
 
