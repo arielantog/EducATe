@@ -15,15 +15,17 @@ public class Alumno extends Persona {
 		Id = ID++;
 		Puntos = 0;
 		NivelLietner = 0;
+		activo = true;
 		Ensenianzas = new ArrayList<Ensenianza>();
 		Avatar = new Avatar();
 		AlumnoDao.getInstance().grabar(pasarBean());
 	}
-	public Alumno(int id,String tipoDocumento, Integer nroDocumento, String nombre, String apellido, int puntos, int nivelLietner) {
+	public Alumno(int id,String tipoDocumento, Integer nroDocumento, String nombre, String apellido, int puntos, int nivelLietner, boolean activo) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
 		Id = id;
 		Puntos = puntos;
 		NivelLietner = nivelLietner;
+		this.activo = activo;
 		Ensenianzas = new ArrayList<Ensenianza>();
 	}
 
@@ -35,7 +37,9 @@ public class Alumno extends Persona {
 	private List<Ensenianza> Ensenianzas;
 	private Avatar Avatar;
 	private int NivelLietner;
+	private boolean activo;
 
+	
 	public Integer agregarEnsenianza(Leccion leccion, boolean resultado) {
 		Ensenianza ensenianza = buscarEnsenianza(leccion);
 		if (ensenianza == null){
@@ -126,6 +130,12 @@ public class Alumno extends Persona {
 	public void setNivelLietner(int nivelLietner) {
 		NivelLietner = nivelLietner;
 	}
+	public boolean getActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*BEAN*/
 	public AlumnoBean pasarBean() {
 		AlumnoBean alumnoBean = new AlumnoBean();
@@ -136,6 +146,7 @@ public class Alumno extends Persona {
 		alumnoBean.setApellido(getApellido());
 		alumnoBean.setPuntos(getPuntos());
 		alumnoBean.setNivelLietner(getNivelLietner());
+		alumnoBean.setActivo(activo);
 		for (Ensenianza ensenianza: Ensenianzas){
 			EnsenianzaBean ensenianzaBean = ensenianza.pasarBean();
 			alumnoBean.agregarEnsenianza(ensenianzaBean);
@@ -178,6 +189,22 @@ public class Alumno extends Persona {
 			System.out.println("El avatar se encuentra vivo.");
 		}
 		return 0;
+	}
+	public void eliminar() {
+		activo = false;
+		AlumnoDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		activo = true;
+		AlumnoDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		AlumnoDao.getInstance().actualizar(pasarBean());
 	}
 
 }

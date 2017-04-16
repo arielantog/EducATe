@@ -21,6 +21,7 @@ public class AlumnoBean extends PersonaBean{
 	@JoinColumn (name="avatarId")
 	private AvatarBean Avatar;
 	private int NivelLietner;
+	private boolean activo;
 	
 	public AlumnoBean() {
 		Ensenianzas = new ArrayList<EnsenianzaBean>();
@@ -59,8 +60,15 @@ public class AlumnoBean extends PersonaBean{
 	public void agregarEnsenianza(EnsenianzaBean ensenianzaBean) {
 		Ensenianzas.add(ensenianzaBean);
 	}
+	public boolean getActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	/*NEGOCIO*/
 	public Alumno pasarNegocio() {
-		Alumno alumno = new Alumno(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), Puntos, NivelLietner);
+		Alumno alumno = new Alumno(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), Puntos, NivelLietner, activo);
 		alumno.setAvatar(Avatar.pasarNegocio());
 		for (EnsenianzaBean ensenianzaBean: Ensenianzas){
 			alumno.agregarEnsenianza(ensenianzaBean.pasarNegocio());
