@@ -60,7 +60,7 @@ public class AlumnoBean extends PersonaBean{
 	public void agregarEnsenianza(EnsenianzaBean ensenianzaBean) {
 		Ensenianzas.add(ensenianzaBean);
 	}
-	public boolean getActivo() {
+	public boolean isActivo() {
 		return activo;
 	}
 	public void setActivo(boolean activo) {

@@ -84,9 +84,12 @@ public class Test {
 		sistema.alumnoEvolucionarAvatar(alumno1);
 		
 		sistema.eliminarAlumno(alumno1);
-		sistema.eliminarAlumno(8);
 		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini");
 		sistema.modificarAlumno("DNI", 35730491, "Ariel", "Antognini");
+		
+		sistema.eliminarDocente(docente3);
+		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa");
+		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa");
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		//TODO Agregar el campo para la baja lógica y tener en cuenta para los SELECTs

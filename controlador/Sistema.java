@@ -93,7 +93,7 @@ public class Sistema {
 			Docentes.add(docente);
 			return docente.getId();
 		}
-		System.out.println("El docente ya existe");
+		docente.activar(nombre,apellido);
 		return docente.getId();
 	}
 
@@ -157,7 +157,7 @@ public class Sistema {
 	
 	public int alumnoAlimentarAvatar(int alumno, int alimento){
 		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null && alumno2.getActivo()){
+		if (alumno2 != null && alumno2.isActivo()){
 			Alimento alimento2 = buscarAlimento(alimento);
 			if (alimento2 != null){
 				if(alumno2.getPuntos()>= alimento2.getPrecio()){
@@ -192,7 +192,7 @@ public class Sistema {
 
 	public int alumnoAgregarEnsenianza(int alumno, int leccion, boolean resultado) {
 		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null && alumno2.getActivo()){
+		if (alumno2 != null && alumno2.isActivo()){
 			Leccion leccion2 = juegoBuscarLeccion(leccion);
 			if (leccion2 != null)
 				return alumno2.agregarEnsenianza(leccion2, resultado);
@@ -220,7 +220,7 @@ public class Sistema {
 		Curso curso2 = docenteBuscarCurso(docente, curso);
 		if (curso2 != null){
 			Alumno alumno2 = buscarAlumno(alumno);
-			if (alumno2 != null && alumno2.getActivo())
+			if (alumno2 != null && alumno2.isActivo())
 				return curso2.agregarAlumno(alumno2);
 			else
 				System.out.println("El alumno no existe");
@@ -231,7 +231,7 @@ public class Sistema {
 	
 	public int alumnoEvolucionarAvatar(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null && alumno2.getActivo()){
+		if (alumno2 != null && alumno2.isActivo()){
 			alumno2.evolucionarAvatar();
 		}else{
 			System.out.println("El alumno no existe");
@@ -241,7 +241,7 @@ public class Sistema {
 	
 	public int alumnoRevivirAvatar(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null && alumno2.getActivo()){
+		if (alumno2 != null && alumno2.isActivo()){
 			alumno2.revivirAvatar();
 		}else{
 			System.out.println("El alumno no existe");
@@ -387,7 +387,7 @@ public class Sistema {
 	
 	private Juego elegirJuego(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
-		if(alumno2!= null && alumno2.getActivo()){
+		if(alumno2!= null && alumno2.isActivo()){
 			int leccion = alumno2.calcularSiguienteLeccion(Lietner);
 			comprobarJuegos();
 			for (Juego juego: Juegos)
@@ -507,7 +507,7 @@ public class Sistema {
 
 	public int eliminarAlumno(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null && alumno2.getActivo()){
+		if (alumno2 != null && alumno2.isActivo()){
 			alumno2.eliminar();
 			Alumnos.remove(alumno);
 			return alumno2.getId();
@@ -518,11 +518,33 @@ public class Sistema {
 
 	public int modificarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
 		Alumno alumno = buscarAlumno(tipoDocumento, nroDocumento);
-		if (alumno != null && alumno.getActivo()){
+		if (alumno != null && alumno.isActivo()){
 			alumno.modificar(nombre,apellido);
 			return alumno.getId();
 		}
 		System.out.println("El alumno no existe");
+		return 0;
+		
+	}
+	
+	public int eliminarDocente(int docente) {
+		Docente docente2 = buscarDocente(docente);
+		if (docente2 != null && docente2.isActivo()){
+			docente2.eliminar();
+			Alumnos.remove(docente2);
+			return docente2.getId();
+		}
+		System.out.println("El docente no existe");
+		return 0;
+	}
+
+	public int modificarDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
+		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
+		if (docente != null && docente.isActivo()){
+			docente.modificar(nombre,apellido);
+			return docente.getId();
+		}
+		System.out.println("El docente no existe");
 		return 0;
 		
 	}

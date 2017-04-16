@@ -16,6 +16,7 @@ public class DocenteBean extends PersonaBean{
 	@OneToMany
 	@JoinColumn(name="docenteId")
 	private List<CursoBean> Cursos;
+	private boolean activo;
 
 	public DocenteBean() {
 		Cursos = new ArrayList<CursoBean>();
@@ -33,15 +34,21 @@ public class DocenteBean extends PersonaBean{
 	public void setCursos(List<CursoBean> cursos) {
 		Cursos = cursos;
 	}
-	public void agregarCurso(CursoBean cursoBean) {
-		Cursos.add(cursoBean);
+	public boolean isActivo() {
+		return activo;
 	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	/*NEGOCIO*/
 	public Docente pasarNegocio() {
-		 Docente docente = new Docente(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido());
+		 Docente docente = new Docente(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), isActivo());
 		 for (CursoBean cursoBean: Cursos){
 			 docente.agregarCurso(cursoBean.pasarNegocio());
 		 }
 		 return docente;
 	}
-
+	public void agregarCurso(CursoBean cursoBean) {
+		Cursos.add(cursoBean);
+	}
 }

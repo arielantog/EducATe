@@ -1,7 +1,6 @@
 package negocio;
 
 import java.util.*;
-
 import daos.CursoDao;
 import daos.DocenteDao;
 import beans.CursoBean;
@@ -13,18 +12,21 @@ public class Docente extends Persona {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
 		Id = ID++;
 		Cursos = new ArrayList<Curso>();
+		activo = true;
 		DocenteDao.getInstance().grabar(pasarBean());
 		
 	}
-	public Docente(int Id, String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
+	public Docente(int Id, String tipoDocumento, Integer nroDocumento, String nombre, String apellido, boolean activo) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
 		this.Id = Id;
+		this.activo = activo;
 		Cursos = new ArrayList<Curso>();
 	}
 
 	private static Integer ID = 1;
 	private Integer Id;
 	private List<Curso> Cursos;
+	private boolean activo;
 
 	public Integer agregarCurso(String descripcion) {
 		Curso curso = buscarCurso(descripcion);
@@ -82,6 +84,12 @@ public class Docente extends Persona {
 	public void setCursos(List<Curso> cursos) {
 		Cursos = cursos;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*BEAN*/
 	public DocenteBean pasarBean() {
 		DocenteBean docenteBean = new DocenteBean();
@@ -90,7 +98,7 @@ public class Docente extends Persona {
 		docenteBean.setNroDocumento(getNroDocumento());
 		docenteBean.setNombre(getNombre());
 		docenteBean.setApellido(getApellido());
-		
+		docenteBean.setActivo(activo);
 		for (Curso curso: Cursos){
 			CursoBean cursoBean = curso.pasarBean();
 			docenteBean.agregarCurso(cursoBean);
@@ -98,6 +106,22 @@ public class Docente extends Persona {
 			
 		
 		return docenteBean;
+	}
+	public void eliminar() {
+		activo = false;
+		DocenteDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		activo = true;
+		DocenteDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		DocenteDao.getInstance().actualizar(pasarBean());
 	}
 	
 }

@@ -130,7 +130,7 @@ public class Alumno extends Persona {
 	public void setNivelLietner(int nivelLietner) {
 		NivelLietner = nivelLietner;
 	}
-	public boolean getActivo() {
+	public boolean isActivo() {
 		return activo;
 	}
 	public void setActivo(boolean activo) {
