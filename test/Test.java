@@ -95,13 +95,20 @@ public class Test {
 		sistema.agregarValorLietner(4,1);
 		
 		sistema.eliminarTema(tema1);
-		int tema7 = sistema.nuevoTema("Divisiones políticas");
-		sistema.modificarTema(tema7,"División política");
-		sistema.eliminarTema(tema7);
-		sistema.activarTema(tema1);
+		int tema99 = sistema.nuevoTema("Divisiones políticas");
+		sistema.modificarTema(tema99,"División política");
+		sistema.eliminarTema(tema99);
+		sistema.nuevoTema("División política");
 		
+		sistema.eliminarJuego(juego1);
+		int juego99 = sistema.nuevoJuego("Divisiones políticas 1",tema1);
+		sistema.modificarJuego(juego99, "División política 1",tema1);
+		sistema.eliminarJuego(juego99);
+		sistema.nuevoJuego("División política 1",tema2);
+		sistema.nuevoJuego("División política 1",tema1);
+
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
-		//TODO Agregar el campo para la baja lógica y tener en cuenta para los SELECTs
+		//TODO Crear una nueva clase que sea HistorialAlumno para después poder sacar reportes para los profesores
 	}
 }

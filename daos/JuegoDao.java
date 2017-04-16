@@ -71,7 +71,7 @@ public class JuegoDao {
 	public Juego buscar(String nombre) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from JuegoBean a where a.Nombre = ?");
+		Query query = session.createQuery("from JuegoBean where Nombre = ?");
 		query.setString(0, nombre);
 		Juego juego = null;
 		try{

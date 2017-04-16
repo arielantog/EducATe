@@ -29,7 +29,7 @@ public class Avatar {
 	private TipoAvatar buscarTipoAvatar(int id) {
 		TipoAvatar tipoAvatar = TipoAvatarDao.getInstance().buscar(id);
 		if (tipoAvatar == null)
-			//TODO Primer organismo si no existiese.
+			//XXX Primer organismo si no existiese.
 			tipoAvatar = new TipoAvatar("Célula", 10,1,100,1000,500);
 		return tipoAvatar;
 	}

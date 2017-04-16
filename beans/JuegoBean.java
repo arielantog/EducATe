@@ -20,7 +20,7 @@ public class JuegoBean {
 	@OneToMany
 	@JoinColumn(name="juegoId")
 	private List<LeccionBean> Lecciones;
-	
+	private boolean activo;
 	
 	public JuegoBean() {
 		Lecciones = new ArrayList<LeccionBean>();
@@ -50,18 +50,23 @@ public class JuegoBean {
 	public void setLecciones(List<LeccionBean> lecciones) {
 		Lecciones = lecciones;
 	}
-	public void agregarLeccion(LeccionBean leccionBean) {
-		Lecciones.add(leccionBean);
+	public boolean isActivo() {
+		return activo;
 	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	
 	/*NEGOCIO*/
 	public Juego pasarNegocio() {
-		Juego juego = new Juego(Id, Nombre);
+		Juego juego = new Juego(Id, Nombre, activo);
 		juego.setTema(Tema.pasarNegocio());
 		for(LeccionBean lecciones: Lecciones){
 			juego.agregarLeccion(lecciones.pasarNegocio(),true);
 		}
-		
 		return juego;
 	}
-
+	public void agregarLeccion(LeccionBean leccionBean) {
+		Lecciones.add(leccionBean);
+	}
 }

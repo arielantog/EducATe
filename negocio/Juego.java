@@ -13,12 +13,14 @@ public class Juego {
 		Nombre = nombre;
 		Tema = tema;
 		Lecciones = new ArrayList<Leccion>();
+		activo = true;
 		JuegoDao.getInstance().grabar(pasarBean());
 	}
 	
-	public Juego(int id, String nombre) {
+	public Juego(int id, String nombre, boolean activo) {
 		Id = id;
 		Nombre = nombre;
+		this.activo = activo;
 		Lecciones = new ArrayList<Leccion>();
 	}
 
@@ -27,6 +29,7 @@ public class Juego {
 	private String Nombre;
 	private Tema Tema;
 	private List<Leccion> Lecciones;
+	private boolean activo;
 
 	public Integer agregarLeccion(Leccion leccion) {
 		if(!tengoLeccion(leccion)){
@@ -84,6 +87,12 @@ public class Juego {
 	public void setLecciones(List<Leccion> lecciones) {
 		Lecciones = lecciones;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*BEAN*/
 	public JuegoBean pasarBean() {
 		JuegoBean juegoBean = new JuegoBean();
@@ -94,6 +103,7 @@ public class Juego {
 			LeccionBean leccionBean = leccion.pasarBean();
 			juegoBean.agregarLeccion(leccionBean);
 		}
+		juegoBean.setActivo(activo);
 		return juegoBean;
 	}
 
@@ -101,4 +111,22 @@ public class Juego {
 		//Se utiliza para pasar negocio
 		Lecciones.add(leccion);	
 	}
+
+	public void eliminar() {
+		activo = false;
+		JuegoDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, Tema tema) {
+		setNombre(nombre);
+		setTema(tema);
+		activo = true;
+		JuegoDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, Tema tema) {
+		setNombre(nombre);
+		setTema(tema);
+		JuegoDao.getInstance().actualizar(pasarBean());
+	}
+
 }

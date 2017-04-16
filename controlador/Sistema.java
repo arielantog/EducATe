@@ -112,11 +112,17 @@ public class Sistema {
 		Juego juego = buscarJuego(nombre);
 		if (juego == null){
 			Tema tema2 = buscarTema(tema);
-			juego = new Juego(nombre, tema2);
-			Juegos.add(juego);
-			return juego.getId();
+			if (tema2 != null && tema2.isActivo()){
+				juego = new Juego(nombre, tema2);
+				Juegos.add(juego);
+				return juego.getId();
+			}else{
+				System.out.println("El tema no existe");
+				return 0;
+			}
 		}
-		System.out.println("El juego ya existe");
+		Tema tema2 = buscarTema(tema);
+		juego.activar(nombre,tema2);
 		return juego.getId();
 	}
 	
@@ -205,7 +211,7 @@ public class Sistema {
 
 	public int juegoAgregarLeccion(int juego, int leccion) {
 		Juego juego2 = buscarJuego(juego);
-		if (juego2 != null){
+		if (juego2 != null && juego2.isActivo()){
 			Leccion leccion2 = temaBuscarLeccion(leccion);
 			if (leccion2 != null)
 				return juego2.agregarLeccion(leccion2);
@@ -573,23 +579,48 @@ public class Sistema {
 
 	public int modificarTema(int tema, String descripcion) {
 		Tema tema2 = buscarTema(tema);
-		if (tema2 != null && tema2.isActivo()){
-			tema2.modificar(descripcion);
-			return tema2.getId();
+		Tema tema3 = buscarTema(descripcion);
+		if (tema3 == null){
+			if (tema2 != null && tema2.isActivo()){
+				tema2.modificar(descripcion);
+				return tema2.getId();
+			}
+			System.out.println("El tema no existe");
+		}else{
+			System.out.println("Ya existe un tema con ese nombre");
 		}
-		System.out.println("El tema no existe");
 		return 0;
 		
 	}
 
-	public int activarTema(int tema) {
-		Tema tema2 = buscarTema(tema);
-		if (tema2 != null && !tema2.isActivo()){
-			tema2.activar(tema2.getDescripcion());
-			Temas.add(tema2);
-			return tema2.getId();
+	public int eliminarJuego(int juego) {
+		Juego juego2 = buscarJuego(juego);
+		if (juego2 != null && juego2.isActivo()){
+			juego2.eliminar();
+			Juegos.remove(juego2);
+			return juego2.getId();
 		}
-		System.out.println("El tema no existe");
+		System.out.println("El juego no existe");
+		return 0;
+	}
+
+	public int modificarJuego(int juego, String descripcion, int tema) {
+		Juego juego2 = buscarJuego(juego);
+		Juego juego3 = buscarJuego(descripcion);
+		if (juego3 == null){
+			if (juego2 != null && juego2.isActivo()){
+				Tema tema2 = buscarTema(tema);
+				if (tema2 != null && tema2.isActivo()){
+					juego2.modificar(descripcion, tema2);
+					return juego2.getId();
+				}else{
+					System.out.println("El tema no existe");
+				}
+			}
+			System.out.println("El juego no existe");
+		}else{
+			System.out.println("Ya existe un juego con esa descripcion");
+		}
 		return 0;
 	}
 
