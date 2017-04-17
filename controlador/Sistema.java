@@ -607,7 +607,7 @@ public class Sistema {
 	public int modificarJuego(int juego, String descripcion, int tema) {
 		Juego juego2 = buscarJuego(juego);
 		Juego juego3 = buscarJuego(descripcion);
-		if (juego3 == null){
+		if (juego3 == null || juego3.getId() == juego2.getId()){
 			if (juego2 != null && juego2.isActivo()){
 				Tema tema2 = buscarTema(tema);
 				if (tema2 != null && tema2.isActivo()){
@@ -620,6 +620,28 @@ public class Sistema {
 			System.out.println("El juego no existe");
 		}else{
 			System.out.println("Ya existe un juego con esa descripcion");
+		}
+		return 0;
+	}
+
+	public int temaEliminarLeccion(int tema, int leccion) {
+		Tema tema2 = buscarTema(tema);
+		if (tema2 != null && tema2.isActivo()){
+			tema2.eliminarLeccion(leccion);
+			return 0;
+			
+		}else{
+			System.out.println("El tema no existe");
+		}
+		return 0;
+	}
+
+	public int temaModificarLeccion(int tema, int leccion, String descripcion) {
+		Tema tema2 = buscarTema(tema);
+		if (tema2 != null && tema2.isActivo()){
+			tema2.modificarLeccion(leccion,descripcion);
+		}else{
+			System.out.println("El tema no existe");
 		}
 		return 0;
 	}

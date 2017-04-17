@@ -36,8 +36,11 @@ public class Tema {
 			Lecciones.add(leccion2);
 			TemaDao.getInstance().actualizar(pasarBean());
 			return leccion2.getId();
+		}else{
+			leccion.activar(descripcion);
+			Lecciones.add(leccion);
+			TemaDao.getInstance().actualizar(pasarBean());
 		}
-		System.out.println("La lección ya existe");
 		return leccion.getId();
 	}
 
@@ -45,14 +48,14 @@ public class Tema {
 		for(Leccion leccion: Lecciones)
 			if(leccion.getDescripcion().equals(descripcion))
 				return leccion;
-		return LeccionDao.getInstance().buscar(descripcion);
+		return LeccionDao.getInstance().buscar(this.getId(),descripcion);
 	}
 	
 	public Leccion buscarLeccion(Integer Id) {
 		for (Leccion leccion: Lecciones)
 			if (leccion.getId() == Id)
 				return leccion;
-		return null;
+		return LeccionDao.getInstance().buscar(this.getId(),Id);
 	}
 
 	
@@ -117,6 +120,32 @@ public class Tema {
 	public void modificar(String descripcion) {
 		setDescripcion(descripcion);
 		TemaDao.getInstance().actualizar(pasarBean());
+	}
+	public int eliminarLeccion(int leccion) {
+		Leccion leccion2 = buscarLeccion(leccion);
+		if (leccion2 != null && leccion2.isActivo()){
+			Lecciones.remove(leccion2);
+			leccion2.eliminar();
+			TemaDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("La leccion no existe");
+		}
+		return 0;
+	}
+	public void modificarLeccion(int leccion, String descripcion) {
+		Leccion leccion2 = buscarLeccion(leccion);
+		if (leccion2 != null && leccion2.isActivo()){
+			Leccion leccion3 = buscarLeccion(descripcion);
+			if (leccion3 == null || leccion3.getId() == leccion){
+				leccion2.modificar(descripcion);
+				TemaDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("Ya existe una lección con esta descripción");
+			}
+		}else{
+			System.out.println("La lección no existe");
+		}
+		
 	}
 	
 }

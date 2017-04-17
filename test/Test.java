@@ -105,7 +105,15 @@ public class Test {
 		sistema.modificarJuego(juego99, "División política 1",tema1);
 		sistema.eliminarJuego(juego99);
 		sistema.nuevoJuego("División política 1",tema2);
-		sistema.nuevoJuego("División política 1",tema1);
+		sistema.modificarJuego(juego1,"División política 1",tema1);
+		
+		sistema.temaEliminarLeccion(tema1, leccion1);
+		int leccion99 = sistema.temaAgregarLeccion(tema1, "Posiciones departamento Corpen Aike");
+		sistema.temaModificarLeccion(tema1, leccion99,"Posición departamento Corpen Aike");
+		sistema.temaEliminarLeccion(tema1, leccion99);
+		int leccion9 = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
+		sistema.juegoAgregarLeccion(juego1, leccion9);
+		
 
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares

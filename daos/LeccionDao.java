@@ -6,7 +6,6 @@ import negocio.Leccion;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import beans.LeccionBean;
 
 public class LeccionDao {
@@ -53,11 +52,33 @@ public class LeccionDao {
 		session.close();
 	}
 
-	public Leccion buscar(String descripcion) {
+	public Leccion buscar(int tema, String descripcion) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from LeccionBean a where descripcion = ? ");
-		query.setString(0, descripcion);
+		Leccion leccion = null;
+		try{
+			Query query = session.createQuery("SELECT a FROM TemaBean a JOIN a.lecciones b WHERE a.Id = ? "
+				+ "AND b.Descripcion = ? ");
+			query.setInteger(0, tema);
+			query.setString(1, descripcion);
+			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
+			leccion = leccionBean.pasarNegocio();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return leccion;
+	}
+
+	public Leccion buscar(int tema, int id) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("SELECT a FROM TemaBean a JOIN a.lecciones b WHERE a.Id = ? "
+				+ "AND b.Id = ? ");
+		query.setInteger(0, tema);
+		query.setInteger(1, id);
 		Leccion leccion = null;
 		try{
 			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();

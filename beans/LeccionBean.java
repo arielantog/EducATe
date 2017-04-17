@@ -11,6 +11,7 @@ public class LeccionBean {
 	@Column(name="leccionId")
 	private Integer Id;
 	private String Descripcion;
+	private boolean activo;
 	
 	/*GETTERS AND SETTERS*/
 	public Integer getId() {
@@ -25,9 +26,17 @@ public class LeccionBean {
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	/*NEGOCIO*/
 	public Leccion pasarNegocio() {
-		Leccion leccion = new Leccion(Id, Descripcion);
+		Leccion leccion = new Leccion(Id, Descripcion, activo);
 		return leccion;
 	}
+	
 
 }
