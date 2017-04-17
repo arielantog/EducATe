@@ -144,7 +144,7 @@ public class Sistema {
 			Alimentos.add(alimento);
 			return alimento.getId();
 		}
-		System.out.println("El alimento ya existe");
+		alimento.activar(nombre,proteinas,precio);
 		return alimento.getId();
 	}
 	
@@ -590,7 +590,6 @@ public class Sistema {
 			System.out.println("Ya existe un tema con ese nombre");
 		}
 		return 0;
-		
 	}
 
 	public int eliminarJuego(int juego) {
@@ -655,6 +654,32 @@ public class Sistema {
 		}
 		return 0;
 		
+	}
+
+	public int eliminarAlimento(int alimento) {
+		Alimento alimento2 = buscarAlimento(alimento);
+		if (alimento2 != null && alimento2.isActivo()){
+			alimento2.eliminar();
+			Alimentos.remove(alimento2);
+			return alimento2.getId();
+		}
+		System.out.println("El alimento no existe");
+		return 0;
+	}
+
+	public int modificarAlimento(int alimento, String nombre, int proteinas, int precio) {
+		Alimento alimento2 = buscarAlimento(alimento);
+		Alimento alimento3 = buscarAlimento(nombre);
+		if (alimento3 == null){
+			if (alimento2 != null && alimento2.isActivo()){
+				alimento2.modificar(nombre,proteinas,precio);
+				return alimento2.getId();
+			}
+			System.out.println("El alimento no existe");
+		}else{
+			System.out.println("Ya existe un alimento con ese nombre");
+		}
+		return 0;
 	}
 
 }

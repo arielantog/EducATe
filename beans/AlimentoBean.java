@@ -16,6 +16,7 @@ public class AlimentoBean {
 	private String nombre;
 	private int proteinas;
 	private int precio;
+	private boolean activo;
 	
 	/*GETTES Y SETTERS*/
 	public int getId() {
@@ -42,9 +43,16 @@ public class AlimentoBean {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*NEGOCIO*/
 	public Alimento pasarNegocio() {
-		Alimento alimento = new Alimento(Id, nombre, proteinas, precio);
+		Alimento alimento = new Alimento(Id, nombre, proteinas, precio,activo);
 		return alimento;
 	}
+	
 }

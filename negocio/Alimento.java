@@ -11,15 +11,17 @@ public class Alimento {
 		this.nombre = nombre;
 		this.proteinas = proteinas;
 		this.precio = precio;
+		this.activo = true;
 		AlimentoDao.getInstance().grabar(pasarBean());
 	}
 	
-	public Alimento(int id, String nombre, int proteinas, int precio) {
+	public Alimento(int id, String nombre, int proteinas, int precio, boolean activo) {
 		super();
 		Id = id;
 		this.nombre = nombre;
 		this.proteinas = proteinas;
 		this.precio = precio;
+		this.activo = activo;
 	}
 
 	private static int ID = 1;
@@ -27,6 +29,7 @@ public class Alimento {
 	private String nombre;
 	private int proteinas;
 	private int precio;
+	private boolean activo;
 	
 	/*GETTES Y SETTERS*/
 	public static int getID() {
@@ -59,6 +62,12 @@ public class Alimento {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*BEAN*/
 	public AlimentoBean pasarBean() {
 		AlimentoBean alimentoBean = new AlimentoBean();
@@ -66,6 +75,25 @@ public class Alimento {
 		alimentoBean.setNombre(nombre);
 		alimentoBean.setProteinas(proteinas);
 		alimentoBean.setPrecio(precio);
+		alimentoBean.setActivo(activo);
 		return alimentoBean;
+	}
+	public void eliminar() {
+		activo = false;
+		AlimentoDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, int proteinas, int precio) {
+		setNombre(nombre);
+		setProteinas(proteinas);
+		setPrecio(precio);
+		activo = true;
+		AlimentoDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, int proteinas, int precio) {
+		setNombre(nombre);
+		setProteinas(proteinas);
+		setPrecio(precio);
+		AlimentoDao.getInstance().actualizar(pasarBean());
 	}
 }

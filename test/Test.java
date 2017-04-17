@@ -45,17 +45,17 @@ public class Test {
 		sistema.juegoAgregarLeccion(juego1, leccion6);
 		sistema.juegoAgregarLeccion(juego1, leccion7);
 		
-		int comida1 = sistema.nuevoAlimento("Comida1", 2, 20);
-		int comida2 = sistema.nuevoAlimento("Comida2", 4, 40);
-		int comida3 = sistema.nuevoAlimento("Comida3", 5, 50);
+		int alimento1 = sistema.nuevoAlimento("Comida1", 2, 20);
+		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40);
+		int alimento3 = sistema.nuevoAlimento("Comida3", 5, 50);
 		
 		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 1, 2000,500,500);
 		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1, 1000,2000,1500);
 		
-		sistema.tipoAvatarAgregarAlimento(comida1, tipoAvatar1);
-		sistema.tipoAvatarAgregarAlimento(comida2, tipoAvatar1);
-		sistema.tipoAvatarAgregarAlimento(comida2, tipoAvatar2);
-		sistema.tipoAvatarAgregarAlimento(comida3, tipoAvatar2);
+		sistema.tipoAvatarAgregarAlimento(alimento1, tipoAvatar1);
+		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar1);
+		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar2);
+		sistema.tipoAvatarAgregarAlimento(alimento3, tipoAvatar2);
 
 		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini");
 		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado");
@@ -78,8 +78,8 @@ public class Test {
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAlimentarAvatar(alumno1, comida1);
-		sistema.alumnoAlimentarAvatar(alumno1, comida3);
+		sistema.alumnoAlimentarAvatar(alumno1, alimento1);
+		sistema.alumnoAlimentarAvatar(alumno1, alimento3);
 		sistema.alumnoRevivirAvatar(alumno1);
 		sistema.alumnoEvolucionarAvatar(alumno1);
 		
@@ -117,6 +117,13 @@ public class Test {
 		sistema.juegoQuitarLeccion(juego1, leccion9);
 		sistema.juegoAgregarLeccion(juego1, leccion9);
 
+		sistema.eliminarAlimento(alimento1);
+		int alimento99 = sistema.nuevoAlimento("Coomida1", 2, 20);
+		sistema.modificarAlimento(alimento99,"Comida1", 2, 20);
+		sistema.eliminarAlimento(alimento99);
+		sistema.nuevoAlimento("Comida1", 2, 20);
+		
+		
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		//TODO Crear una nueva clase que sea HistorialAlumno para después poder sacar reportes para los profesores
