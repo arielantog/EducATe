@@ -12,18 +12,21 @@ public class Curso {
 		Id = ID++;
 		Descripcion = descripcion;
 		Alumnos = new ArrayList<Alumno>();
+		activo = true;
 		CursoDao.getInstance().grabar(pasarBean());
 	}
-	public Curso(int id, String descripcion) {
+	public Curso(int id, String descripcion, boolean activo) {
 		Id = id;
 		Descripcion = descripcion;
 		Alumnos = new ArrayList<Alumno>();
+		this.activo = activo;
 	}
 
 	private static Integer ID = 1;
 	private Integer Id;
 	private String Descripcion;
 	private List<Alumno> Alumnos;
+	private boolean activo;
 
 	public Integer agregarAlumno(Alumno alumno) {
 		if (!tengoAlumno(alumno)){
@@ -33,6 +36,12 @@ public class Curso {
 		}
 		System.out.println("El alumno ya está agregado en el curso");
 		return 0;
+	}
+	public Alumno buscarAlumno(int alumno) {
+		for (Alumno alumno2: Alumnos)
+			if (alumno2.getId() == alumno)
+				return alumno2;
+		return CursoDao.getInstance().buscarAlumno(getId(), alumno);
 	}
 
 	public boolean tengoAlumno (Alumno alumno){
@@ -61,12 +70,18 @@ public class Curso {
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*BEAN*/
 	public CursoBean pasarBean() {
 		CursoBean cursoBean = new CursoBean();
 		cursoBean.setId(getId());
 		cursoBean.setDescripcion(getDescripcion());
-		
+		cursoBean.setActivo(activo);
 		for (Alumno alumno: Alumnos){
 			AlumnoBean alumnoBean = alumno.pasarBean();
 			cursoBean.agregarAlumno(alumnoBean);
@@ -74,7 +89,31 @@ public class Curso {
 		return cursoBean;
 	}
 	public void agregarAlumno(Alumno alumno, boolean b) {
-		//Se utiliza para pasarBean
 		Alumnos.add(alumno);
 	}
+	public void quitarAlumno(int alumno) {
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null){
+			Alumnos.remove(alumno2);
+			CursoDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El alumno no existe");
+		}
+		
+	}
+	public void eliminar() {
+		activo = false;
+		CursoDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String descripcion) {
+		setDescripcion(descripcion);
+		activo = true;
+		CursoDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String descripcion) {
+		setDescripcion(descripcion);
+		CursoDao.getInstance().actualizar(pasarBean());
+	}
+	
 }

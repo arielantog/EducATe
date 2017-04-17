@@ -708,4 +708,34 @@ public class Sistema {
 		return 0;
 	}
 
+	public int cursoQuitarAlumno(int docente, int curso, int alumno) {
+		Docente docente2 = buscarDocente(docente);
+		if (docente2 != null && docente2.isActivo()){
+			docente2.cursoQuitarAlumno(curso,alumno);
+		}else{
+			System.out.println("El docente no existe");
+		}
+		return 0;
+	}
+
+	public int docenteEliminarCurso(int docente, int curso) {
+		Docente docente2 = buscarDocente(docente);
+		if (docente2 != null && docente2.isActivo()){
+			docente2.eliminarCurso(curso);
+			return 0;
+		}
+		System.out.println("El docente no existe");
+		return 0;
+	}
+
+	public int docenteModificarCurso(int docente, int curso, String descripcion) {
+		Docente docente2 = buscarDocente(docente);
+		if (docente2 != null && docente2.isActivo()){
+			docente2.modificarCurso(curso, descripcion);
+		}else{
+			System.out.println("El docente no existe");
+		}
+		return 0;
+	}
+
 }

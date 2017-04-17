@@ -129,6 +129,17 @@ public class Test {
 		sistema.eliminarTipoAvatar(tipoAvatar99);
 		sistema.nuevoTipoAvatar("Célula", 20, 1, 2000,500,500);
 		
+		sistema.docenteEliminarCurso(docente3,curso1);
+		int curso99 = sistema.docenteAgregarCurso(docente3, "Curso VADE Noche");
+		sistema.docenteModificarCurso(docente3, curso99,"Curso UADE Noche");
+		sistema.docenteEliminarCurso(docente3,curso99);
+		sistema.docenteAgregarCurso(docente3, "Curso UADE Noche");
+		
+		sistema.cursoQuitarAlumno(docente3, curso1, alumno1);
+		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
+		
+		
+		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		//TODO Crear una nueva clase que sea HistorialAlumno para después poder sacar reportes para los profesores
 	}

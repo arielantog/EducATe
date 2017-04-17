@@ -1,6 +1,7 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Alumno;
 import negocio.Curso;
 
 import org.hibernate.Query;
@@ -92,5 +93,43 @@ public class CursoDao {
 		session.getTransaction().commit();
 		session.close();
 		return false;
+	}
+
+	public Alumno buscarAlumno(Integer curso, int alumno) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select b from CursoBean a join a.Alumnos b "
+				+ " where a.Id = ? and b.Id = ? ");
+		query.setInteger(0, curso);
+		query.setInteger(1, alumno);
+		try{
+			AlumnoBean alumnoBean = (AlumnoBean) query.uniqueResult();
+			return alumnoBean.pasarNegocio();
+		}catch (Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return null;
+	}
+
+	public negocio.Curso buscar(Integer docente, Integer curso) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select b from DocenteBean a join a.Cursos b "
+				+ " where a.Id = ? and b.Id = ? ");
+		query.setInteger(0, docente);
+		query.setInteger(1, curso);
+		try{
+			CursoBean cursoBean = (CursoBean) query.uniqueResult();
+			return cursoBean.pasarNegocio();
+		}catch (Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return null;
 	}
 }
