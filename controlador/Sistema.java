@@ -133,7 +133,7 @@ public class Sistema {
 			TipoAvatares.add(tipoAvatar);
 			return tipoAvatar.getId();
 		}
-		System.out.println("El tipoAvatar ya existe");
+		tipoAvatar.activar(nombre,alimentoMax,nivel,tiempoHambre,precioEvolucion,precioRevivir);
 		return tipoAvatar.getId();
 	}
 	
@@ -678,6 +678,32 @@ public class Sistema {
 			System.out.println("El alimento no existe");
 		}else{
 			System.out.println("Ya existe un alimento con ese nombre");
+		}
+		return 0;
+	}
+
+	public int eliminarTipoAvatar(int tipoAvatar) {
+		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
+		if (tipoAvatar2 != null && tipoAvatar2.isActivo()){
+			tipoAvatar2.eliminar();
+			TipoAvatares.remove(tipoAvatar2);
+			return tipoAvatar2.getId();
+		}
+		System.out.println("El tipo de avatar no existe");
+		return 0;
+	}
+
+	public int modificarTipoAvatar(int tipoAvatar, String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
+		TipoAvatar tipoAvatar3 = buscarTipoAvatar(nombre);
+		if (tipoAvatar3 == null){
+			if (tipoAvatar2 != null && tipoAvatar2.isActivo()){
+				tipoAvatar2.modificar(nombre,alimentoMax,nivel,tiempoHambre,precioEvolucion,precioRevivir);
+				return tipoAvatar2.getId();
+			}
+			System.out.println("El tipo de avatar no existe");
+		}else{
+			System.out.println("Ya existe un tipo de avatar con ese nombre");
 		}
 		return 0;
 	}

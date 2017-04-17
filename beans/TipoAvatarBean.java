@@ -30,6 +30,7 @@ public class TipoAvatarBean {
 				joinColumns			= @JoinColumn(name="tipoAvatarID"),
 				inverseJoinColumns	= @JoinColumn(name="alimentoId"))
 	private List<AlimentoBean> alimentos;
+	private boolean activo;
 	
 	public TipoAvatarBean() {
 		alimentos = new ArrayList<AlimentoBean>();
@@ -86,9 +87,15 @@ public class TipoAvatarBean {
 	public void setPrecioRevivir(int precioRevivir) {
 		this.precioRevivir = precioRevivir;
 	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/*NEGOCIO*/
 	public TipoAvatar pasarNegocio() {
-		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, nivel, tiempoHambre, precioEvolucion, precioRevivir);
+		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, nivel, tiempoHambre, precioEvolucion, precioRevivir,activo);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarNegocio());
 		}

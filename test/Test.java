@@ -123,7 +123,11 @@ public class Test {
 		sistema.eliminarAlimento(alimento99);
 		sistema.nuevoAlimento("Comida1", 2, 20);
 		
-		
+		sistema.eliminarTipoAvatar(tipoAvatar1);
+		int tipoAvatar99 = sistema.nuevoTipoAvatar("Células", 20, 1, 2000,500,500);
+		sistema.modificarTipoAvatar(tipoAvatar99,"Célula", 20, 1, 2000,500,500);
+		sistema.eliminarTipoAvatar(tipoAvatar99);
+		sistema.nuevoTipoAvatar("Célula", 20, 1, 2000,500,500);
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		//TODO Crear una nueva clase que sea HistorialAlumno para después poder sacar reportes para los profesores
