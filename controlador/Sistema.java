@@ -738,4 +738,14 @@ public class Sistema {
 		return 0;
 	}
 
+	public void tipoAvatarQuitarAlimento(int tipoAvatar, int alimento) {
+		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
+		if (tipoAvatar2 != null && tipoAvatar2.isActivo()){
+			tipoAvatar2.quitarAlimento(alimento);
+		}else{
+			System.out.println("El tipo de avatar no existe");
+		}
+		
+	}
+
 }

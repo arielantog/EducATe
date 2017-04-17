@@ -1,11 +1,14 @@
 package daos;
 
 import hibernate.HibernateUtil;
+import negocio.Alimento;
 import negocio.TipoAvatar;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import beans.AlimentoBean;
 import beans.TipoAvatarBean;
 
 public class TipoAvatarDao {
@@ -106,5 +109,24 @@ public class TipoAvatarDao {
 		session.getTransaction().commit();
 		session.close();
 		return existe;
+	}
+
+	public Alimento buscarAlimento(int tipoAvatar, int alimento) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select b from TipoAvatarBean a join a.alimentos b "
+				+ " where a.Id = ? and b.Id = ?");
+		query.setInteger(0, tipoAvatar);
+		query.setInteger(1, alimento);
+		try{
+			 AlimentoBean alimentoBean = (AlimentoBean) query.uniqueResult();
+			 return alimentoBean.pasarNegocio();
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return null;
 	}
 }

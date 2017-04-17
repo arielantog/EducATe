@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import daos.TipoAvatarDao;
 import beans.AlimentoBean;
 import beans.TipoAvatarBean;
@@ -174,5 +175,24 @@ public class TipoAvatar {
 		setPrecioEvolucion(precioEvolucion);
 		setPrecioRevivir(precioRevivir);
 		TipoAvatarDao.getInstance().actualizar(pasarBean());
+	}
+
+	public void quitarAlimento(int alimento) {
+		Alimento alimento2 = buscarAlimento(alimento);
+		if (alimento2 != null){
+			alimentos.remove(alimento2);
+			TipoAvatarDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El alimento no existe en el Tipo de Avatar");
+		}
+		
+	}
+
+	private Alimento buscarAlimento(int alimento) {
+		for (Alimento alimento2: alimentos){
+			if (alimento2.getId() == alimento)
+				return alimento2;
+		}
+		return TipoAvatarDao.getInstance().buscarAlimento(getId(),alimento);
 	}
 }

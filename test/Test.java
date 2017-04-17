@@ -138,7 +138,8 @@ public class Test {
 		sistema.cursoQuitarAlumno(docente3, curso1, alumno1);
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
 		
-		
+		sistema.tipoAvatarQuitarAlimento(tipoAvatar1,alimento1);
+		sistema.tipoAvatarAgregarAlimento(tipoAvatar1,alimento1);
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		//TODO Crear una nueva clase que sea HistorialAlumno para después poder sacar reportes para los profesores
