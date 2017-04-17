@@ -114,6 +114,8 @@ public class Test {
 		int leccion9 = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
 		sistema.juegoAgregarLeccion(juego1, leccion9);
 		
+		sistema.juegoQuitarLeccion(juego1, leccion9);
+		sistema.juegoAgregarLeccion(juego1, leccion9);
 
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares

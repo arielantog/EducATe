@@ -129,4 +129,15 @@ public class Juego {
 		JuegoDao.getInstance().actualizar(pasarBean());
 	}
 
+	public int quitarLeccion(int leccion) {
+		Leccion leccion2 = buscarLeccion(leccion);
+		if (leccion2 != null && leccion2.isActivo()){
+			Lecciones.remove(leccion2);
+			JuegoDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("La lección no existe");
+		}
+		return 0;
+	}
+
 }

@@ -646,4 +646,15 @@ public class Sistema {
 		return 0;
 	}
 
+	public int juegoQuitarLeccion(int juego, int leccion) {
+		Juego juego2 = buscarJuego(juego);
+		if (juego2 != null && juego2.isActivo()){
+			juego2.quitarLeccion(leccion);
+		}else{
+			System.out.println("El juego no existe");
+		}
+		return 0;
+		
+	}
+
 }
