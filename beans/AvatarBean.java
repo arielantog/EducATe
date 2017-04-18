@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 import negocio.Avatar;
@@ -14,7 +16,7 @@ public class AvatarBean {
 	@JoinColumn(name="tipoAvatarId")
 	private TipoAvatarBean TipoAvatar;
 	private int hambre;
-	private long ultimaComida;
+	private Date ultimaComida;
 	
 	/*GETTERS Y SETTERS*/
 	public Integer getId() {
@@ -35,11 +37,11 @@ public class AvatarBean {
 	public void setHambre(int hambre) {
 		this.hambre = hambre;
 	}
-	public long getUltimaComida() {
+	public Date getUltimaComida() {
 		return ultimaComida;
 	}
-	public void setUltimaComida(long ultimaComida) {
-		this.ultimaComida = ultimaComida;
+	public void setUltimaComida(Date ultimaComida2) {
+		this.ultimaComida = ultimaComida2;
 	}
 	/*NEGOCIO*/
 	public Avatar pasarNegocio() {

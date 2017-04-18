@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Date;
+
 import beans.EnsenianzaBean;
 
 public class Ensenianza {
@@ -12,7 +14,7 @@ public class Ensenianza {
 		FechaUltRepaso = new Fecha().fechaActual();
 	}
 
-	public Ensenianza(int id, int nivelRefuerzo, long fechaUltRepaso2) {
+	public Ensenianza(int id, int nivelRefuerzo, Date fechaUltRepaso2) {
 		Id = id;
 		NivelRefuerzo = nivelRefuerzo;
 		FechaUltRepaso = fechaUltRepaso2;
@@ -23,7 +25,7 @@ public class Ensenianza {
 	private Integer Id;
 	private Leccion Leccion;
 	private Integer NivelRefuerzo;
-	private long FechaUltRepaso;
+	private Date FechaUltRepaso;
 	
 	
 	public Integer calcularNivelRefuerzo(boolean resultado) {
@@ -69,10 +71,10 @@ public class Ensenianza {
 	public void setNivelRefuerzo(Integer nivelRefuerzo) {
 		NivelRefuerzo = nivelRefuerzo;
 	}
-	public long getFechaUltRepaso() {
+	public Date getFechaUltRepaso() {
 		return FechaUltRepaso;
 	}
-	public void setFechaUltRepaso(long fechaUltRepaso) {
+	public void setFechaUltRepaso(Date fechaUltRepaso) {
 		FechaUltRepaso = fechaUltRepaso;
 	}
 	/*BEAN*/

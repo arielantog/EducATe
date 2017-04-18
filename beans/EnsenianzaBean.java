@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 import negocio.Ensenianza;
@@ -16,7 +18,7 @@ public class EnsenianzaBean {
 	@JoinColumn(name="leccionId")
 	private LeccionBean Leccion;
 	private Integer NivelRefuerzo;
-	private long FechaUltRepaso;
+	private Date FechaUltRepaso;
 	
 	/*GETTERS AND SETTERS*/
 	public static Integer getNivelMax() {
@@ -43,11 +45,11 @@ public class EnsenianzaBean {
 	public void setNivelRefuerzo(Integer nivelRefuerzo) {
 		NivelRefuerzo = nivelRefuerzo;
 	}
-	public long getFechaUltRepaso() {
+	public Date getFechaUltRepaso() {
 		return FechaUltRepaso;
 	}
-	public void setFechaUltRepaso(long fechaUltRepaso) {
-		FechaUltRepaso = fechaUltRepaso;
+	public void setFechaUltRepaso(Date date) {
+		FechaUltRepaso = date;
 	}
 	public Ensenianza pasarNegocio() {
 		Ensenianza ensenianza = new Ensenianza(Id, NivelRefuerzo, FechaUltRepaso);

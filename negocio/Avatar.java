@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Date;
+
 import daos.AvatarDao;
 import daos.TipoAvatarDao;
 import beans.AvatarBean;
@@ -13,7 +15,7 @@ public class Avatar {
 		ultimaComida = new Fecha().fechaActual();
 		AvatarDao.getInstance().grabar(pasarBean());
 	}
-	public Avatar(int id, int hambre, long ultimaComida) {
+	public Avatar(int id, int hambre, Date ultimaComida) {
 		Id = id;
 		this.hambre = hambre;
 		this.ultimaComida = ultimaComida;
@@ -23,7 +25,7 @@ public class Avatar {
 	private static int revivir = 10;
 	private Integer Id;
 	private int hambre;
-	private long ultimaComida;
+	private Date ultimaComida;
 	private TipoAvatar tipoAvatar;
 
 	private TipoAvatar buscarTipoAvatar(int id) {
@@ -98,10 +100,10 @@ public class Avatar {
 	public void setTipoAvatar(TipoAvatar tipoAvatar) {
 		this.tipoAvatar = tipoAvatar;
 	}
-	public long getUltimaComida() {
+	public Date getUltimaComida() {
 		return ultimaComida;
 	}
-	public void setUltimaComida(long ultimaComida) {
+	public void setUltimaComida(Date ultimaComida) {
 		this.ultimaComida = ultimaComida;
 	}
 	public static int getRevivir() {
