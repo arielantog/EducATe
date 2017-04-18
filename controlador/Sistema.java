@@ -80,15 +80,15 @@ public class Sistema {
 	     { 
 	         public void run()  
 	         { 
-	             descontarHambre();
+	             avatarDescontarHambre();
 	         }
 
-			private void descontarHambre() {
+			private void avatarDescontarHambre() {
 				Alumnos.clear();
-				/*List<Alumno> alumnos = AlumnoDao.getInstance().cargarAlumnos();
+				List<Alumno> alumnos = AlumnoDao.getInstance().cargarAlumnos();
 				for (Alumno alumno: alumnos){
-					
-				}*/
+					alumno.avatarDescontarHambre();
+				}
 				
 			} 
 	     }; 

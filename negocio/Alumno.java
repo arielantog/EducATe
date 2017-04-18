@@ -206,5 +206,9 @@ public class Alumno extends Persona {
 		setApellido(apellido);
 		AlumnoDao.getInstance().actualizar(pasarBean());
 	}
+	public void avatarDescontarHambre() {
+		Avatar.descontarHambre();
+		
+	}
 
 }

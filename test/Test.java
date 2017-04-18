@@ -79,7 +79,7 @@ public class Test {
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAlimentarAvatar(alumno1, alimento1);
+ 		sistema.alumnoAlimentarAvatar(alumno1, alimento1);
 		sistema.alumnoAlimentarAvatar(alumno1, alimento3);
 		sistema.alumnoRevivirAvatar(alumno1);
 		sistema.alumnoEvolucionarAvatar(alumno1);
@@ -141,8 +141,6 @@ public class Test {
 		
 		sistema.tipoAvatarQuitarAlimento(tipoAvatar1,alimento1);
 		sistema.tipoAvatarAgregarAlimento(tipoAvatar1,alimento1);
-		
-		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
 		
 	} 
 }

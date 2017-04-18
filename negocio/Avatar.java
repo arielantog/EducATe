@@ -22,7 +22,6 @@ public class Avatar {
 	}
 	
 	private static Integer ID = 1;
-	private static int revivir = 10;
 	private Integer Id;
 	private int hambre;
 	private Date ultimaComida;
@@ -56,7 +55,7 @@ public class Avatar {
 	
 	public int revivir() {
 		if (hambre == 0){
-			this.hambre = getRevivir();
+			this.hambre = tipoAvatar.getAlimentoMax() * 20/100;
 			this.ultimaComida = new Fecha().fechaActual();
 			AvatarDao.getInstance().actualizar(pasarBean());
 		}else{
@@ -106,12 +105,6 @@ public class Avatar {
 	public void setUltimaComida(Date ultimaComida) {
 		this.ultimaComida = ultimaComida;
 	}
-	public static int getRevivir() {
-		return revivir;
-	}
-	public static void setRevivir(int revivir) {
-		Avatar.revivir = revivir;
-	}
 	/*BEAN*/
 	public AvatarBean pasarBean() {
 		AvatarBean avatarBean = new AvatarBean();
@@ -120,5 +113,17 @@ public class Avatar {
 		avatarBean.setHambre(hambre);
 		avatarBean.setUltimaComida(ultimaComida);
 		return avatarBean;
+	}
+	public void descontarHambre() {
+		Date fechaActual = new Fecha().fechaActual();
+		if (fechaActual.getTime() > ultimaComida.getTime() + tipoAvatar.getTiempoHambre()){
+			hambre = hambre - 1;
+			if (hambre < 0)
+				hambre = 0;
+			ultimaComida = fechaActual;
+			AvatarDao.getInstance().actualizar(pasarBean());
+		}
+			
+		
 	}
 }

@@ -1,11 +1,17 @@
 package daos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hibernate.HibernateUtil;
 import negocio.Alumno;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+
+
 
 
 
@@ -97,6 +103,28 @@ public class AlumnoDao {
 		session.getTransaction().commit();
 		session.close();
 		return alumno;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Alumno> cargarAlumnos() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from AlumnoBean where activo = 1 ");
+		List<Alumno> alumnos = new ArrayList<Alumno>();
+		try{
+			List<AlumnoBean> alumnosBean = new ArrayList<AlumnoBean>();
+			alumnosBean = query.list();
+			for(AlumnoBean alumnoBean: alumnosBean){
+				Alumno alumno = alumnoBean.pasarNegocio();
+				alumnos.add(alumno);
+			}
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return alumnos;
 	}
 
 }
