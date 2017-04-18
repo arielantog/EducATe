@@ -10,11 +10,10 @@ import beans.TipoAvatarBean;
 public class TipoAvatar {
 	
 	
-	public TipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+	public TipoAvatar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
 		Id = ID++;
 		this.nombre = nombre;
 		this.alimentoMax = alimentoMax;
-		this.nivel = nivel;
 		this.tiempoHambre = tiempoHambre;
 		this.precioEvolucion = precioEvolucion;
 		this.precioRevivir = precioRevivir;
@@ -23,12 +22,11 @@ public class TipoAvatar {
 		TipoAvatarDao.getInstance().grabar(pasarBean());
 	}
 	
-	public TipoAvatar(int id, String nombre, int alimentoMax, int nivel,
+	public TipoAvatar(int id, String nombre, int alimentoMax,
 			int tiempoHambre, int precioEvolucion, int precioRevivir, boolean activo) {
 		Id = id;
 		this.nombre = nombre;
 		this.alimentoMax = alimentoMax;
-		this.nivel = nivel;
 		this.tiempoHambre = tiempoHambre;
 		this.precioEvolucion = precioEvolucion;
 		this.precioRevivir = precioRevivir;
@@ -40,7 +38,6 @@ public class TipoAvatar {
 	private int Id;
 	private String nombre;
 	private int alimentoMax;
-	private int nivel;
 	private int tiempoHambre;
 	private int precioEvolucion;
 	private int precioRevivir;
@@ -72,12 +69,6 @@ public class TipoAvatar {
 	}
 	public void setAlimentoMax(int alimentoMax) {
 		this.alimentoMax = alimentoMax;
-	}
-	public int getNivel() {
-		return nivel;
-	}
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
 	}
 	public int getTiempoHambre() {
 		return tiempoHambre;
@@ -118,7 +109,6 @@ public class TipoAvatar {
 		tipoAvatarBean.setId(getId());
 		tipoAvatarBean.setNombre(nombre);
 		tipoAvatarBean.setAlimentoMax(alimentoMax);
-		tipoAvatarBean.setNivel(nivel);
 		tipoAvatarBean.setTiempoHambre(tiempoHambre);
 		tipoAvatarBean.setPrecioEvolucion(precioEvolucion);
 		tipoAvatarBean.setPrecioRevivir(precioRevivir);
@@ -157,20 +147,18 @@ public class TipoAvatar {
 		TipoAvatarDao.getInstance().actualizar(pasarBean());
 		
 	}
-	public void activar(String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+	public void activar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
 		setNombre(nombre);
 		setAlimentoMax(alimentoMax);
-		setNivel(nivel);
 		setTiempoHambre(tiempoHambre);
 		setPrecioEvolucion(precioEvolucion);
 		setPrecioRevivir(precioRevivir);
 		activo = true;
 		TipoAvatarDao.getInstance().actualizar(pasarBean());
 	}
-	public void modificar(String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+	public void modificar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
 		setNombre(nombre);
 		setAlimentoMax(alimentoMax);
-		setNivel(nivel);
 		setTiempoHambre(tiempoHambre);
 		setPrecioEvolucion(precioEvolucion);
 		setPrecioRevivir(precioRevivir);

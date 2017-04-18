@@ -6,6 +6,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		Sistema sistema = new Sistema();
+				
 		sistema.agregarValorLietner(1,1);
 		sistema.agregarValorLietner(2,1);
 		sistema.agregarValorLietner(3,1);
@@ -49,8 +50,8 @@ public class Test {
 		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40);
 		int alimento3 = sistema.nuevoAlimento("Comida3", 5, 50);
 		
-		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 1, 2000,500,500);
-		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1, 1000,2000,1500);
+		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 2000,500,500);
+		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1000,2000,1500);
 		
 		sistema.tipoAvatarAgregarAlimento(alimento1, tipoAvatar1);
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar1);
@@ -124,10 +125,10 @@ public class Test {
 		sistema.nuevoAlimento("Comida1", 2, 20);
 		
 		sistema.eliminarTipoAvatar(tipoAvatar1);
-		int tipoAvatar99 = sistema.nuevoTipoAvatar("Células", 20, 1, 2000,500,500);
-		sistema.modificarTipoAvatar(tipoAvatar99,"Célula", 20, 1, 2000,500,500);
+		int tipoAvatar99 = sistema.nuevoTipoAvatar("Células", 20, 2000,500,500);
+		sistema.modificarTipoAvatar(tipoAvatar99,"Célula", 20, 2000,500,500);
 		sistema.eliminarTipoAvatar(tipoAvatar99);
-		sistema.nuevoTipoAvatar("Célula", 20, 1, 2000,500,500);
+		sistema.nuevoTipoAvatar("Célula", 20, 2000,500,500);
 		
 		sistema.docenteEliminarCurso(docente3,curso1);
 		int curso99 = sistema.docenteAgregarCurso(docente3, "Curso VADE Noche");
@@ -142,5 +143,6 @@ public class Test {
 		sistema.tipoAvatarAgregarAlimento(tipoAvatar1,alimento1);
 		
 		//TODO Agregar un timer para que vaya disminuyendo el hambre a los Avatares
-	}
+		
+	} 
 }

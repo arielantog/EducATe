@@ -11,7 +11,7 @@ public class Avatar {
 	public Avatar() {
 		Id = ID++;
 		tipoAvatar = buscarTipoAvatar(1);
-		hambre = 100;
+		hambre = tipoAvatar.getAlimentoMax();
 		ultimaComida = new Fecha().fechaActual();
 		AvatarDao.getInstance().grabar(pasarBean());
 	}
@@ -32,15 +32,15 @@ public class Avatar {
 		TipoAvatar tipoAvatar = TipoAvatarDao.getInstance().buscar(id);
 		if (tipoAvatar == null)
 			//XXX Primer organismo si no existiese.
-			tipoAvatar = new TipoAvatar("Célula", 10,1,100,1000,500);
+			tipoAvatar = new TipoAvatar("Célula", 10,100,1000,500);
 		return tipoAvatar;
 	}
 	public int alimentar(Alimento alimento) {
 		if (hambre != 0){
 			if (tipoAvatar.tengoAlimento(alimento)){
 				this.hambre = this.hambre + alimento.getProteinas();
-				if (this.hambre > 100)
-					this.hambre = 100;
+				if (this.hambre > tipoAvatar.getAlimentoMax())
+					this.hambre = tipoAvatar.getAlimentoMax();
 				this.ultimaComida = new Fecha().fechaActual();
 				AvatarDao.getInstance().actualizar(pasarBean());
 				return 1;

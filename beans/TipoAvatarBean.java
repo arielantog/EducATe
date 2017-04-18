@@ -21,7 +21,6 @@ public class TipoAvatarBean {
 	private int Id;
 	private String nombre;
 	private int alimentoMax;
-	private int nivel;
 	private int tiempoHambre;
 	private int precioEvolucion;
 	private int precioRevivir;
@@ -53,12 +52,6 @@ public class TipoAvatarBean {
 	}
 	public void setAlimentoMax(int alimentoMax) {
 		this.alimentoMax = alimentoMax;
-	}
-	public int getNivel() {
-		return nivel;
-	}
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
 	}
 	public int getTiempoHambre() {
 		return tiempoHambre;
@@ -95,7 +88,7 @@ public class TipoAvatarBean {
 	}
 	/*NEGOCIO*/
 	public TipoAvatar pasarNegocio() {
-		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, nivel, tiempoHambre, precioEvolucion, precioRevivir,activo);
+		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarNegocio());
 		}

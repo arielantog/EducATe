@@ -40,20 +40,7 @@ public class Sistema {
 		cargarVariablesGlobales();
 		setLietner(calcularLietner());
 		TipoAvatarDao.getInstance().buscar(1);
-	}
-
-	private void cargarVariablesGlobales() {
-		AlumnoDao.getInstance().cargarVariableGlobal();
-		AvatarDao.getInstance().cargarVariableGlobal();
-		CursoDao.getInstance().cargarVariableGlobal();
-		DocenteDao.getInstance().cargarVariableGlobal();
-		JuegoDao.getInstance().cargarVariableGlobal();
-		LeccionDao.getInstance().cargarVariableGlobal();
-		TemaDao.getInstance().cargarVariableGlobal();
-		EnsenianzaDao.getInstance().cargarVariableGlobal();
-		AlimentoDao.getInstance().cargarVariableGlobal();
-		TipoAvatarDao.getInstance().cargarVariableGlobal();
-		HistorialAlumnoDao.getInstance().cargarVariableGlobal();
+		cargarTimer();
 	}
 
 	private static Sistema Singleton;
@@ -72,6 +59,41 @@ public class Sistema {
 			return Singleton;
 		}
 		return null;
+	}
+	
+	private void cargarVariablesGlobales() {
+		AlumnoDao.getInstance().cargarVariableGlobal();
+		AvatarDao.getInstance().cargarVariableGlobal();
+		CursoDao.getInstance().cargarVariableGlobal();
+		DocenteDao.getInstance().cargarVariableGlobal();
+		JuegoDao.getInstance().cargarVariableGlobal();
+		LeccionDao.getInstance().cargarVariableGlobal();
+		TemaDao.getInstance().cargarVariableGlobal();
+		EnsenianzaDao.getInstance().cargarVariableGlobal();
+		AlimentoDao.getInstance().cargarVariableGlobal();
+		TipoAvatarDao.getInstance().cargarVariableGlobal();
+		HistorialAlumnoDao.getInstance().cargarVariableGlobal();
+	}
+	
+	private void cargarTimer() {
+		TimerTask timerTask = new TimerTask() 
+	     { 
+	         public void run()  
+	         { 
+	             descontarHambre();
+	         }
+
+			private void descontarHambre() {
+				Alumnos.clear();
+				/*List<Alumno> alumnos = AlumnoDao.getInstance().cargarAlumnos();
+				for (Alumno alumno: alumnos){
+					
+				}*/
+				
+			} 
+	     }; 
+	     Timer timer = new Timer(); 
+	     timer.schedule(timerTask, 0, 1000);
 	}
 
 	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
@@ -129,14 +151,14 @@ public class Sistema {
 		return juego.getId();
 	}
 	
-	public int nuevoTipoAvatar(String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir){
+	public int nuevoTipoAvatar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir){
 		TipoAvatar tipoAvatar = buscarTipoAvatar(nombre);
 		if (tipoAvatar == null){
-			tipoAvatar = new TipoAvatar(nombre, alimentoMax, nivel, tiempoHambre, precioEvolucion, precioRevivir);
+			tipoAvatar = new TipoAvatar(nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir);
 			TipoAvatares.add(tipoAvatar);
 			return tipoAvatar.getId();
 		}
-		tipoAvatar.activar(nombre,alimentoMax,nivel,tiempoHambre,precioEvolucion,precioRevivir);
+		tipoAvatar.activar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir);
 		return tipoAvatar.getId();
 	}
 	
@@ -699,12 +721,12 @@ public class Sistema {
 		return 0;
 	}
 
-	public int modificarTipoAvatar(int tipoAvatar, String nombre, int alimentoMax, int nivel, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+	public int modificarTipoAvatar(int tipoAvatar, String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
 		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
 		TipoAvatar tipoAvatar3 = buscarTipoAvatar(nombre);
 		if (tipoAvatar3 == null){
 			if (tipoAvatar2 != null && tipoAvatar2.isActivo()){
-				tipoAvatar2.modificar(nombre,alimentoMax,nivel,tiempoHambre,precioEvolucion,precioRevivir);
+				tipoAvatar2.modificar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir);
 				return tipoAvatar2.getId();
 			}
 			System.out.println("El tipo de avatar no existe");
