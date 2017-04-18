@@ -25,6 +25,7 @@ public class HibernateUtil
              config.addAnnotatedClass(LietnerBean.class);
              config.addAnnotatedClass(AlimentoBean.class);
              config.addAnnotatedClass(TipoAvatarBean.class);
+             config.addAnnotatedClass(HistorialAlumnoBean.class);
              sessionFactory = config.buildSessionFactory(); 
         }
         catch (Throwable ex)

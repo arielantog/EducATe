@@ -11,6 +11,7 @@ import daos.AvatarDao;
 import daos.CursoDao;
 import daos.DocenteDao;
 import daos.EnsenianzaDao;
+import daos.HistorialAlumnoDao;
 import daos.JuegoDao;
 import daos.LeccionDao;
 import daos.LietnerDao;
@@ -20,6 +21,7 @@ import negocio.Alimento;
 import negocio.Alumno;
 import negocio.Curso;
 import negocio.Docente;
+import negocio.HistorialAlumno;
 import negocio.Juego;
 import negocio.Leccion;
 import negocio.Tema;
@@ -51,6 +53,7 @@ public class Sistema {
 		EnsenianzaDao.getInstance().cargarVariableGlobal();
 		AlimentoDao.getInstance().cargarVariableGlobal();
 		TipoAvatarDao.getInstance().cargarVariableGlobal();
+		HistorialAlumnoDao.getInstance().cargarVariableGlobal();
 	}
 
 	private static Sistema Singleton;
@@ -200,8 +203,11 @@ public class Sistema {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null && alumno2.isActivo()){
 			Leccion leccion2 = juegoBuscarLeccion(leccion);
-			if (leccion2 != null)
-				return alumno2.agregarEnsenianza(leccion2, resultado);
+			if (leccion2 != null){
+				int ensenianza = alumno2.agregarEnsenianza(leccion2, resultado);
+				new HistorialAlumno(alumno2,leccion2,resultado);
+				return ensenianza;
+			}
 			else
 				System.out.println("La lección no existe");
 		}else
