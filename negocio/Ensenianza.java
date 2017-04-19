@@ -38,6 +38,10 @@ public class Ensenianza {
 			nivelRefuerzo = 1;
 		return nivelRefuerzo;
 	}
+	public int actualizarFechaUltRepaso() {
+		this.fechaUltRepaso = new Fecha().fechaActual();
+		return 0;
+	}
 	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -85,11 +89,6 @@ public class Ensenianza {
 		ensenianzaBean.setNivelRefuerzo(getNivelRefuerzo());
 		ensenianzaBean.setFechaUltRepaso(getFechaUltRepaso());
 		return ensenianzaBean;
-	}
-
-	public void actualizarFechaUltRepaso() {
-		this.fechaUltRepaso = new Fecha().fechaActual();
-		
 	}
 
 }

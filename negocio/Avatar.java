@@ -63,14 +63,25 @@ public class Avatar {
 		}
 		return 0;
 	}
-	public void evolucionar() {
+	public int evolucionar() {
 		if (hambre >= 90){
 			this.hambre = 100;
 			this.ultimaComida = new Fecha().fechaActual();
 			tipoAvatar = buscarTipoAvatar(tipoAvatar.getId()+1);
 			AvatarDao.getInstance().actualizar(pasarBean());
 		}
-		
+		return 0;
+	}
+	public int descontarHambre() {
+		Date fechaActual = new Fecha().fechaActual();
+		if (fechaActual.getTime() > ultimaComida.getTime() + tipoAvatar.getTiempoHambre()){
+			hambre = hambre - 1;
+			if (hambre < 0)
+				hambre = 0;
+			ultimaComida = fechaActual;
+			AvatarDao.getInstance().actualizar(pasarBean());
+		}
+		return 0;
 	}
 	
 	/*GETTERS Y SETTERS*/
@@ -113,17 +124,5 @@ public class Avatar {
 		avatarBean.setHambre(hambre);
 		avatarBean.setUltimaComida(ultimaComida);
 		return avatarBean;
-	}
-	public void descontarHambre() {
-		Date fechaActual = new Fecha().fechaActual();
-		if (fechaActual.getTime() > ultimaComida.getTime() + tipoAvatar.getTiempoHambre()){
-			hambre = hambre - 1;
-			if (hambre < 0)
-				hambre = 0;
-			ultimaComida = fechaActual;
-			AvatarDao.getInstance().actualizar(pasarBean());
-		}
-			
-		
 	}
 }

@@ -30,8 +30,8 @@ public class Alumno extends Persona {
 	}
 
 	private static int ID = 1;
-	private static final int PuntosCorrecta = 100;
-	private static final int PuntosIncorrecta = 20;
+	private static final int PuntosRespuestaCorrecta = 100;
+	private static final int PuntosRespuestaIncorrecta = 20;
 	private int id;
 	private int puntos;
 	private List<Ensenianza> ensenianzas;
@@ -56,12 +56,12 @@ public class Alumno extends Persona {
 		}
 		return 0;
 	}
-	private void calcularPuntos(boolean resultado) {
+	private int calcularPuntos(boolean resultado) {
 		if (resultado)
-			puntos = puntos + PuntosCorrecta;
+			puntos = puntos + PuntosRespuestaCorrecta;
 		else
-			puntos = puntos + PuntosIncorrecta;
-		
+			puntos = puntos + PuntosRespuestaIncorrecta;
+		return puntos;
 	}
 	public void agregarEnsenianza(Ensenianza ensenianza) {
 		ensenianzas.add(ensenianza);
@@ -91,7 +91,60 @@ public class Alumno extends Persona {
 		}
 		return calcularSiguienteLeccion(lietner);
 	}
-	
+	public int alimentarAvatar(Alimento alimento) {
+		if (avatar.alimentar(alimento) == 1){
+			puntos = puntos - alimento.getPrecio();
+			AlumnoDao.getInstance().actualizar(pasarBean());
+		}
+		return 0;
+	}
+	public int evolucionarAvatar() {
+		if (getPuntos() >= avatar.getTipoAvatar().getPrecioEvolucion()){
+			if (avatar.getHambre() >= 90){
+				puntos = puntos - avatar.getTipoAvatar().getPrecioEvolucion();
+				avatar.evolucionar();
+				AlumnoDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("El avatar no puede evolucionar si tiene hambre.");
+			}
+		}else{
+			System.out.println("Se necesitan más puntos para evolucionar.");
+		}
+		return 0;
+	}
+	public int revivirAvatar() {
+		if (avatar.getHambre() == 0){
+			if (getPuntos() >= avatar.getTipoAvatar().getPrecioRevivir()){
+				avatar.revivir();
+				puntos = puntos - avatar.getTipoAvatar().getPrecioRevivir();
+				AlumnoDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("Se necesitan más puntos para revivir.");
+			}
+		}else {
+			System.out.println("El avatar se encuentra vivo.");
+		}
+		return 0;
+	}
+	public void eliminar() {
+		activo = false;
+		AlumnoDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		activo = true;
+		AlumnoDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		AlumnoDao.getInstance().actualizar(pasarBean());
+	}
+	public void avatarDescontarHambre() {
+		avatar.descontarHambre();	
+	}
 
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -155,60 +208,6 @@ public class Alumno extends Persona {
 		
 		return alumnoBean;
 	}
-	
-	public void alimentarAvatar(Alimento alimento) {
-		if (avatar.alimentar(alimento) == 1){
-			puntos = puntos - alimento.getPrecio();
-			AlumnoDao.getInstance().actualizar(pasarBean());
-		}
-	}
-	public int evolucionarAvatar() {
-		if (getPuntos() >= avatar.getTipoAvatar().getPrecioEvolucion()){
-			if (avatar.getHambre() >= 90){
-				puntos = puntos - avatar.getTipoAvatar().getPrecioEvolucion();
-				avatar.evolucionar();
-				AlumnoDao.getInstance().actualizar(pasarBean());
-			}else{
-				System.out.println("El avatar no puede evolucionar si tiene hambre.");
-			}
-		}else{
-			System.out.println("Se necesitan más puntos para evolucionar.");
-		}
-		return 0;
-	}
-	public int revivirAvatar() {
-		if (avatar.getHambre() == 0){
-			if (getPuntos() >= avatar.getTipoAvatar().getPrecioRevivir()){
-				avatar.revivir();
-				puntos = puntos - avatar.getTipoAvatar().getPrecioRevivir();
-				AlumnoDao.getInstance().actualizar(pasarBean());
-			}else{
-				System.out.println("Se necesitan más puntos para revivir.");
-			}
-		}else {
-			System.out.println("El avatar se encuentra vivo.");
-		}
-		return 0;
-	}
-	public void eliminar() {
-		activo = false;
-		AlumnoDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void activar(String nombre, String apellido) {
-		setNombre(nombre);
-		setApellido(apellido);
-		activo = true;
-		AlumnoDao.getInstance().actualizar(pasarBean());
-	}
-	public void modificar(String nombre, String apellido) {
-		setNombre(nombre);
-		setApellido(apellido);
-		AlumnoDao.getInstance().actualizar(pasarBean());
-	}
-	public void avatarDescontarHambre() {
-		avatar.descontarHambre();
-		
-	}
+
 
 }

@@ -44,6 +44,69 @@ public class TipoAvatar {
 	private List<Alimento> alimentos;
 	private boolean activo;
 	
+	public int agregarAlimento(Alimento alimento, boolean b) {
+		if (!tengoAlimento(alimento)){
+			alimentos.add(alimento);
+			TipoAvatarDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El alimento ya existe en el Tipo de Avatar");
+		}
+		return 0;
+	}
+
+	public boolean tengoAlimento(Alimento alimento) {
+		for (Alimento alimento2: alimentos){
+			if (alimento.getId() == alimento2.getId())
+				return true;
+		}
+		return TipoAvatarDao.getInstance().tengoAlimento(this.getId(), alimento.getId());
+	}
+
+	public int quitarAlimento(int alimento) {
+		Alimento alimento2 = buscarAlimento(alimento);
+		if (alimento2 != null){
+			alimentos.remove(alimento2);
+			TipoAvatarDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El alimento no existe en el Tipo de Avatar");
+		}
+		return 0;
+	}
+
+	private Alimento buscarAlimento(int alimento) {
+		for (Alimento alimento2: alimentos){
+			if (alimento2.getId() == alimento)
+				return alimento2;
+		}
+		return TipoAvatarDao.getInstance().buscarAlimento(getId(),alimento);
+	}
+	
+	public void agregarAlimento(Alimento alimento) {
+		alimentos.add(alimento);
+	}
+	
+	public void eliminar() {
+		activo = false;
+		TipoAvatarDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+		setNombre(nombre);
+		setAlimentoMax(alimentoMax);
+		setTiempoHambre(tiempoHambre);
+		setPrecioEvolucion(precioEvolucion);
+		setPrecioRevivir(precioRevivir);
+		activo = true;
+		TipoAvatarDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+		setNombre(nombre);
+		setAlimentoMax(alimentoMax);
+		setTiempoHambre(tiempoHambre);
+		setPrecioEvolucion(precioEvolucion);
+		setPrecioRevivir(precioRevivir);
+		TipoAvatarDao.getInstance().actualizar(pasarBean());
+	}
 	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -118,69 +181,5 @@ public class TipoAvatar {
 		}
 		tipoAvatarBean.setActivo(activo);
 		return tipoAvatarBean;
-	}
-
-	public void agregarAlimento(Alimento alimento) {
-		alimentos.add(alimento);
-	}
-
-	public int agregarAlimento(Alimento alimento, boolean b) {
-		if (!tengoAlimento(alimento)){
-			alimentos.add(alimento);
-			TipoAvatarDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("El alimento ya existe en el Tipo de Avatar");
-		}
-		return 0;
-	}
-
-	public boolean tengoAlimento(Alimento alimento) {
-		for (Alimento alimento2: alimentos){
-			if (alimento.getId() == alimento2.getId())
-				return true;
-		}
-		return TipoAvatarDao.getInstance().tengoAlimento(this.getId(), alimento.getId());
-	}
-	
-	public void eliminar() {
-		activo = false;
-		TipoAvatarDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void activar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
-		setNombre(nombre);
-		setAlimentoMax(alimentoMax);
-		setTiempoHambre(tiempoHambre);
-		setPrecioEvolucion(precioEvolucion);
-		setPrecioRevivir(precioRevivir);
-		activo = true;
-		TipoAvatarDao.getInstance().actualizar(pasarBean());
-	}
-	public void modificar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
-		setNombre(nombre);
-		setAlimentoMax(alimentoMax);
-		setTiempoHambre(tiempoHambre);
-		setPrecioEvolucion(precioEvolucion);
-		setPrecioRevivir(precioRevivir);
-		TipoAvatarDao.getInstance().actualizar(pasarBean());
-	}
-
-	public void quitarAlimento(int alimento) {
-		Alimento alimento2 = buscarAlimento(alimento);
-		if (alimento2 != null){
-			alimentos.remove(alimento2);
-			TipoAvatarDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("El alimento no existe en el Tipo de Avatar");
-		}
-		
-	}
-
-	private Alimento buscarAlimento(int alimento) {
-		for (Alimento alimento2: alimentos){
-			if (alimento2.getId() == alimento)
-				return alimento2;
-		}
-		return TipoAvatarDao.getInstance().buscarAlimento(getId(),alimento);
 	}
 }

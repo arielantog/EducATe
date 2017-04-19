@@ -22,6 +22,21 @@ public class Leccion {
 	private String descripcion;
 	private boolean activo;
 	
+	public void eliminar() {
+		activo = false;
+		LeccionDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void modificar(String descripcion) {
+		this.descripcion = descripcion;
+		LeccionDao.getInstance().actualizar(pasarBean());
+	}
+	public void activar(String descripcion) {
+		activo = true;		
+		this.descripcion = descripcion;
+		LeccionDao.getInstance().actualizar(pasarBean());
+	}
+	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
 		return ID;
@@ -54,20 +69,6 @@ public class Leccion {
 		leccionBean.setDescripcion(getDescripcion());
 		leccionBean.setActivo(activo);
 		return leccionBean;
-	}
-	public void eliminar() {
-		activo = false;
-		LeccionDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void modificar(String descripcion) {
-		this.descripcion = descripcion;
-		LeccionDao.getInstance().actualizar(pasarBean());
-	}
-	public void activar(String descripcion) {
-		activo = true;		
-		this.descripcion = descripcion;
-		LeccionDao.getInstance().actualizar(pasarBean());
 	}
 	
 }

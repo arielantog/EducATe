@@ -55,6 +55,49 @@ public class Juego {
 		return false;
 	}
 
+	public int quitarLeccion(int leccion) {
+		Leccion leccion2 = buscarLeccion(leccion);
+		if (leccion2 != null && leccion2.isActivo()){
+			lecciones.remove(leccion2);
+			JuegoDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("La lección no existe");
+		}
+		return 0;
+	}
+
+	//TODO ¿Se puede tirar esta y usar la de arriba?
+	public void eliminarLeccion(int leccion) {
+		for (Leccion leccion2: lecciones){
+			if (leccion2.getId() == leccion){
+				lecciones.remove(leccion2);
+				JuegoDao.getInstance().actualizar(pasarBean());
+				return;
+			}
+		}
+	}
+	
+	public void agregarLeccion(Leccion leccion, boolean b) {
+		lecciones.add(leccion);	
+	}
+
+	public void eliminar() {
+		activo = false;
+		JuegoDao.getInstance().actualizar(pasarBean());
+	}
+	
+	public void activar(String nombre, Tema tema) {
+		setNombre(nombre);
+		setTema(tema);
+		activo = true;
+		JuegoDao.getInstance().actualizar(pasarBean());
+	}
+	
+	public void modificar(String nombre, Tema tema) {
+		setNombre(nombre);
+		setTema(tema);
+		JuegoDao.getInstance().actualizar(pasarBean());
+	}
 	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -105,50 +148,6 @@ public class Juego {
 		}
 		juegoBean.setActivo(activo);
 		return juegoBean;
-	}
-
-	public void agregarLeccion(Leccion leccion, boolean b) {
-		//Se utiliza para pasar negocio
-		lecciones.add(leccion);	
-	}
-
-	public void eliminar() {
-		activo = false;
-		JuegoDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void activar(String nombre, Tema tema) {
-		setNombre(nombre);
-		setTema(tema);
-		activo = true;
-		JuegoDao.getInstance().actualizar(pasarBean());
-	}
-	public void modificar(String nombre, Tema tema) {
-		setNombre(nombre);
-		setTema(tema);
-		JuegoDao.getInstance().actualizar(pasarBean());
-	}
-
-	public int quitarLeccion(int leccion) {
-		Leccion leccion2 = buscarLeccion(leccion);
-		if (leccion2 != null && leccion2.isActivo()){
-			lecciones.remove(leccion2);
-			JuegoDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("La lección no existe");
-		}
-		return 0;
-	}
-
-	public void eliminarLeccion(int leccion) {
-		for (Leccion leccion2: lecciones){
-			if (leccion2.getId() == leccion){
-				lecciones.remove(leccion2);
-				JuegoDao.getInstance().actualizar(pasarBean());
-				return;
-			}
-		}
-		
 	}
 
 }

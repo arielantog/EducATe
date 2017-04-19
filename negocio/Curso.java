@@ -91,7 +91,7 @@ public class Curso {
 	public void agregarAlumno(Alumno alumno, boolean b) {
 		alumnos.add(alumno);
 	}
-	public void quitarAlumno(int alumno) {
+	public int quitarAlumno(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null){
 			alumnos.remove(alumno2);
@@ -99,7 +99,7 @@ public class Curso {
 		}else{
 			System.out.println("El alumno no existe");
 		}
-		
+		return 0;
 	}
 	public void eliminar() {
 		activo = false;

@@ -66,7 +66,57 @@ public class Docente extends Persona {
 				return curso;
 		return CursoDao.getInstance().buscar(descripcion);
 	}
-	
+	public int cursoQuitarAlumno(int curso, int alumno) {
+		Curso curso2 = buscarCurso(curso);
+		if (curso2 != null && curso2.isActivo()){
+			curso2.quitarAlumno(alumno);
+			DocenteDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El curso no existe");
+		}
+		return 0;
+	}
+	public int eliminarCurso(int curso) {
+		Curso curso2 = buscarCurso(curso);
+		if (curso2 != null && curso2.isActivo()){
+			cursos.remove(curso2);
+			DocenteDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El curso no existe");
+		}
+		return 0;
+	}
+	public int modificarCurso(int curso, String descripcion) {
+		Curso curso2 = buscarCurso(curso);
+		if (curso2 != null && curso2.isActivo()){
+			Curso curso3 = buscarCurso(descripcion);
+			if (curso3 == null){
+				curso2.modificar(descripcion);
+				DocenteDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("Ya existe un curso con el mismo nombre");
+			}
+		}else{
+			System.out.println("El curso no existe");
+		}
+		return 0;
+	}
+	public void eliminar() {
+		activo = false;
+		DocenteDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		activo = true;
+		DocenteDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String nombre, String apellido) {
+		setNombre(nombre);
+		setApellido(apellido);
+		DocenteDao.getInstance().actualizar(pasarBean());
+	}
 	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -109,56 +159,6 @@ public class Docente extends Persona {
 			
 		
 		return docenteBean;
-	}
-	public void eliminar() {
-		activo = false;
-		DocenteDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void activar(String nombre, String apellido) {
-		setNombre(nombre);
-		setApellido(apellido);
-		activo = true;
-		DocenteDao.getInstance().actualizar(pasarBean());
-	}
-	public void modificar(String nombre, String apellido) {
-		setNombre(nombre);
-		setApellido(apellido);
-		DocenteDao.getInstance().actualizar(pasarBean());
-	}
-	public void cursoQuitarAlumno(int curso, int alumno) {
-		Curso curso2 = buscarCurso(curso);
-		if (curso2 != null && curso2.isActivo()){
-			curso2.quitarAlumno(alumno);
-			DocenteDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("El curso no existe");
-		}
-		
-	}
-	public void eliminarCurso(int curso) {
-		Curso curso2 = buscarCurso(curso);
-		if (curso2 != null && curso2.isActivo()){
-			cursos.remove(curso2);
-			DocenteDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("El curso no existe");
-		}
-	}
-	public void modificarCurso(int curso, String descripcion) {
-		Curso curso2 = buscarCurso(curso);
-		if (curso2 != null && curso2.isActivo()){
-			Curso curso3 = buscarCurso(descripcion);
-			if (curso3 == null){
-				curso2.modificar(descripcion);
-				DocenteDao.getInstance().actualizar(pasarBean());
-			}else{
-				System.out.println("Ya existe un curso con el mismo nombre");
-			}
-		}else{
-			System.out.println("El curso no existe");
-		}
-		
 	}
 	
 }

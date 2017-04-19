@@ -24,6 +24,7 @@ import negocio.Docente;
 import negocio.HistorialAlumno;
 import negocio.Juego;
 import negocio.Leccion;
+import negocio.Lietner;
 import negocio.Tema;
 import negocio.TipoAvatar;
 
@@ -452,71 +453,7 @@ public class Sistema {
 	}
 	
 	private Integer[] calcularLietner() {
-		Integer[] lietnerValores = cargarLietner();
-		Integer[] lietners = new Integer[100];
-		int contador = 0;
-		@SuppressWarnings("unused")
-		int posicion = 0;
-		int cantidad = cantidadVector(lietnerValores);
-		boolean noPrimero = false;
-		//Agrego el 0
-		for (int i = 0;i<lietnerValores[0];i++){
-			lietners[i] = contador;
-			posicion = i;
-		}
-		contador++;
-		posicion++;
-		
-		//Por cada otro nivel que haya
-		for (int i = 1;i<=cantidad;i++){
-			//Copio la cadena
-			int cantidadAct = cantidadVector(lietners);
-			for (int j = 0;j<=cantidadAct;j++)
-			{
-				lietners[cantidadAct+j+1] = lietners[j];
-			}
-			cantidadAct = cantidadVector(lietners);
-			//Agrego el 0
-			if (noPrimero){
-				for (int j = 0;j<lietnerValores[0];j++){
-					lietners[cantidadAct+1] = 0;
-					cantidadAct++;
-				}
-			}
-			noPrimero = true;
-			//Agrego el nuevo valor
-			for(int j = 0;j<lietnerValores[cantidad];j++){
-				lietners[cantidadAct+j+1] = contador;
-			}
-			contador++;
-			
-		}
-		
-		return lietners;
-	}
-
-	private int cantidadVector(Integer[] lietnerValores) {
-		int cantidad = 0;
-		int c = 0;
-		while (lietnerValores[c]!= null){
-			cantidad = c;
-			c++;
-		}
-		return cantidad;
-	}
-
-	private Integer[] cargarLietner() {
-		Integer[] lietnerValores = new Integer[10];
-		lietnerValores = LietnerDao.getInstance().cargarValores();
-		if (lietnerValores[0] == null){
-			//Default
-			lietnerValores[0] = 1;
-			lietnerValores[1] = 1;
-			lietnerValores[2] = 1;
-			lietnerValores[3] = 1;
-			lietnerValores[4] = 1;
-		}
-		return lietnerValores;
+		return new Lietner().calcularLietner();
 	}
 
 	public Integer[] getLietner() {
@@ -528,7 +465,7 @@ public class Sistema {
 	}
 	
 	public int agregarValorLietner(int pos, int valor){
-		negocio.Lietner lietner2 = new negocio.Lietner(pos, valor);
+		Lietner lietner2 = new negocio.Lietner(pos, valor);
 		LietnerBean lietnerBean = lietner2.pasarBean();
 		boolean existe = LietnerDao.getInstance().existe(pos);
 		if (existe)

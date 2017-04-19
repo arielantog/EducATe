@@ -57,8 +57,51 @@ public class Tema {
 				return leccion;
 		return LeccionDao.getInstance().buscar(this.getId(),Id);
 	}
+	public int eliminarLeccion(int leccion) {
+		Leccion leccion2 = buscarLeccion(leccion);
+		if (leccion2 != null && leccion2.isActivo()){
+			lecciones.remove(leccion2);
+			leccion2.eliminar();
+			TemaDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("La leccion no existe");
+		}
+		return 0;
+	}
+	public int modificarLeccion(int leccion, String descripcion) {
+		Leccion leccion2 = buscarLeccion(leccion);
+		if (leccion2 != null && leccion2.isActivo()){
+			Leccion leccion3 = buscarLeccion(descripcion);
+			if (leccion3 == null || leccion3.getId() == leccion){
+				leccion2.modificar(descripcion);
+				TemaDao.getInstance().actualizar(pasarBean());
+			}else{
+				System.out.println("Ya existe una lección con esta descripción");
+			}
+		}else{
+			System.out.println("La lección no existe");
+		}
+		return 0;
+	}
 
+	public void agregarLeccion(Leccion leccion) {
+		lecciones.add(leccion);
+	}
 	
+	public void eliminar() {
+		activo = false;
+		TemaDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String descripcion) {
+		setDescripcion(descripcion);
+		activo = true;
+		TemaDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String descripcion) {
+		setDescripcion(descripcion);
+		TemaDao.getInstance().actualizar(pasarBean());
+	}
 	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -102,50 +145,6 @@ public class Tema {
 			temaBean.agregarLeccion(leccionBean);
 		}
 		return temaBean;
-	}
-	public void agregarLeccion(Leccion leccion) {
-		lecciones.add(leccion);
-	}
-	
-	public void eliminar() {
-		activo = false;
-		TemaDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void activar(String descripcion) {
-		setDescripcion(descripcion);
-		activo = true;
-		TemaDao.getInstance().actualizar(pasarBean());
-	}
-	public void modificar(String descripcion) {
-		setDescripcion(descripcion);
-		TemaDao.getInstance().actualizar(pasarBean());
-	}
-	public int eliminarLeccion(int leccion) {
-		Leccion leccion2 = buscarLeccion(leccion);
-		if (leccion2 != null && leccion2.isActivo()){
-			lecciones.remove(leccion2);
-			leccion2.eliminar();
-			TemaDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("La leccion no existe");
-		}
-		return 0;
-	}
-	public void modificarLeccion(int leccion, String descripcion) {
-		Leccion leccion2 = buscarLeccion(leccion);
-		if (leccion2 != null && leccion2.isActivo()){
-			Leccion leccion3 = buscarLeccion(descripcion);
-			if (leccion3 == null || leccion3.getId() == leccion){
-				leccion2.modificar(descripcion);
-				TemaDao.getInstance().actualizar(pasarBean());
-			}else{
-				System.out.println("Ya existe una lección con esta descripción");
-			}
-		}else{
-			System.out.println("La lección no existe");
-		}
-		
 	}
 	
 }
