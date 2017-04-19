@@ -29,7 +29,7 @@ public class DocenteDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from DocenteBean a ");
+			Query query = session.createQuery("select MAX(a.id) from DocenteBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Docente.setID(variableGlobal+1);
 		}
@@ -99,8 +99,8 @@ public class DocenteDao {
 	public Curso buscarCurso(int docente, int curso) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("select b from DocenteBean a join a.Cursos b "
-				+ " where a.Id = ? and b.Id = ?");
+		Query query = session.createQuery("select b from DocenteBean a join a.cursos b "
+				+ " where a.id = ? and b.id = ?");
 		query.setInteger(0, docente);
 		query.setInteger(1, curso);
 		Curso curso2 = null;

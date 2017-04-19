@@ -25,7 +25,7 @@ public class AvatarDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from AvatarBean a ");
+			Query query = session.createQuery("select MAX(a.id) from AvatarBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Avatar.setID(variableGlobal+1);
 		}

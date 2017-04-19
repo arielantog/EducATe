@@ -34,7 +34,7 @@ public class AlumnoDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from AlumnoBean a ");
+			Query query = session.createQuery("select MAX(a.id) from AlumnoBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Alumno.setID(variableGlobal+1);
 		}

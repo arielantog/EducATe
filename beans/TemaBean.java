@@ -13,8 +13,8 @@ import negocio.Tema;
 public class TemaBean {
 	@Id
 	@Column (name="temaId")
-	private Integer Id;
-	private String Descripcion;
+	private int id;
+	private String descripcion;
 	@OneToMany
 	@JoinColumn(name="temaId")
 	private List <LeccionBean> lecciones;
@@ -25,17 +25,17 @@ public class TemaBean {
 		lecciones = new ArrayList<LeccionBean>();
 	}
 	/*GETTERS AND SETTERS*/
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	public List<LeccionBean> getLecciones() {
 		return lecciones;
@@ -56,7 +56,7 @@ public class TemaBean {
 		y el segundo se utiliza para esta parte*/
 		/*Ariel: Porque el primero le asigna un Id y lo guarda como un registro nuevo.
 		El segundo le asigna el Id que ya tenía y no lo guarda*/
-		Tema tema = new Tema(Id, Descripcion, activo);
+		Tema tema = new Tema(id, descripcion, activo);
 		for (LeccionBean leccionBean: lecciones)
 		{
 			Leccion leccion = leccionBean.pasarNegocio();

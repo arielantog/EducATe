@@ -9,31 +9,31 @@ import daos.JuegoDao;
 public class Juego {
 
 	public Juego(String nombre, Tema tema) {
-		Id = ID++;
-		Nombre = nombre;
-		Tema = tema;
-		Lecciones = new ArrayList<Leccion>();
+		id = ID++;
+		this.nombre = nombre;
+		this.tema = tema;
+		lecciones = new ArrayList<Leccion>();
 		activo = true;
 		JuegoDao.getInstance().grabar(pasarBean());
 	}
 	
 	public Juego(int id, String nombre, boolean activo) {
-		Id = id;
-		Nombre = nombre;
+		this.id = id;
+		this.nombre = nombre;
 		this.activo = activo;
-		Lecciones = new ArrayList<Leccion>();
+		lecciones = new ArrayList<Leccion>();
 	}
 
-	private static Integer ID = 1;
-	private Integer Id;
-	private String Nombre;
-	private Tema Tema;
-	private List<Leccion> Lecciones;
+	private static int ID = 1;
+	private int id;
+	private String nombre;
+	private Tema tema;
+	private List<Leccion> lecciones;
 	private boolean activo;
 
-	public Integer agregarLeccion(Leccion leccion) {
+	public int agregarLeccion(Leccion leccion) {
 		if(!tengoLeccion(leccion)){
-			Lecciones.add(leccion);
+			lecciones.add(leccion);
 			JuegoDao.getInstance().actualizar(pasarBean());
 			return leccion.getId();
 		}
@@ -41,15 +41,15 @@ public class Juego {
 		return leccion.getId();
 	}
 	
-	public Leccion buscarLeccion(Integer leccion) {
-		for (Leccion leccion2: Lecciones)
+	public Leccion buscarLeccion(int leccion) {
+		for (Leccion leccion2: lecciones)
 			if(leccion2.getId()==leccion)
 				return leccion2;
 		return null;
 	}
 	
 	private boolean tengoLeccion (Leccion leccion){
-		for (Leccion leccion2: Lecciones)
+		for (Leccion leccion2: lecciones)
 			if(leccion2.getId() == leccion.getId())
 				return true;
 		return false;
@@ -57,35 +57,35 @@ public class Juego {
 
 	
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 	public Tema getTema() {
-		return Tema;
+		return tema;
 	}
 	public void setTema(Tema tema) {
-		Tema = tema;
+		this.tema = tema;
 	}
 	public List<Leccion> getLecciones() {
-		return Lecciones;
+		return lecciones;
 	}
 	public void setLecciones(List<Leccion> lecciones) {
-		Lecciones = lecciones;
+		this.lecciones = lecciones;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -99,7 +99,7 @@ public class Juego {
 		juegoBean.setId(getId());
 		juegoBean.setNombre(getNombre());
 		juegoBean.setTema(getTema().pasarBean());
-		for (Leccion leccion: Lecciones){
+		for (Leccion leccion: lecciones){
 			LeccionBean leccionBean = leccion.pasarBean();
 			juegoBean.agregarLeccion(leccionBean);
 		}
@@ -109,7 +109,7 @@ public class Juego {
 
 	public void agregarLeccion(Leccion leccion, boolean b) {
 		//Se utiliza para pasar negocio
-		Lecciones.add(leccion);	
+		lecciones.add(leccion);	
 	}
 
 	public void eliminar() {
@@ -132,12 +132,23 @@ public class Juego {
 	public int quitarLeccion(int leccion) {
 		Leccion leccion2 = buscarLeccion(leccion);
 		if (leccion2 != null && leccion2.isActivo()){
-			Lecciones.remove(leccion2);
+			lecciones.remove(leccion2);
 			JuegoDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("La lección no existe");
 		}
 		return 0;
+	}
+
+	public void eliminarLeccion(int leccion) {
+		for (Leccion leccion2: lecciones){
+			if (leccion2.getId() == leccion){
+				lecciones.remove(leccion2);
+				JuegoDao.getInstance().actualizar(pasarBean());
+				return;
+			}
+		}
+		
 	}
 
 }

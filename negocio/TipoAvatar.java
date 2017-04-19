@@ -11,7 +11,7 @@ public class TipoAvatar {
 	
 	
 	public TipoAvatar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
-		Id = ID++;
+		id = ID++;
 		this.nombre = nombre;
 		this.alimentoMax = alimentoMax;
 		this.tiempoHambre = tiempoHambre;
@@ -24,7 +24,7 @@ public class TipoAvatar {
 	
 	public TipoAvatar(int id, String nombre, int alimentoMax,
 			int tiempoHambre, int precioEvolucion, int precioRevivir, boolean activo) {
-		Id = id;
+		this.id = id;
 		this.nombre = nombre;
 		this.alimentoMax = alimentoMax;
 		this.tiempoHambre = tiempoHambre;
@@ -35,7 +35,7 @@ public class TipoAvatar {
 	}
 
 	private static int ID = 1;
-	private int Id;
+	private int id;
 	private String nombre;
 	private int alimentoMax;
 	private int tiempoHambre;
@@ -53,10 +53,10 @@ public class TipoAvatar {
 		ID = iD;
 	}
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;

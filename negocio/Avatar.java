@@ -9,20 +9,20 @@ import beans.AvatarBean;
 public class Avatar {
 
 	public Avatar() {
-		Id = ID++;
+		id = ID++;
 		tipoAvatar = buscarTipoAvatar(1);
 		hambre = tipoAvatar.getAlimentoMax();
 		ultimaComida = new Fecha().fechaActual();
 		AvatarDao.getInstance().grabar(pasarBean());
 	}
 	public Avatar(int id, int hambre, Date ultimaComida) {
-		Id = id;
+		this.id = id;
 		this.hambre = hambre;
 		this.ultimaComida = ultimaComida;
 	}
 	
-	private static Integer ID = 1;
-	private Integer Id;
+	private static int ID = 1;
+	private int id;
 	private int hambre;
 	private Date ultimaComida;
 	private TipoAvatar tipoAvatar;
@@ -74,17 +74,17 @@ public class Avatar {
 	}
 	
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getHambre() {
 		return hambre;

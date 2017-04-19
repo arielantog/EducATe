@@ -18,7 +18,7 @@ import negocio.TipoAvatar;
 public class TipoAvatarBean {
 	@Id
 	@Column(name="tipoAvatarId")
-	private int Id;
+	private int id;
 	private String nombre;
 	private int alimentoMax;
 	private int tiempoHambre;
@@ -36,10 +36,10 @@ public class TipoAvatarBean {
 	}
 	/*GETTERS Y SETTERS*/
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -88,7 +88,7 @@ public class TipoAvatarBean {
 	}
 	/*NEGOCIO*/
 	public TipoAvatar pasarNegocio() {
-		TipoAvatar tipoAvatar = new TipoAvatar(Id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
+		TipoAvatar tipoAvatar = new TipoAvatar(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarNegocio());
 		}

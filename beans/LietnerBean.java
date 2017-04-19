@@ -10,20 +10,20 @@ import javax.persistence.Table;
 public class LietnerBean {
 	@Id
 	@Column(name="lietnerId")
-	private Integer Id;
-	private int Valor;
+	private int id;
+	private int valor;
 	
 	
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getValor() {
-		return Valor;
+		return valor;
 	}
 	public void setValor(int valor) {
-		Valor = valor;
+		this.valor = valor;
 	}
 }

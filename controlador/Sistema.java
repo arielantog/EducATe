@@ -31,32 +31,32 @@ public class Sistema {
 
 	public Sistema() {
 		new HibernateUtil();
-		Alumnos = new ArrayList<Alumno>();
-		Docentes = new ArrayList<Docente>();
-		Juegos = new ArrayList<Juego>();
-		Temas = new ArrayList<Tema>();
-		Alimentos = new ArrayList<Alimento>();
-		TipoAvatares = new ArrayList<TipoAvatar>();
+		alumnos = new ArrayList<Alumno>();
+		docentes = new ArrayList<Docente>();
+		juegos = new ArrayList<Juego>();
+		temas = new ArrayList<Tema>();
+		alimentos = new ArrayList<Alimento>();
+		tipoAvatares = new ArrayList<TipoAvatar>();
 		cargarVariablesGlobales();
 		setLietner(calcularLietner());
 		TipoAvatarDao.getInstance().buscar(1);
 		cargarTimer();
 	}
 
-	private static Sistema Singleton;
-	private List<Alumno> Alumnos;
-	private List<Docente> Docentes;
-	private List<Juego> Juegos;
-	private List<Tema> Temas;
-	private List<TipoAvatar> TipoAvatares;
-	private List<Alimento> Alimentos;
-	private Integer[] Lietner;
+	private static Sistema singleton;
+	private List<Alumno> alumnos;
+	private List<Docente> docentes;
+	private List<Juego> juegos;
+	private List<Tema> temas;
+	private List<TipoAvatar> tipoAvatares;
+	private List<Alimento> alimentos;
+	private Integer[] lietner;
 
 
 	public static Sistema getInstance() {
-		if (Singleton == null){
-			Singleton = new Sistema();
-			return Singleton;
+		if (singleton == null){
+			singleton = new Sistema();
+			return singleton;
 		}
 		return null;
 	}
@@ -84,7 +84,7 @@ public class Sistema {
 	         }
 
 			private void avatarDescontarHambre() {
-				Alumnos.clear();
+				alumnos.clear();
 				List<Alumno> alumnos = AlumnoDao.getInstance().cargarAlumnos();
 				for (Alumno alumno: alumnos){
 					alumno.avatarDescontarHambre();
@@ -100,11 +100,11 @@ public class Sistema {
 		Alumno alumno = buscarAlumno(tipoDocumento, nroDocumento);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido);
-			for (Tema tema: Temas)
+			for (Tema tema: temas)
 				for (Leccion leccion: tema.getLecciones())
 					alumno.agregarEnsenianza(leccion, false);
 			AlumnoDao.getInstance().actualizar(alumno.pasarBean());
-			Alumnos.add(alumno);
+			alumnos.add(alumno);
 			return alumno.getId();
 		}
 		alumno.activar(nombre,apellido);
@@ -115,7 +115,7 @@ public class Sistema {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
 		if (docente == null){
 			docente = new Docente(tipoDocumento, nroDocumento, nombre, apellido);
-			Docentes.add(docente);
+			docentes.add(docente);
 			return docente.getId();
 		}
 		docente.activar(nombre,apellido);
@@ -126,7 +126,7 @@ public class Sistema {
 		Tema tema = buscarTema(descripcion);
 		if (tema == null){
 			tema = new Tema(descripcion);
-			Temas.add(tema);
+			temas.add(tema);
 			return tema.getId();
 		}
 		tema.activar(descripcion);
@@ -139,7 +139,7 @@ public class Sistema {
 			Tema tema2 = buscarTema(tema);
 			if (tema2 != null && tema2.isActivo()){
 				juego = new Juego(nombre, tema2);
-				Juegos.add(juego);
+				juegos.add(juego);
 				return juego.getId();
 			}else{
 				System.out.println("El tema no existe");
@@ -155,7 +155,7 @@ public class Sistema {
 		TipoAvatar tipoAvatar = buscarTipoAvatar(nombre);
 		if (tipoAvatar == null){
 			tipoAvatar = new TipoAvatar(nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir);
-			TipoAvatares.add(tipoAvatar);
+			tipoAvatares.add(tipoAvatar);
 			return tipoAvatar.getId();
 		}
 		tipoAvatar.activar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir);
@@ -166,7 +166,7 @@ public class Sistema {
 		Alimento alimento = buscarAlimento(nombre);
 		if (alimento == null){
 			alimento = new Alimento(nombre, proteinas, precio);
-			Alimentos.add(alimento);
+			alimentos.add(alimento);
 			return alimento.getId();
 		}
 		alimento.activar(nombre,proteinas,precio);
@@ -284,49 +284,49 @@ public class Sistema {
 	}
 
 	private Tema buscarTema(String descipcion) {
-		for (Tema tema: Temas)
+		for (Tema tema: temas)
 			if (tema.getDescripcion().equals(descipcion))
 				return tema;
 		return TemaDao.getInstance().buscar(descipcion);
 	}
 	
 	private Tema buscarTema(int id) {
-		for (Tema tema: Temas)
+		for (Tema tema: temas)
 			if (tema.getId() == id)
 				return tema;
 		return TemaDao.getInstance().buscar(id);
 	}
 
 	private Docente buscarDocente(String tipoDocumento, int nroDocumento) {
-		for (Docente docente: Docentes)
+		for (Docente docente: docentes)
 			if (docente.getTipoDocumento().equals(tipoDocumento) && docente.getNroDocumento() == nroDocumento)
 				return docente;
 		return DocenteDao.getInstance().buscar(tipoDocumento,nroDocumento);
 	}
 	
 	private Docente buscarDocente(int Id) {
-		for (Docente docente: Docentes)
+		for (Docente docente: docentes)
 			if (docente.getId() == Id)
 				return docente;
 		return DocenteDao.getInstance().buscar(Id);
 	}
 
 	private Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
-		for (Alumno alumno: Alumnos)
+		for (Alumno alumno: alumnos)
 			if (alumno.getTipoDocumento().equals(tipoDocumento) && alumno.getNroDocumento() == nroDocumento)
 				return alumno;
 		return AlumnoDao.getInstance().buscar(tipoDocumento, nroDocumento);
 	}
 	
 	private Alumno buscarAlumno(int Id) {
-		for (Alumno alumno: Alumnos)
+		for (Alumno alumno: alumnos)
 			if (alumno.getId() == Id)
 				return alumno;
 		return AlumnoDao.getInstance().buscar(Id);
 	}
 	
 	private Leccion temaBuscarLeccion(int leccion) {
-		for (Tema tema: Temas){
+		for (Tema tema: temas){
 			Leccion leccion2 = tema.buscarLeccion(leccion);
 			if (leccion2 != null)
 				return leccion2;
@@ -340,21 +340,21 @@ public class Sistema {
 	}
 
 	private Juego buscarJuego(String nombre) {
-		for(Juego juego: Juegos)
+		for(Juego juego: juegos)
 			if (juego.getNombre().equals(nombre))
 				return juego;
 		return JuegoDao.getInstance().buscar(nombre);
 	}
 	
 	private Juego buscarJuego(int Id) {
-		for (Juego juego: Juegos)
+		for (Juego juego: juegos)
 			if (juego.getId() == Id)
 				return juego;
 		return JuegoDao.getInstance().buscar(Id);
 	}
 	
 	private Curso docenteBuscarCurso(int docente, int curso) {
-		for (Docente docente2: Docentes){
+		for (Docente docente2: docentes){
 			if (docente2.getId() == docente){
 				Curso curso2 = docente2.buscarCurso(curso);
 				if (curso2 != null)
@@ -365,7 +365,7 @@ public class Sistema {
 	}
 	
 	private Leccion juegoBuscarLeccion(int leccion) {
-		for (Juego juego: Juegos){
+		for (Juego juego: juegos){
 			Leccion leccion2 = juego.buscarLeccion(leccion);
 			if (leccion2 != null)
 				return leccion2;
@@ -374,28 +374,28 @@ public class Sistema {
 	}
 	
 	private TipoAvatar buscarTipoAvatar(String nombre) {
-		for(TipoAvatar tipoAvatar: TipoAvatares)
+		for(TipoAvatar tipoAvatar: tipoAvatares)
 			if (tipoAvatar.getNombre().equals(nombre))
 				return tipoAvatar;
 		return TipoAvatarDao.getInstance().buscar(nombre);
 	}
 	
 	private TipoAvatar buscarTipoAvatar(int Id) {
-		for (TipoAvatar tipoAvatar: TipoAvatares)
+		for (TipoAvatar tipoAvatar: tipoAvatares)
 			if (tipoAvatar.getId() == Id)
 				return tipoAvatar;
 		return TipoAvatarDao.getInstance().buscar(Id);
 	}
 	
 	private Alimento buscarAlimento(String nombre) {
-		for(Alimento alimento: Alimentos)
+		for(Alimento alimento: alimentos)
 			if (alimento.getNombre().equals(nombre))
 				return alimento;
 		return AlimentoDao.getInstance().buscar(nombre);
 	}
 	
 	private Alimento buscarAlimento(int Id) {
-		for (Alimento alimento: Alimentos)
+		for (Alimento alimento: alimentos)
 			if (alimento.getId() == Id)
 				return alimento;
 		return AlimentoDao.getInstance().buscar(Id);
@@ -422,9 +422,9 @@ public class Sistema {
 	private Juego elegirJuego(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if(alumno2!= null && alumno2.isActivo()){
-			int leccion = alumno2.calcularSiguienteLeccion(Lietner);
+			int leccion = alumno2.calcularSiguienteLeccion(lietner);
 			comprobarJuegos();
-			for (Juego juego: Juegos)
+			for (Juego juego: juegos)
 				for (Leccion leccion2: juego.getLecciones())
 					if (leccion2.getId() == leccion)
 						return juego;
@@ -435,17 +435,17 @@ public class Sistema {
 
 	private void comprobarJuegos() {
 		int cantidadJuegos = JuegoDao.getInstance().cantidadJuegos();
-		if (Juegos.size() < cantidadJuegos){
+		if (juegos.size() < cantidadJuegos){
 			List<Juego> juegos = JuegoDao.getInstance().cargarJuegos();
 			boolean existe = false;
 			for (Juego juego2: juegos){
-				for (Juego juego: Juegos){
+				for (Juego juego: juegos){
 					if (juego.getId() == juego2.getId())
 						existe = true;
 				
 				}
 				if(existe != true)
-					Juegos.add(juego2);
+					juegos.add(juego2);
 				existe = false;
 			}
 		}
@@ -520,30 +520,30 @@ public class Sistema {
 	}
 
 	public Integer[] getLietner() {
-		return Lietner;
+		return lietner;
 	}
 
 	public void setLietner(Integer[] integers) {
-		Lietner = integers;
+		lietner = integers;
 	}
 	
 	public int agregarValorLietner(int pos, int valor){
-		negocio.Lietner lietner = new negocio.Lietner(pos, valor);
-		LietnerBean lietnerBean = lietner.pasarBean();
+		negocio.Lietner lietner2 = new negocio.Lietner(pos, valor);
+		LietnerBean lietnerBean = lietner2.pasarBean();
 		boolean existe = LietnerDao.getInstance().existe(pos);
 		if (existe)
 			LietnerDao.getInstance().actualizar(lietnerBean);
 		else
 			LietnerDao.getInstance().grabar(lietnerBean);
-		Lietner = LietnerDao.getInstance().cargarValores();
-		return lietner.getId();
+		lietner = LietnerDao.getInstance().cargarValores();
+		return lietner2.getId();
 	}
 
 	public int eliminarAlumno(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null && alumno2.isActivo()){
 			alumno2.eliminar();
-			Alumnos.remove(alumno);
+			alumnos.remove(alumno);
 			return alumno2.getId();
 		}
 		System.out.println("El alumno no existe");
@@ -565,7 +565,7 @@ public class Sistema {
 		Docente docente2 = buscarDocente(docente);
 		if (docente2 != null && docente2.isActivo()){
 			docente2.eliminar();
-			Docentes.remove(docente2);
+			docentes.remove(docente2);
 			return docente2.getId();
 		}
 		System.out.println("El docente no existe");
@@ -584,13 +584,13 @@ public class Sistema {
 	}
 
 	public int eliminarValorLietner(int valor) {
-		negocio.Lietner lietner = new negocio.Lietner(valor, 0);
+		negocio.Lietner lietner2 = new negocio.Lietner(valor, 0);
 		boolean existe = LietnerDao.getInstance().existe(valor);
 		if (existe){
-			LietnerBean lietnerBean = lietner.pasarBean();
+			LietnerBean lietnerBean = lietner2.pasarBean();
 			LietnerDao.getInstance().eliminar(lietnerBean);
 		}
-		Lietner = LietnerDao.getInstance().cargarValores();
+		lietner = LietnerDao.getInstance().cargarValores();
 		return 0;
 	}
 
@@ -598,7 +598,7 @@ public class Sistema {
 		Tema tema2 = buscarTema(tema);
 		if (tema2 != null && tema2.isActivo()){
 			tema2.eliminar();
-			Temas.remove(tema2);
+			temas.remove(tema2);
 			return tema2.getId();
 		}
 		System.out.println("El tema no existe");
@@ -624,7 +624,7 @@ public class Sistema {
 		Juego juego2 = buscarJuego(juego);
 		if (juego2 != null && juego2.isActivo()){
 			juego2.eliminar();
-			Juegos.remove(juego2);
+			juegos.remove(juego2);
 			return juego2.getId();
 		}
 		System.out.println("El juego no existe");
@@ -655,6 +655,12 @@ public class Sistema {
 		Tema tema2 = buscarTema(tema);
 		if (tema2 != null && tema2.isActivo()){
 			tema2.eliminarLeccion(leccion);
+			juegos.clear();
+			juegos = JuegoDao.getInstance().cargarJuegos();
+			for (Juego juego: juegos){
+				if (juego.buscarLeccion(leccion) != null)
+					juego.eliminarLeccion(leccion);
+			}
 			return 0;
 			
 		}else{
@@ -688,7 +694,7 @@ public class Sistema {
 		Alimento alimento2 = buscarAlimento(alimento);
 		if (alimento2 != null && alimento2.isActivo()){
 			alimento2.eliminar();
-			Alimentos.remove(alimento2);
+			alimentos.remove(alimento2);
 			return alimento2.getId();
 		}
 		System.out.println("El alimento no existe");
@@ -714,7 +720,7 @@ public class Sistema {
 		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
 		if (tipoAvatar2 != null && tipoAvatar2.isActivo()){
 			tipoAvatar2.eliminar();
-			TipoAvatares.remove(tipoAvatar2);
+			tipoAvatares.remove(tipoAvatar2);
 			return tipoAvatar2.getId();
 		}
 		System.out.println("El tipo de avatar no existe");

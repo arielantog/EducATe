@@ -24,7 +24,7 @@ public class HistorialAlumnoDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from HistorialAlumnoBean a ");
+			Query query = session.createQuery("select MAX(a.id) from HistorialAlumnoBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Alimento.setID(variableGlobal+1);
 		}

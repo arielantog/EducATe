@@ -27,7 +27,7 @@ public class CursoDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from CursoBean a ");
+			Query query = session.createQuery("select MAX(a.id) from CursoBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Curso.setID(variableGlobal+1);
 		}
@@ -74,11 +74,11 @@ public class CursoDao {
 		return curso;
 	}
 
-	public boolean tengoAlumno(Integer curso, Integer alumno) {
+	public boolean tengoAlumno(int curso, int alumno) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("select b from CursoBean a join a.Alumnos b "
-				+ " where a.Id = ? and b.Id = ? ");
+		Query query = session.createQuery("select b from CursoBean a join a.alumnos b "
+				+ " where a.id = ? and b.id = ? ");
 		query.setInteger(0, curso);
 		query.setInteger(1, alumno);
 		try{
@@ -95,11 +95,11 @@ public class CursoDao {
 		return false;
 	}
 
-	public Alumno buscarAlumno(Integer curso, int alumno) {
+	public Alumno buscarAlumno(int curso, int alumno) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("select b from CursoBean a join a.Alumnos b "
-				+ " where a.Id = ? and b.Id = ? ");
+		Query query = session.createQuery("select b from CursoBean a join a.alumnos b "
+				+ " where a.id = ? and b.id = ? ");
 		query.setInteger(0, curso);
 		query.setInteger(1, alumno);
 		try{
@@ -114,11 +114,11 @@ public class CursoDao {
 		return null;
 	}
 
-	public negocio.Curso buscar(Integer docente, Integer curso) {
+	public negocio.Curso buscar(int docente, int curso) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("select b from DocenteBean a join a.Cursos b "
-				+ " where a.Id = ? and b.Id = ? ");
+		Query query = session.createQuery("select b from DocenteBean a join a.cursos b "
+				+ " where a.id = ? and b.id = ? ");
 		query.setInteger(0, docente);
 		query.setInteger(1, curso);
 		try{

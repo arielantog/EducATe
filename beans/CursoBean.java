@@ -12,37 +12,37 @@ import negocio.Curso;
 public class CursoBean {
 	@Id
 	@Column(name="cursoId")
-	private Integer Id;
-	private String Descripcion;	
+	private int id;
+	private String descripcion;	
 	@ManyToMany
 	@JoinTable(name="curso_alumno",
 				joinColumns			= @JoinColumn(name="cursoID"),
 				inverseJoinColumns	= @JoinColumn(name="alumnoId"))
-	private List<AlumnoBean> Alumnos;
+	private List<AlumnoBean> alumnos;
 	private boolean activo;
 	
 	
 	public CursoBean() {
-		Alumnos = new ArrayList<AlumnoBean>();
+		alumnos = new ArrayList<AlumnoBean>();
 	}
 	/*GETTERS Y SETTERS*/
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	public List<AlumnoBean> getAlumnos() {
-		return Alumnos;
+		return alumnos;
 	}
 	public void setAlumnos(List<AlumnoBean> alumnos) {
-		Alumnos = alumnos;
+		this.alumnos = alumnos;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -52,14 +52,14 @@ public class CursoBean {
 	}
 	/*NEGOCIO*/
 	public Curso pasarNegocio() {
-		Curso curso = new Curso(Id, Descripcion,activo);
-		for (AlumnoBean alumnoBean: Alumnos){
+		Curso curso = new Curso(id, descripcion,activo);
+		for (AlumnoBean alumnoBean: alumnos){
 			curso.agregarAlumno(alumnoBean.pasarNegocio(),true);
 		}
 		return curso;
 	}
 	public void agregarAlumno(AlumnoBean alumnoBean) {
-		Alumnos.add(alumnoBean);
+		alumnos.add(alumnoBean);
 	}
 	
 

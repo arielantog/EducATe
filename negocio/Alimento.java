@@ -7,7 +7,7 @@ public class Alimento {
 	
 	
 	public Alimento(String nombre, int proteinas, int precio) {
-		Id = ID++;
+		id = ID++;
 		this.nombre = nombre;
 		this.proteinas = proteinas;
 		this.precio = precio;
@@ -17,7 +17,7 @@ public class Alimento {
 	
 	public Alimento(int id, String nombre, int proteinas, int precio, boolean activo) {
 		super();
-		Id = id;
+		this.id = id;
 		this.nombre = nombre;
 		this.proteinas = proteinas;
 		this.precio = precio;
@@ -25,7 +25,7 @@ public class Alimento {
 	}
 
 	private static int ID = 1;
-	private int Id;
+	private int id;
 	private String nombre;
 	private int proteinas;
 	private int precio;
@@ -39,10 +39,10 @@ public class Alimento {
 		ID = iD;
 	}
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;

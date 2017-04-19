@@ -25,7 +25,7 @@ public class AlimentoDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from AlimentoBean a ");
+			Query query = session.createQuery("select MAX(a.id) from AlimentoBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Alimento.setID(variableGlobal+1);
 		}

@@ -6,6 +6,7 @@ import negocio.Leccion;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import beans.LeccionBean;
 
 public class LeccionDao {
@@ -24,7 +25,7 @@ public class LeccionDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from LeccionBean a ");
+			Query query = session.createQuery("select MAX(a.id) from LeccionBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Leccion.setID(variableGlobal+1);
 		}
@@ -57,8 +58,8 @@ public class LeccionDao {
 		session.beginTransaction();
 		Leccion leccion = null;
 		try{
-			Query query = session.createQuery("SELECT a FROM TemaBean a JOIN a.lecciones b WHERE a.Id = ? "
-				+ "AND b.Descripcion = ? ");
+			Query query = session.createQuery("SELECT a FROM TemaBean a JOIN a.lecciones b WHERE a.id = ? "
+				+ "AND b.descripcion = ? ");
 			query.setInteger(0, tema);
 			query.setString(1, descripcion);
 			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
@@ -75,12 +76,30 @@ public class LeccionDao {
 	public Leccion buscar(int tema, int id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("SELECT a FROM TemaBean a JOIN a.lecciones b WHERE a.Id = ? "
-				+ "AND b.Id = ? ");
+		Query query = session.createQuery("SELECT a FROM TemaBean a JOIN a.lecciones b WHERE a.id = ? "
+				+ "AND b.id = ? ");
 		query.setInteger(0, tema);
 		query.setInteger(1, id);
 		Leccion leccion = null;
 		try{
+			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
+			leccion = leccionBean.pasarNegocio();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return leccion;
+	}
+
+	public Leccion buscar(String descripcion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Leccion leccion = null;
+		try{
+			Query query = session.createQuery("SELECT a FROM LeccionBean a WHERE a.descripcion = ? ");
+			query.setString(0, descripcion);
 			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
 			leccion = leccionBean.pasarNegocio();
 		}catch (Exception e){

@@ -27,7 +27,7 @@ public class TipoAvatarDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from TipoAvatarBean a ");
+			Query query = session.createQuery("select MAX(a.id) from TipoAvatarBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			TipoAvatar.setID(variableGlobal+1);
 		}
@@ -94,7 +94,7 @@ public class TipoAvatarDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("select a from TipoAvatarBean a join a.alimentos b "
-				+ " where a.Id = ? and b.Id = ?");
+				+ " where a.id = ? and b.id = ?");
 		query.setInteger(0, tipoAvatar);
 		query.setInteger(1, alimento);
 		boolean existe = false;
@@ -114,8 +114,8 @@ public class TipoAvatarDao {
 	public Alimento buscarAlimento(int tipoAvatar, int alimento) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("select b from TipoAvatarBean a join a.alimentos b "
-				+ " where a.Id = ? and b.Id = ?");
+		Query query = session.createQuery("SELECT b FROM TipoAvatarBean a JOIN a.alimentos b "
+				+ " WHERE a.id = ? and b.id = ?");
 		query.setInteger(0, tipoAvatar);
 		query.setInteger(1, alimento);
 		try{

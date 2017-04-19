@@ -6,18 +6,18 @@ public class Lietner {
 	
 	
 	public Lietner(int pos, int valor) {
-		Id = pos;
+		id = pos;
 		Valor = valor;
 	}
-	private Integer Id;
+	private int id;
 	private int Valor;
 	
 	/*GETTERS Y SETTERS*/
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getValor() {
 		return Valor;
@@ -27,7 +27,7 @@ public class Lietner {
 	}
 	public LietnerBean pasarBean() {
 		LietnerBean lietnerBean = new LietnerBean();
-		lietnerBean.setId(Id);
+		lietnerBean.setId(id);
 		lietnerBean.setValor(Valor);
 		return lietnerBean;
 		

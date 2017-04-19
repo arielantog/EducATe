@@ -28,7 +28,7 @@ public class TemaDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from TemaBean a ");
+			Query query = session.createQuery("select MAX(a.id) from TemaBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Tema.setID(variableGlobal+1);
 		}
@@ -90,7 +90,7 @@ public class TemaDao {
 	public Leccion buscarConLeccion(int leccion) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("SELECT b FROM TemaBean a JOIN a.lecciones b WHERE b.Id = ?");
+		Query query = session.createQuery("SELECT b FROM TemaBean a JOIN a.lecciones b WHERE b.id = ?");
 		query.setInteger(0, leccion);
 		Leccion leccion2 = null;
 		try{

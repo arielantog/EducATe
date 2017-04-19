@@ -6,40 +6,40 @@ import beans.LeccionBean;
 public class Leccion {
 
 	public Leccion(String descripcion) {
-		Id = ID++;
-		Descripcion = descripcion;
+		id = ID++;
+		this.descripcion = descripcion;
 		activo = true;
 		LeccionDao.getInstance().grabar(pasarBean());
 	}
 	public Leccion(int id, String descripcion, boolean activo) {
-		Id = id;
-		Descripcion = descripcion;
+		this.id = id;
+		this.descripcion = descripcion;
 		this.activo = activo;
 	}
 
-	private static Integer ID = 1;
-	private Integer Id;
-	private String Descripcion;
+	private static int ID = 1;
+	private int id;
+	private String descripcion;
 	private boolean activo;
 	
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -61,12 +61,12 @@ public class Leccion {
 		
 	}
 	public void modificar(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 		LeccionDao.getInstance().actualizar(pasarBean());
 	}
 	public void activar(String descripcion) {
 		activo = true;		
-		this.Descripcion = descripcion;
+		this.descripcion = descripcion;
 		LeccionDao.getInstance().actualizar(pasarBean());
 	}
 	

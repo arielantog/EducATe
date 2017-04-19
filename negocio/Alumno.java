@@ -10,41 +10,41 @@ import beans.EnsenianzaBean;
 
 public class Alumno extends Persona {
 
-	public Alumno(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
+	public Alumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		Id = ID++;
-		Puntos = 0;
-		NivelLietner = 0;
+		id = ID++;
+		puntos = 0;
+		nivelLietner = 0;
 		activo = true;
-		Ensenianzas = new ArrayList<Ensenianza>();
-		Avatar = new Avatar();
+		ensenianzas = new ArrayList<Ensenianza>();
+		avatar = new Avatar();
 		AlumnoDao.getInstance().grabar(pasarBean());
 	}
-	public Alumno(int id,String tipoDocumento, Integer nroDocumento, String nombre, String apellido, int puntos, int nivelLietner, boolean activo) {
+	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, int puntos, int nivelLietner, boolean activo) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		Id = id;
-		Puntos = puntos;
-		NivelLietner = nivelLietner;
+		this.id = id;
+		this.puntos = puntos;
+		this.nivelLietner = nivelLietner;
 		this.activo = activo;
-		Ensenianzas = new ArrayList<Ensenianza>();
+		ensenianzas = new ArrayList<Ensenianza>();
 	}
 
-	private static Integer ID = 1;
+	private static int ID = 1;
 	private static final int PuntosCorrecta = 100;
 	private static final int PuntosIncorrecta = 20;
-	private Integer Id;
-	private Integer Puntos;
-	private List<Ensenianza> Ensenianzas;
-	private Avatar Avatar;
-	private int NivelLietner;
+	private int id;
+	private int puntos;
+	private List<Ensenianza> ensenianzas;
+	private Avatar avatar;
+	private int nivelLietner;
 	private boolean activo;
 
 	
-	public Integer agregarEnsenianza(Leccion leccion, boolean resultado) {
+	public int agregarEnsenianza(Leccion leccion, boolean resultado) {
 		Ensenianza ensenianza = buscarEnsenianza(leccion);
 		if (ensenianza == null){
 			ensenianza = new Ensenianza(leccion);
-			Ensenianzas.add(ensenianza);
+			ensenianzas.add(ensenianza);
 			EnsenianzaDao.getInstance().grabar(ensenianza.pasarBean());
 			return ensenianza.getId();
 		}else{
@@ -58,23 +58,23 @@ public class Alumno extends Persona {
 	}
 	private void calcularPuntos(boolean resultado) {
 		if (resultado)
-			Puntos = Puntos + PuntosCorrecta;
+			puntos = puntos + PuntosCorrecta;
 		else
-			Puntos = Puntos + PuntosIncorrecta;
+			puntos = puntos + PuntosIncorrecta;
 		
 	}
 	public void agregarEnsenianza(Ensenianza ensenianza) {
-		Ensenianzas.add(ensenianza);
+		ensenianzas.add(ensenianza);
 	}
 
 	private Ensenianza buscarEnsenianza(Leccion leccion) {
-		for (Ensenianza ensenianza: Ensenianzas)
+		for (Ensenianza ensenianza: ensenianzas)
 			if (ensenianza.getLeccion().getId() == leccion.getId())
 				return ensenianza;
 		return null;
 	}
 	
-	private Integer calcularNivelSiguiente(Integer[] lietner){
+	private int calcularNivelSiguiente(Integer[] lietner){
 		this.setNivelLietner(getNivelLietner()+1);
 		Integer nuevoNivel = lietner[this.getNivelLietner()];
 		if (nuevoNivel == null){
@@ -83,9 +83,9 @@ public class Alumno extends Persona {
 		}
 		return nuevoNivel;
 	}
-	public Integer calcularSiguienteLeccion(Integer[] lietner){
-		Integer nivel = calcularNivelSiguiente(lietner);
-		for (Ensenianza ensenianza: Ensenianzas){
+	public int calcularSiguienteLeccion(Integer[] lietner){
+		int nivel = calcularNivelSiguiente(lietner);
+		for (Ensenianza ensenianza: ensenianzas){
 			if (ensenianza.getNivelRefuerzo() == nivel)
 				return ensenianza.getLeccion().getId();
 		}
@@ -94,41 +94,41 @@ public class Alumno extends Persona {
 	
 
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public Integer getPuntos() {
-		return Puntos;
+	public int getPuntos() {
+		return puntos;
 	}
-	public void setPuntos(Integer puntos) {
-		Puntos = puntos;
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
 	}
 	public List<Ensenianza> getEnsenianzas() {
-		return Ensenianzas;
+		return ensenianzas;
 	}
 	public void setEnsenianzas(List<Ensenianza> ensenianzas) {
-		Ensenianzas = ensenianzas;
+		this.ensenianzas = ensenianzas;
 	}
 	public Avatar getAvatar() {
-		return Avatar;
+		return avatar;
 	}
 	public void setAvatar(Avatar avatar) {
-		Avatar = avatar;
+		this.avatar = avatar;
 	}
 	public int getNivelLietner() {
-		return NivelLietner;
+		return nivelLietner;
 	}
 	public void setNivelLietner(int nivelLietner) {
-		NivelLietner = nivelLietner;
+		this.nivelLietner = nivelLietner;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -147,7 +147,7 @@ public class Alumno extends Persona {
 		alumnoBean.setPuntos(getPuntos());
 		alumnoBean.setNivelLietner(getNivelLietner());
 		alumnoBean.setActivo(activo);
-		for (Ensenianza ensenianza: Ensenianzas){
+		for (Ensenianza ensenianza: ensenianzas){
 			EnsenianzaBean ensenianzaBean = ensenianza.pasarBean();
 			alumnoBean.agregarEnsenianza(ensenianzaBean);
 		}
@@ -157,16 +157,16 @@ public class Alumno extends Persona {
 	}
 	
 	public void alimentarAvatar(Alimento alimento) {
-		if (Avatar.alimentar(alimento) == 1){
-			Puntos = Puntos - alimento.getPrecio();
+		if (avatar.alimentar(alimento) == 1){
+			puntos = puntos - alimento.getPrecio();
 			AlumnoDao.getInstance().actualizar(pasarBean());
 		}
 	}
 	public int evolucionarAvatar() {
-		if (getPuntos() >= Avatar.getTipoAvatar().getPrecioEvolucion()){
-			if (Avatar.getHambre() >= 90){
-				Puntos = Puntos - Avatar.getTipoAvatar().getPrecioEvolucion();
-				Avatar.evolucionar();
+		if (getPuntos() >= avatar.getTipoAvatar().getPrecioEvolucion()){
+			if (avatar.getHambre() >= 90){
+				puntos = puntos - avatar.getTipoAvatar().getPrecioEvolucion();
+				avatar.evolucionar();
 				AlumnoDao.getInstance().actualizar(pasarBean());
 			}else{
 				System.out.println("El avatar no puede evolucionar si tiene hambre.");
@@ -177,10 +177,10 @@ public class Alumno extends Persona {
 		return 0;
 	}
 	public int revivirAvatar() {
-		if (Avatar.getHambre() == 0){
-			if (getPuntos() >= Avatar.getTipoAvatar().getPrecioRevivir()){
-				Avatar.revivir();
-				Puntos = Puntos - Avatar.getTipoAvatar().getPrecioRevivir();
+		if (avatar.getHambre() == 0){
+			if (getPuntos() >= avatar.getTipoAvatar().getPrecioRevivir()){
+				avatar.revivir();
+				puntos = puntos - avatar.getTipoAvatar().getPrecioRevivir();
 				AlumnoDao.getInstance().actualizar(pasarBean());
 			}else{
 				System.out.println("Se necesitan más puntos para revivir.");
@@ -207,7 +207,7 @@ public class Alumno extends Persona {
 		AlumnoDao.getInstance().actualizar(pasarBean());
 	}
 	public void avatarDescontarHambre() {
-		Avatar.descontarHambre();
+		avatar.descontarHambre();
 		
 	}
 

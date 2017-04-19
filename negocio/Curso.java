@@ -9,28 +9,28 @@ import beans.CursoBean;
 public class Curso {
 
 	public Curso(String descripcion) {
-		Id = ID++;
-		Descripcion = descripcion;
-		Alumnos = new ArrayList<Alumno>();
+		id = ID++;
+		this.descripcion = descripcion;
+		alumnos = new ArrayList<Alumno>();
 		activo = true;
 		CursoDao.getInstance().grabar(pasarBean());
 	}
 	public Curso(int id, String descripcion, boolean activo) {
-		Id = id;
-		Descripcion = descripcion;
-		Alumnos = new ArrayList<Alumno>();
+		this.id = id;
+		this.descripcion = descripcion;
+		alumnos = new ArrayList<Alumno>();
 		this.activo = activo;
 	}
 
-	private static Integer ID = 1;
-	private Integer Id;
-	private String Descripcion;
-	private List<Alumno> Alumnos;
+	private static int ID = 1;
+	private int id;
+	private String descripcion;
+	private List<Alumno> alumnos;
 	private boolean activo;
 
-	public Integer agregarAlumno(Alumno alumno) {
+	public int agregarAlumno(Alumno alumno) {
 		if (!tengoAlumno(alumno)){
-			Alumnos.add(alumno);
+			alumnos.add(alumno);
 			CursoDao.getInstance().actualizar(pasarBean());
 			return alumno.getId();
 		}
@@ -38,37 +38,37 @@ public class Curso {
 		return 0;
 	}
 	public Alumno buscarAlumno(int alumno) {
-		for (Alumno alumno2: Alumnos)
+		for (Alumno alumno2: alumnos)
 			if (alumno2.getId() == alumno)
 				return alumno2;
 		return CursoDao.getInstance().buscarAlumno(getId(), alumno);
 	}
 
 	public boolean tengoAlumno (Alumno alumno){
-		for (Alumno alumno2: Alumnos)
+		for (Alumno alumno2: alumnos)
 			if (alumno2.getId() == alumno.getId())
 				return true;
 		return CursoDao.getInstance().tengoAlumno(getId(), alumno.getId());
 	}
 	
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -82,19 +82,19 @@ public class Curso {
 		cursoBean.setId(getId());
 		cursoBean.setDescripcion(getDescripcion());
 		cursoBean.setActivo(activo);
-		for (Alumno alumno: Alumnos){
+		for (Alumno alumno: alumnos){
 			AlumnoBean alumnoBean = alumno.pasarBean();
 			cursoBean.agregarAlumno(alumnoBean);
 		}
 		return cursoBean;
 	}
 	public void agregarAlumno(Alumno alumno, boolean b) {
-		Alumnos.add(alumno);
+		alumnos.add(alumno);
 	}
 	public void quitarAlumno(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if (alumno2 != null){
-			Alumnos.remove(alumno2);
+			alumnos.remove(alumno2);
 			CursoDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("El alumno no existe");

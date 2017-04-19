@@ -28,7 +28,7 @@ public class JuegoDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from JuegoBean a ");
+			Query query = session.createQuery("select MAX(a.id) from JuegoBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Juego.setID(variableGlobal+1);
 		}
@@ -71,7 +71,7 @@ public class JuegoDao {
 	public Juego buscar(String nombre) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from JuegoBean where Nombre = ?");
+		Query query = session.createQuery("from JuegoBean where nombre = ?");
 		query.setString(0, nombre);
 		Juego juego = null;
 		try{
@@ -89,7 +89,7 @@ public class JuegoDao {
 	public int cantidadJuegos() {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("select COUNT(a.Id) from JuegoBean a ");
+		Query query = session.createQuery("select COUNT(a.id) from JuegoBean a ");
 		int cantidad = 0;
 		try{
 			long cantidad2 = (long) query.uniqueResult();

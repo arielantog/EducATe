@@ -6,35 +6,35 @@ import javax.persistence.*;
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class PersonaBean {
 
-	private String TipoDocumento;
-	private Integer NroDocumento;
-	private String Nombre;
-	private String Apellido;
+	private String tipoDocumento;
+	private int nroDocumento;
+	private String nombre;
+	private String apellido;
 	
 	/*GETTERS AND SETTERS*/
 	public String getTipoDocumento() {
-		return TipoDocumento;
+		return tipoDocumento;
 	}
 	public void setTipoDocumento(String tipoDocumento) {
-		TipoDocumento = tipoDocumento;
+		this.tipoDocumento = tipoDocumento;
 	}
-	public Integer getNroDocumento() {
-		return NroDocumento;
+	public int getNroDocumento() {
+		return nroDocumento;
 	}
-	public void setNroDocumento(Integer nroDocumento) {
-		NroDocumento = nroDocumento;
+	public void setNroDocumento(int nroDocumento) {
+		this.nroDocumento = nroDocumento;
 	}
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
 	public void setApellido(String apellido) {
-		Apellido = apellido;
+		this.apellido = apellido;
 	}
 	
 }

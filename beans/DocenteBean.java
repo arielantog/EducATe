@@ -12,27 +12,27 @@ import negocio.Docente;
 public class DocenteBean extends PersonaBean{
 	@Id
 	@Column(name="docenteId")
-	private int Id;
+	private int id;
 	@OneToMany
 	@JoinColumn(name="docenteId")
-	private List<CursoBean> Cursos;
+	private List<CursoBean> cursos;
 	private boolean activo;
 
 	public DocenteBean() {
-		Cursos = new ArrayList<CursoBean>();
+		cursos = new ArrayList<CursoBean>();
 	}
 	/*GETTERS AND SETTERS*/
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 	public List<CursoBean> getCursos() {
-		return Cursos;
+		return cursos;
 	}
 	public void setCursos(List<CursoBean> cursos) {
-		Cursos = cursos;
+		this.cursos = cursos;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -42,13 +42,13 @@ public class DocenteBean extends PersonaBean{
 	}
 	/*NEGOCIO*/
 	public Docente pasarNegocio() {
-		 Docente docente = new Docente(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), isActivo());
-		 for (CursoBean cursoBean: Cursos){
+		 Docente docente = new Docente(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), isActivo());
+		 for (CursoBean cursoBean: cursos){
 			 docente.agregarCurso(cursoBean.pasarNegocio());
 		 }
 		 return docente;
 	}
 	public void agregarCurso(CursoBean cursoBean) {
-		Cursos.add(cursoBean);
+		cursos.add(cursoBean);
 	}
 }

@@ -26,7 +26,7 @@ public class EnsenianzaDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		try{
-			Query query = session.createQuery("select MAX(a.Id) from EnsenianzaBean a ");
+			Query query = session.createQuery("select MAX(a.id) from EnsenianzaBean a ");
 			int variableGlobal = (int) query.uniqueResult();
 			Alumno.setID(variableGlobal+1);
 		}

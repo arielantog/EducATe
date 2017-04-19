@@ -3,42 +3,42 @@ package negocio;
 public abstract class Persona {
 
 
-	public Persona(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
-		TipoDocumento = tipoDocumento;
-		NroDocumento = nroDocumento;
-		Nombre = nombre;
-		Apellido = apellido;
+	public Persona(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
+		this.tipoDocumento = tipoDocumento;
+		this.nroDocumento = nroDocumento;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
 
-	private String TipoDocumento;
-	private Integer NroDocumento;
-	private String Nombre;
-	private String Apellido;
+	private String tipoDocumento;
+	private int nroDocumento;
+	private String nombre;
+	private String apellido;
 	
 	
 	/*GETTERS Y SETTERS*/
 	public String getTipoDocumento() {
-		return TipoDocumento;
+		return tipoDocumento;
 	}
 	public void setTipoDocumento(String tipoDocumento) {
-		TipoDocumento = tipoDocumento;
+		this.tipoDocumento = tipoDocumento;
 	}
-	public Integer getNroDocumento() {
-		return NroDocumento;
+	public int getNroDocumento() {
+		return nroDocumento;
 	}
-	public void setNroDocumento(Integer nroDocumento) {
-		NroDocumento = nroDocumento;
+	public void setNroDocumento(int nroDocumento) {
+		this.nroDocumento = nroDocumento;
 	}
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
 	public void setApellido(String apellido) {
-		Apellido = apellido;
+		this.apellido = apellido;
 	}
 }

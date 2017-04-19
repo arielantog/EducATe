@@ -9,59 +9,59 @@ import beans.DocenteBean;
 
 public class Docente extends Persona {
 
-	public Docente(String tipoDocumento, Integer nroDocumento, String nombre, String apellido) {
+	public Docente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		Id = ID++;
-		Cursos = new ArrayList<Curso>();
+		id = ID++;
+		cursos = new ArrayList<Curso>();
 		activo = true;
 		DocenteDao.getInstance().grabar(pasarBean());
 		
 	}
-	public Docente(int Id, String tipoDocumento, Integer nroDocumento, String nombre, String apellido, boolean activo) {
+	public Docente(int Id, String tipoDocumento, int nroDocumento, String nombre, String apellido, boolean activo) {
 		super(tipoDocumento, nroDocumento, nombre, apellido);
-		this.Id = Id;
+		this.id = Id;
 		this.activo = activo;
-		Cursos = new ArrayList<Curso>();
+		cursos = new ArrayList<Curso>();
 	}
 
-	private static Integer ID = 1;
-	private Integer Id;
-	private List<Curso> Cursos;
+	private static int ID = 1;
+	private int id;
+	private List<Curso> cursos;
 	private boolean activo;
 
-	public Integer agregarCurso(String descripcion) {
+	public int agregarCurso(String descripcion) {
 		Curso curso = buscarCurso(descripcion);
 		if (curso == null){
 			Curso curso2 = new Curso(descripcion);
-			Cursos.add(curso2);
+			cursos.add(curso2);
 			DocenteDao.getInstance().actualizar(pasarBean());
 			return curso2.getId();
 		}
 		curso.activar(descripcion);
-		Cursos.add(curso);
+		cursos.add(curso);
 		DocenteDao.getInstance().actualizar(pasarBean());
 		return curso.getId();
 	}
 	public void agregarCurso(Curso curso) {
-		Cursos.add(curso);
+		cursos.add(curso);
 	}
 
-	public Integer cursoAgregarAlumno(Integer Curso, Alumno Alumno) {
+	public int cursoAgregarAlumno(int Curso, Alumno Alumno) {
 		Curso curso = buscarCurso(Curso);
 		if (curso != null)
 			return curso.agregarAlumno(Alumno);
-		return null;
+		return 0;
 	}
 
-	public Curso buscarCurso(Integer Curso) {
-		for (Curso curso: Cursos)
+	public Curso buscarCurso(int Curso) {
+		for (Curso curso: cursos)
 			if (curso.getId() == curso.getId())
 				return curso;
 		return CursoDao.getInstance().buscar(getId(), Curso);
 	}
 	
 	public Curso buscarCurso(String descripcion) {
-		for (Curso curso: Cursos)
+		for (Curso curso: cursos)
 			if (curso.getDescripcion().equals(curso.getDescripcion()))
 				return curso;
 		return CursoDao.getInstance().buscar(descripcion);
@@ -69,23 +69,23 @@ public class Docente extends Persona {
 	
 	
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public List<Curso> getCursos() {
-		return Cursos;
+		return cursos;
 	}
 	public void setCursos(List<Curso> cursos) {
-		Cursos = cursos;
+		this.cursos = cursos;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -102,7 +102,7 @@ public class Docente extends Persona {
 		docenteBean.setNombre(getNombre());
 		docenteBean.setApellido(getApellido());
 		docenteBean.setActivo(activo);
-		for (Curso curso: Cursos){
+		for (Curso curso: cursos){
 			CursoBean cursoBean = curso.pasarBean();
 			docenteBean.agregarCurso(cursoBean);
 		}
@@ -139,7 +139,7 @@ public class Docente extends Persona {
 	public void eliminarCurso(int curso) {
 		Curso curso2 = buscarCurso(curso);
 		if (curso2 != null && curso2.isActivo()){
-			Cursos.remove(curso2);
+			cursos.remove(curso2);
 			DocenteDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("El curso no existe");

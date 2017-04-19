@@ -12,53 +12,53 @@ import negocio.Alumno;
 public class AlumnoBean extends PersonaBean{
 	@Id
 	@Column(name="alumnoId")
-	private int Id;
-	private Integer Puntos;
+	private int id;
+	private int puntos;
 	@OneToMany
 	@JoinColumn (name="alumnoId")
-	private List<EnsenianzaBean> Ensenianzas;
+	private List<EnsenianzaBean> ensenianzas;
 	@OneToOne
 	@JoinColumn (name="avatarId")
-	private AvatarBean Avatar;
-	private int NivelLietner;
+	private AvatarBean avatar;
+	private int nivelLietner;
 	private boolean activo;
 	
 	public AlumnoBean() {
-		Ensenianzas = new ArrayList<EnsenianzaBean>();
+		ensenianzas = new ArrayList<EnsenianzaBean>();
 	}
 	/*GETTERS AND SETTERS*/
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public Integer getPuntos() {
-		return Puntos;
+	public int getPuntos() {
+		return puntos;
 	}
-	public void setPuntos(Integer puntos) {
-		Puntos = puntos;
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
 	}
 	public List<EnsenianzaBean> getEnsenianzas() {
-		return Ensenianzas;
+		return ensenianzas;
 	}
 	public void setEnsenianzas(List<EnsenianzaBean> ensenianzas) {
-		Ensenianzas = ensenianzas;
+		this.ensenianzas = ensenianzas;
 	}
 	public AvatarBean getAvatar() {
-		return Avatar;
+		return avatar;
 	}
 	public void setAvatar(AvatarBean avatar) {
-		Avatar = avatar;
+		this.avatar = avatar;
 	}
 	public int getNivelLietner() {
-		return NivelLietner;
+		return nivelLietner;
 	}
 	public void setNivelLietner(int nivelLietner) {
-		NivelLietner = nivelLietner;
+		this.nivelLietner = nivelLietner;
 	}
 	public void agregarEnsenianza(EnsenianzaBean ensenianzaBean) {
-		Ensenianzas.add(ensenianzaBean);
+		ensenianzas.add(ensenianzaBean);
 	}
 	public boolean isActivo() {
 		return activo;
@@ -68,9 +68,9 @@ public class AlumnoBean extends PersonaBean{
 	}
 	/*NEGOCIO*/
 	public Alumno pasarNegocio() {
-		Alumno alumno = new Alumno(Id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), Puntos, NivelLietner, activo);
-		alumno.setAvatar(Avatar.pasarNegocio());
-		for (EnsenianzaBean ensenianzaBean: Ensenianzas){
+		Alumno alumno = new Alumno(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), puntos, nivelLietner, activo);
+		alumno.setAvatar(avatar.pasarNegocio());
+		for (EnsenianzaBean ensenianzaBean: ensenianzas){
 			alumno.agregarEnsenianza(ensenianzaBean.pasarNegocio());
 		}
 		return alumno;

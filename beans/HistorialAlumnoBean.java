@@ -13,7 +13,7 @@ import negocio.HistorialAlumno;
 public class HistorialAlumnoBean {
 	@Id
 	@Column(name="historialAlumnoId")
-	private int Id;
+	private int id;
 	@OneToOne
 	@JoinColumn(name="alumnoId")
 	private AlumnoBean alumno;
@@ -24,10 +24,10 @@ public class HistorialAlumnoBean {
 	
 	/*GETTERS Y SETTERS*/
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public AlumnoBean getAlumno() {
 		return alumno;
@@ -49,6 +49,6 @@ public class HistorialAlumnoBean {
 	}
 	/*NEGOCIO*/
 	public HistorialAlumno pasarNegocio(){
-		return new HistorialAlumno(Id,alumno.pasarNegocio(), leccion.pasarNegocio(), resultado);
+		return new HistorialAlumno(id,alumno.pasarNegocio(), leccion.pasarNegocio(), resultado);
 	}
 }

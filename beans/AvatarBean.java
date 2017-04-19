@@ -11,25 +11,25 @@ import negocio.Avatar;
 public class AvatarBean {
 	@Id
 	@Column(name="avatarId")
-	private Integer Id;
+	private int id;
 	@OneToOne
 	@JoinColumn(name="tipoAvatarId")
-	private TipoAvatarBean TipoAvatar;
+	private TipoAvatarBean tipoAvatar;
 	private int hambre;
 	private Date ultimaComida;
 	
 	/*GETTERS Y SETTERS*/
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public TipoAvatarBean getTipoAvatar() {
-		return TipoAvatar;
+		return tipoAvatar;
 	}
 	public void setTipoAvatar(TipoAvatarBean tipoAvatar) {
-		TipoAvatar = tipoAvatar;
+		this.tipoAvatar = tipoAvatar;
 	}
 	public int getHambre() {
 		return hambre;
@@ -45,8 +45,8 @@ public class AvatarBean {
 	}
 	/*NEGOCIO*/
 	public Avatar pasarNegocio() {
-		Avatar avatar = new Avatar(Id, hambre, ultimaComida);
-		avatar.setTipoAvatar(TipoAvatar.pasarNegocio());
+		Avatar avatar = new Avatar(id, hambre, ultimaComida);
+		avatar.setTipoAvatar(tipoAvatar.pasarNegocio());
 		return avatar;
 	}
 

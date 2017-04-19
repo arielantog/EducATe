@@ -12,43 +12,43 @@ import negocio.Juego;
 public class JuegoBean {
 	@Id
 	@Column (name="juegoId")
-	private Integer Id;
-	private String Nombre;
+	private int id;
+	private String nombre;
 	@OneToOne
 	@JoinColumn(name="temaId")
-	private TemaBean Tema;
+	private TemaBean tema;
 	@OneToMany
 	@JoinColumn(name="juegoId")
-	private List<LeccionBean> Lecciones;
+	private List<LeccionBean> lecciones;
 	private boolean activo;
 	
 	public JuegoBean() {
-		Lecciones = new ArrayList<LeccionBean>();
+		lecciones = new ArrayList<LeccionBean>();
 	}
 	/*GETTERS AND SETTERS*/
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 	public TemaBean getTema() {
-		return Tema;
+		return tema;
 	}
 	public void setTema(TemaBean tema) {
-		Tema = tema;
+		this.tema = tema;
 	}
 	public List<LeccionBean> getLecciones() {
-		return Lecciones;
+		return lecciones;
 	}
 	public void setLecciones(List<LeccionBean> lecciones) {
-		Lecciones = lecciones;
+		this.lecciones = lecciones;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -59,14 +59,14 @@ public class JuegoBean {
 	
 	/*NEGOCIO*/
 	public Juego pasarNegocio() {
-		Juego juego = new Juego(Id, Nombre, activo);
-		juego.setTema(Tema.pasarNegocio());
-		for(LeccionBean lecciones: Lecciones){
+		Juego juego = new Juego(id, nombre, activo);
+		juego.setTema(tema.pasarNegocio());
+		for(LeccionBean lecciones: lecciones){
 			juego.agregarLeccion(lecciones.pasarNegocio(),true);
 		}
 		return juego;
 	}
 	public void agregarLeccion(LeccionBean leccionBean) {
-		Lecciones.add(leccionBean);
+		lecciones.add(leccionBean);
 	}
 }

@@ -10,49 +10,49 @@ import daos.TemaDao;
 public class Tema {
 
 	public Tema(String descripcion) {
-		Id = ID++;
-		Descripcion = descripcion;
-		Lecciones = new ArrayList<Leccion>();
+		id = ID++;
+		this.descripcion = descripcion;
+		lecciones = new ArrayList<Leccion>();
 		activo = true;
 		TemaDao.getInstance().grabar(pasarBean());
 	}
 	public Tema(int id, String descripcion, boolean activo) {
-		Id = id;
-		Descripcion = descripcion;
-		Lecciones = new ArrayList<Leccion>();
+		this.id = id;
+		this.descripcion = descripcion;
+		lecciones = new ArrayList<Leccion>();
 		this.activo = activo;
 	}
 
-	private static Integer ID = 1;
-	private Integer Id;
-	private String Descripcion;
-	private List<Leccion> Lecciones;
+	private static int ID = 1;
+	private int id;
+	private String descripcion;
+	private List<Leccion> lecciones;
 	private boolean activo;
 
-	public Integer agregarLeccion(String descripcion) {
+	public int agregarLeccion(String descripcion) {
 		Leccion leccion = buscarLeccion(descripcion);
 		if (leccion == null){
 			Leccion leccion2 = new Leccion(descripcion);
-			Lecciones.add(leccion2);
+			lecciones.add(leccion2);
 			TemaDao.getInstance().actualizar(pasarBean());
 			return leccion2.getId();
 		}else{
 			leccion.activar(descripcion);
-			Lecciones.add(leccion);
+			lecciones.add(leccion);
 			TemaDao.getInstance().actualizar(pasarBean());
 		}
 		return leccion.getId();
 	}
 
 	public Leccion buscarLeccion(String descripcion) {
-		for(Leccion leccion: Lecciones)
+		for(Leccion leccion: lecciones)
 			if(leccion.getDescripcion().equals(descripcion))
 				return leccion;
-		return LeccionDao.getInstance().buscar(this.getId(),descripcion);
+		return LeccionDao.getInstance().buscar(descripcion);
 	}
 	
-	public Leccion buscarLeccion(Integer Id) {
-		for (Leccion leccion: Lecciones)
+	public Leccion buscarLeccion(int Id) {
+		for (Leccion leccion: lecciones)
 			if (leccion.getId() == Id)
 				return leccion;
 		return LeccionDao.getInstance().buscar(this.getId(),Id);
@@ -61,29 +61,29 @@ public class Tema {
 	
 	
 	/*GETTERS Y SETTERS*/
-	public static Integer getID() {
+	public static int getID() {
 		return ID;
 	}
-	public static void setID(Integer iD) {
+	public static void setID(int iD) {
 		ID = iD;
 	}
-	public Integer getId() {
-		return Id;
+	public int getId() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	public List<Leccion> getLecciones() {
-		return Lecciones;
+		return lecciones;
 	}
 	public void setLecciones(List<Leccion> lecciones) {
-		Lecciones = lecciones;
+		this.lecciones = lecciones;
 	}
 	public boolean isActivo() {
 		return activo;
@@ -97,14 +97,14 @@ public class Tema {
 		temaBean.setId(getId());
 		temaBean.setDescripcion(getDescripcion());
 		temaBean.setActivo(activo);
-		for (Leccion leccion: Lecciones){
+		for (Leccion leccion: lecciones){
 			LeccionBean leccionBean = leccion.pasarBean();
 			temaBean.agregarLeccion(leccionBean);
 		}
 		return temaBean;
 	}
 	public void agregarLeccion(Leccion leccion) {
-		Lecciones.add(leccion);
+		lecciones.add(leccion);
 	}
 	
 	public void eliminar() {
@@ -124,7 +124,7 @@ public class Tema {
 	public int eliminarLeccion(int leccion) {
 		Leccion leccion2 = buscarLeccion(leccion);
 		if (leccion2 != null && leccion2.isActivo()){
-			Lecciones.remove(leccion2);
+			lecciones.remove(leccion2);
 			leccion2.eliminar();
 			TemaDao.getInstance().actualizar(pasarBean());
 		}else{

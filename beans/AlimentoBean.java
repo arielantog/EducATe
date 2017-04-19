@@ -12,7 +12,7 @@ import negocio.Alimento;
 public class AlimentoBean {
 	@Id
 	@Column(name="alimentoId")
-	private int Id;
+	private int id;
 	private String nombre;
 	private int proteinas;
 	private int precio;
@@ -20,10 +20,10 @@ public class AlimentoBean {
 	
 	/*GETTES Y SETTERS*/
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -51,7 +51,7 @@ public class AlimentoBean {
 	}
 	/*NEGOCIO*/
 	public Alimento pasarNegocio() {
-		Alimento alimento = new Alimento(Id, nombre, proteinas, precio,activo);
+		Alimento alimento = new Alimento(id, nombre, proteinas, precio,activo);
 		return alimento;
 	}
 	
