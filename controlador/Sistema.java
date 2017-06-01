@@ -94,7 +94,7 @@ public class Sistema {
 			} 
 	     }; 
 	     Timer timer = new Timer(); 
-	     timer.schedule(timerTask, 0, 1000);
+	     timer.schedule(timerTask, 0, 100000);
 	}
 
 	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
