@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import dto.TipoAvatarDTO;
 import negocio.TipoAvatar;
 
 @Entity
@@ -91,6 +92,14 @@ public class TipoAvatarBean {
 		TipoAvatar tipoAvatar = new TipoAvatar(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarNegocio());
+		}
+		return tipoAvatar;
+	}
+	/*DTO*/
+	public TipoAvatarDTO pasarDTO() {
+		TipoAvatarDTO tipoAvatar = new TipoAvatarDTO(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
+		for(AlimentoBean alimento: alimentos){
+			tipoAvatar.agregarAlimento(alimento.pasarDTO());
 		}
 		return tipoAvatar;
 	}

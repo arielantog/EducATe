@@ -90,5 +90,5 @@ public class Ensenianza {
 		ensenianzaBean.setFechaUltRepaso(getFechaUltRepaso());
 		return ensenianzaBean;
 	}
-
+	
 }

@@ -17,6 +17,8 @@ import daos.LeccionDao;
 import daos.LietnerDao;
 import daos.TemaDao;
 import daos.TipoAvatarDao;
+import dto.AlumnoDTO;
+import dto.DocenteDTO;
 import negocio.Alimento;
 import negocio.Alumno;
 import negocio.Curso;
@@ -55,12 +57,11 @@ public class Sistema {
 
 
 	public static Sistema getInstance() {
-		if (singleton == null){
+		if (singleton == null)
 			singleton = new Sistema();
-			return singleton;
-		}
-		return null;
+		return singleton;
 	}
+	
 	
 	private void cargarVariablesGlobales() {
 		AlumnoDao.getInstance().cargarVariableGlobal();
@@ -96,11 +97,11 @@ public class Sistema {
 	     Timer timer = new Timer(); 
 	     timer.schedule(timerTask, 0, 100000);
 	}
-
-	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
+	
+	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
 		Alumno alumno = buscarAlumno(tipoDocumento, nroDocumento);
 		if (alumno == null){
-			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido);
+			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
 			for (Tema tema: temas)
 				for (Leccion leccion: tema.getLecciones())
 					alumno.agregarEnsenianza(leccion, false);
@@ -112,10 +113,10 @@ public class Sistema {
 		return alumno.getId();
 	}
 
-	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
+	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
 		if (docente == null){
-			docente = new Docente(tipoDocumento, nroDocumento, nombre, apellido);
+			docente = new Docente(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 			docentes.add(docente);
 			return docente.getId();
 		}
@@ -717,6 +718,21 @@ public class Sistema {
 			System.out.println("El tipo de avatar no existe");
 		}
 		
+	}
+
+	public DocenteDTO loginDocente(String tipoDocumento, int nroDocumento, String password) {
+		DocenteDTO docente = DocenteDao.getInstance().loginDocente(tipoDocumento, nroDocumento, password);
+		if(docente != null)
+			return docente;
+		return null;
+	}
+
+
+	public AlumnoDTO loginAlumno(String usuario, String password) {
+		AlumnoDTO alumno = AlumnoDao.getInstance().loginAlumno(usuario, password);
+		if(alumno != null)
+			return alumno;
+		return null;
 	}
 
 }

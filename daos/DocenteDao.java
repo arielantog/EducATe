@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import beans.AlumnoBean;
 import beans.CursoBean;
 import beans.DocenteBean;
+import dto.DocenteDTO;
 
 
 public class DocenteDao {
@@ -115,6 +116,50 @@ public class DocenteDao {
 		session.close();
 		return curso2;
 		
+	}
+/*
+	public Docente loginDocente(String tipoDocumento, int nroDocumento, String password) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from DocenteBean where tipoDocumento = ? "
+															+ "and nroDocumento = ? "
+															+ "and password 	= ?");
+		query.setString(0, tipoDocumento);
+		query.setInteger(1, nroDocumento);
+		query.setString(2, password);
+		Docente docente = null;
+		try{
+			DocenteBean docenteBean = (DocenteBean) query.uniqueResult();
+			docente = docenteBean.pasarNegocio();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return docente;
+	}
+*/
+	public DocenteDTO loginDocente(String tipoDocumento, int nroDocumento, String password) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from DocenteBean where tipoDocumento = ? "
+															+ "and nroDocumento = ? "
+															+ "and password 	= ?");
+		query.setString(0, tipoDocumento);
+		query.setInteger(1, nroDocumento);
+		query.setString(2, password);
+		DocenteDTO docente = null;
+		try{
+			DocenteBean docenteBean = (DocenteBean) query.uniqueResult();
+			docente = docenteBean.pasarDTO();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return docente;
 	}
 
 }

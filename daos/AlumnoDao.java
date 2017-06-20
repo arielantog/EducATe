@@ -10,13 +10,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
-
-
-
-
-
 import beans.AlumnoBean;
+import dto.AlumnoDTO;
 
 public class AlumnoDao {
 	private static AlumnoDao instancia;
@@ -125,6 +120,26 @@ public class AlumnoDao {
 		session.getTransaction().commit();
 		session.close();
 		return alumnos;
+	}
+
+	public AlumnoDTO loginAlumno(String usuario, String password) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from AlumnoBean where 	usuario  = ? "
+															+ "and	password = ?");
+		query.setString(0, usuario);
+		query.setString(1, password);
+		AlumnoDTO alumno = null;
+		try{
+			AlumnoBean alumnoBean = (AlumnoBean) query.uniqueResult();
+			alumno = alumnoBean.pasarDTO();
+		}catch (Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return alumno;
 	}
 
 }

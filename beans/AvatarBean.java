@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import dto.AvatarDTO;
 import negocio.Avatar;
 
 @Entity
@@ -47,6 +48,12 @@ public class AvatarBean {
 	public Avatar pasarNegocio() {
 		Avatar avatar = new Avatar(id, hambre, ultimaComida);
 		avatar.setTipoAvatar(tipoAvatar.pasarNegocio());
+		return avatar;
+	}
+	/*DTO*/
+	public AvatarDTO pasarDTO() {
+		AvatarDTO avatar = new AvatarDTO(id, hambre, ultimaComida);
+		avatar.setTipoAvatarDTO(tipoAvatar.pasarDTO());
 		return avatar;
 	}
 

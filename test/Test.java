@@ -12,7 +12,7 @@ public class Test {
 		sistema.agregarValorLietner(3,1);
 		sistema.agregarValorLietner(4,1);
 		
-		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa");
+		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa", "123456", "psarasa@uade.edu.ar");
 		
 		int tema1 = sistema.nuevoTema("División política");
 		int tema2 = sistema.nuevoTema("Condiciones naturales");
@@ -58,8 +58,8 @@ public class Test {
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar2);
 		sistema.tipoAvatarAgregarAlimento(alimento3, tipoAvatar2);
 
-		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini");
-		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado");
+		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
+		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
 
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
@@ -85,11 +85,11 @@ public class Test {
 		sistema.alumnoEvolucionarAvatar(alumno1);
 		
 		sistema.eliminarAlumno(alumno1);
-		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini");
+		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		sistema.modificarAlumno("DNI", 35730491, "Ariel", "Antognini");
 		
 		sistema.eliminarDocente(docente3);
-		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa");
+		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa", "123456", "pzarasa@uade.edu.ar");
 		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa");
 		
 		sistema.eliminarValorLietner(4);

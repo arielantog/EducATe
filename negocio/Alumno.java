@@ -10,9 +10,10 @@ import beans.EnsenianzaBean;
 
 public class Alumno extends Persona {
 
-	public Alumno(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
-		super(tipoDocumento, nroDocumento, nombre, apellido);
+	public Alumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
+		super(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 		id = ID++;
+		this.usuario = usuario;
 		puntos = 0;
 		nivelLietner = 0;
 		activo = true;
@@ -20,9 +21,10 @@ public class Alumno extends Persona {
 		avatar = new Avatar();
 		AlumnoDao.getInstance().grabar(pasarBean());
 	}
-	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, int puntos, int nivelLietner, boolean activo) {
-		super(tipoDocumento, nroDocumento, nombre, apellido);
+	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario, int puntos, int nivelLietner, boolean activo) {
+		super(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 		this.id = id;
+		this.usuario = usuario;
 		this.puntos = puntos;
 		this.nivelLietner = nivelLietner;
 		this.activo = activo;
@@ -38,7 +40,7 @@ public class Alumno extends Persona {
 	private Avatar avatar;
 	private int nivelLietner;
 	private boolean activo;
-
+	private String usuario;
 	
 	public int agregarEnsenianza(Leccion leccion, boolean resultado) {
 		Ensenianza ensenianza = buscarEnsenianza(leccion);
@@ -189,6 +191,13 @@ public class Alumno extends Persona {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 	/*BEAN*/
 	public AlumnoBean pasarBean() {
 		AlumnoBean alumnoBean = new AlumnoBean();
@@ -197,6 +206,9 @@ public class Alumno extends Persona {
 		alumnoBean.setNroDocumento(getNroDocumento());
 		alumnoBean.setNombre(getNombre());
 		alumnoBean.setApellido(getApellido());
+		alumnoBean.setPassword(getPassword());
+		alumnoBean.setMail(getMail());
+		alumnoBean.setUsuario(getUsuario());
 		alumnoBean.setPuntos(getPuntos());
 		alumnoBean.setNivelLietner(getNivelLietner());
 		alumnoBean.setActivo(activo);
@@ -208,6 +220,5 @@ public class Alumno extends Persona {
 		
 		return alumnoBean;
 	}
-
 
 }

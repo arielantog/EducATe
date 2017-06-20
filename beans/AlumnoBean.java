@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import dto.AlumnoDTO;
 import negocio.Alumno;
 
 @Entity
@@ -13,6 +14,7 @@ public class AlumnoBean extends PersonaBean{
 	@Id
 	@Column(name="alumnoId")
 	private int id;
+	private String usuario;
 	private int puntos;
 	@OneToMany
 	@JoinColumn (name="alumnoId")
@@ -66,14 +68,29 @@ public class AlumnoBean extends PersonaBean{
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 	/*NEGOCIO*/
 	public Alumno pasarNegocio() {
-		Alumno alumno = new Alumno(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), puntos, nivelLietner, activo);
+		Alumno alumno = new Alumno(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, nivelLietner, activo);
 		alumno.setAvatar(avatar.pasarNegocio());
 		for (EnsenianzaBean ensenianzaBean: ensenianzas){
 			alumno.agregarEnsenianza(ensenianzaBean.pasarNegocio());
 		}
 		return alumno;
 	}
-
+	
+	/*DTO*/
+	public AlumnoDTO pasarDTO() {
+		AlumnoDTO alumno = new AlumnoDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, nivelLietner, activo);
+		alumno.setAvatar(avatar.pasarDTO());
+		for (EnsenianzaBean ensenianzaBean: ensenianzas){
+			alumno.agregarEnsenianzaDTO(ensenianzaBean.pasarDTO());
+		}
+		return alumno;
+	}
 }

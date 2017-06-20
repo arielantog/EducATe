@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import dto.DocenteDTO;
 import negocio.Docente;
 
 @Entity
@@ -42,7 +43,7 @@ public class DocenteBean extends PersonaBean{
 	}
 	/*NEGOCIO*/
 	public Docente pasarNegocio() {
-		 Docente docente = new Docente(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), isActivo());
+		 Docente docente = new Docente(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getPassword(), getMail(), isActivo());
 		 for (CursoBean cursoBean: cursos){
 			 docente.agregarCurso(cursoBean.pasarNegocio());
 		 }
@@ -50,5 +51,14 @@ public class DocenteBean extends PersonaBean{
 	}
 	public void agregarCurso(CursoBean cursoBean) {
 		cursos.add(cursoBean);
+	}
+	
+	/*DTO*/
+	public DocenteDTO pasarDTO() {
+		 DocenteDTO docente = new DocenteDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getPassword(), getMail(), isActivo());
+		 for (CursoBean cursoBean: cursos){
+			 docente.agregarCurso(cursoBean.pasarDTO());
+		 }
+		 return docente;
 	}
 }

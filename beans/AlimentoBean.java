@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import dto.AlimentoDTO;
 import negocio.Alimento;
 
 @Entity
@@ -52,6 +53,11 @@ public class AlimentoBean {
 	/*NEGOCIO*/
 	public Alimento pasarNegocio() {
 		Alimento alimento = new Alimento(id, nombre, proteinas, precio,activo);
+		return alimento;
+	}
+	/*DTO*/
+	public AlimentoDTO pasarDTO() {
+		AlimentoDTO alimento = new AlimentoDTO(id, nombre, proteinas, precio,activo);
 		return alimento;
 	}
 	

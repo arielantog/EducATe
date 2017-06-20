@@ -9,16 +9,16 @@ import beans.DocenteBean;
 
 public class Docente extends Persona {
 
-	public Docente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
-		super(tipoDocumento, nroDocumento, nombre, apellido);
+	public Docente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
+		super(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 		id = ID++;
 		cursos = new ArrayList<Curso>();
 		activo = true;
 		DocenteDao.getInstance().grabar(pasarBean());
 		
 	}
-	public Docente(int Id, String tipoDocumento, int nroDocumento, String nombre, String apellido, boolean activo) {
-		super(tipoDocumento, nroDocumento, nombre, apellido);
+	public Docente(int Id, String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, boolean activo) {
+		super(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 		this.id = Id;
 		this.activo = activo;
 		cursos = new ArrayList<Curso>();
@@ -151,6 +151,8 @@ public class Docente extends Persona {
 		docenteBean.setNroDocumento(getNroDocumento());
 		docenteBean.setNombre(getNombre());
 		docenteBean.setApellido(getApellido());
+		docenteBean.setPassword(getPassword());
+		docenteBean.setMail(getMail());
 		docenteBean.setActivo(activo);
 		for (Curso curso: cursos){
 			CursoBean cursoBean = curso.pasarBean();
