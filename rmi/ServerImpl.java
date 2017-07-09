@@ -12,7 +12,6 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 
 	protected ServerImpl() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int nuevoAlumno(String tipoDocumento, int nroDocumento,
@@ -35,6 +34,19 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 
 	public AlumnoDTO loginAlumno(String usuario, String password) throws RemoteException {
 		return Sistema.getInstance().loginAlumno(usuario, password);
+	}
+
+	public int alumnoBuscarLeccion(int alumno, int juego) throws RemoteException {
+		return Sistema.getInstance().alumnoBuscarLeccion(alumno, juego);
+	}
+	
+	public void alumnoAgregarEnsenianza(int alumno, int leccion, boolean resultado) throws RemoteException {
+		Sistema.getInstance().alumnoAgregarEnsenianza(alumno, leccion, resultado);
+	}
+
+	public int alumnoGetNivel(int alumno) throws RemoteException {
+		return Sistema.getInstance().alumnoGetNivel(alumno);
+		
 	}
 
 }

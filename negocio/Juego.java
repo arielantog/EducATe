@@ -48,11 +48,11 @@ public class Juego {
 		return null;
 	}
 	
-	private boolean tengoLeccion (Leccion leccion){
+	public boolean tengoLeccion (Leccion leccion){
 		for (Leccion leccion2: lecciones)
 			if(leccion2.getId() == leccion.getId())
 				return true;
-		return false;
+		return JuegoDao.getInstance().tengoLeccion(this.getId(), leccion.getId());
 	}
 
 	public int quitarLeccion(int leccion) {

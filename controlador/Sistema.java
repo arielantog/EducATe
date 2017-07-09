@@ -284,6 +284,32 @@ public class Sistema {
 		}
 		return 0;
 	}
+	
+	public int alumnoBuscarLeccion(int alumno, int juego){
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null && alumno2.isActivo()){
+			Juego juego2 = buscarJuego(juego);
+			if (juego2 != null && juego2.isActivo()){
+				Leccion leccion = null;
+				while (leccion == null || !juego2.tengoLeccion(leccion)){
+					leccion = alumno2.calcularSiguienteLeccion(lietner);
+				}
+				return leccion.getId();
+			}else
+				System.out.println("El juego no existe");
+		}else
+			System.out.println("El alumno no existe");
+		return 0;
+	}
+	
+	public int alumnoGetNivel(int alumno){
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null && alumno2.isActivo()){
+			return alumno2.getNivelEnsenianza();
+		}else
+			System.out.println("El alumno no existe");
+		return 0;
+	}
 
 	private Tema buscarTema(String descipcion) {
 		for (Tema tema: temas)
@@ -324,7 +350,12 @@ public class Sistema {
 		for (Alumno alumno: alumnos)
 			if (alumno.getId() == Id)
 				return alumno;
-		return AlumnoDao.getInstance().buscar(Id);
+		Alumno alumno = AlumnoDao.getInstance().buscar(Id); 
+		if (alumno != null){
+			alumnos.add(alumno);
+			return alumno;
+		}
+		return null;
 	}
 	
 	private Leccion temaBuscarLeccion(int leccion) {
@@ -367,6 +398,7 @@ public class Sistema {
 	}
 	
 	private Leccion juegoBuscarLeccion(int leccion) {
+		comprobarJuegos();
 		for (Juego juego: juegos){
 			Leccion leccion2 = juego.buscarLeccion(leccion);
 			if (leccion2 != null)
@@ -424,11 +456,11 @@ public class Sistema {
 	private Juego elegirJuego(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if(alumno2!= null && alumno2.isActivo()){
-			int leccion = alumno2.calcularSiguienteLeccion(lietner);
+			Leccion leccion = alumno2.calcularSiguienteLeccion(lietner);
 			comprobarJuegos();
 			for (Juego juego: juegos)
 				for (Leccion leccion2: juego.getLecciones())
-					if (leccion2.getId() == leccion)
+					if (leccion2.getId() == leccion.getId())
 						return juego;
 		}else
 			System.out.println("El alumno no existe");
@@ -436,11 +468,12 @@ public class Sistema {
 	}
 
 	private void comprobarJuegos() {
+		//Comprueba que todos los juegos estén cargados en memoria
 		int cantidadJuegos = JuegoDao.getInstance().cantidadJuegos();
 		if (juegos.size() < cantidadJuegos){
-			List<Juego> juegos = JuegoDao.getInstance().cargarJuegos();
+			List<Juego> juegos2 = JuegoDao.getInstance().cargarJuegos();
 			boolean existe = false;
-			for (Juego juego2: juegos){
+			for (Juego juego2: juegos2){
 				for (Juego juego: juegos){
 					if (juego.getId() == juego2.getId())
 						existe = true;

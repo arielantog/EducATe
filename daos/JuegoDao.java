@@ -125,4 +125,24 @@ public class JuegoDao {
 		
 	}
 
+	public boolean tengoLeccion(int juego, int leccion) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select a from JuegoBean a join a.lecciones b "
+				+ " where a.id = ? and b.id = ? ");
+		query.setInteger(0, juego);
+		query.setInteger(1, leccion);
+		boolean existe = false;
+		try{
+			 JuegoBean juegoBean = (JuegoBean) query.uniqueResult();
+			 if (juegoBean != null)
+				 existe = true;
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return existe;
+	}
 }

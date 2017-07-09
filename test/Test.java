@@ -65,17 +65,15 @@ public class Test {
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
 		
 		
+		int juego2 =sistema.elegirJuegoSinTema(alumno1);
+		sistema.alumnoBuscarLeccion(alumno1, juego2);
 		
-		int juegoId =sistema.elegirJuegoSinTema(alumno1);
-		System.out.println("Juego elegido:" + juegoId);
-		juegoId = sistema.elegirJuegoConTema(alumno1, tema1);
-		System.out.println("Juego elegido:" + juegoId);
+		sistema.elegirJuegoConTema(alumno1, tema1);
 		
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, false);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, false);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);

@@ -1,11 +1,12 @@
 package daos;
 
 import hibernate.HibernateUtil;
-import negocio.Alimento;
+import negocio.HistorialAlumno;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import beans.HistorialAlumnoBean;
 
 public class HistorialAlumnoDao {
@@ -26,7 +27,7 @@ public class HistorialAlumnoDao {
 		try{
 			Query query = session.createQuery("select MAX(a.id) from HistorialAlumnoBean a ");
 			int variableGlobal = (int) query.uniqueResult();
-			Alimento.setID(variableGlobal+1);
+			HistorialAlumno.setID(variableGlobal+1);
 		}
 		catch(Exception e){
 			System.out.println("No existe ningún registro de historial de alumnos");

@@ -5,12 +5,14 @@ import java.util.List;
 
 import hibernate.HibernateUtil;
 import negocio.Alumno;
+import negocio.Leccion;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import beans.AlumnoBean;
+import beans.LeccionBean;
 import dto.AlumnoDTO;
 
 public class AlumnoDao {
@@ -142,4 +144,31 @@ public class AlumnoDao {
 		return alumno;
 	}
 
+	public Leccion buscarLeccionMasAntigua(int alumno) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Leccion leccion = null;
+		try{
+			Query query = session.createQuery("select c from AlumnoBean a "
+					+ " join a.ensenianzas b "
+					+ " join b.leccion c "
+					+ " where a.id = ? "
+					+ " and b.fechaUltRepaso = (select MIN(e.fechaUltRepaso) "
+					+ "								from AlumnoBean d "
+					+ "								join d.ensenianzas e"
+					+ "								where d.id = ? )");
+			query.setInteger(0, alumno);
+			query.setInteger(1, alumno);
+			
+		
+			LeccionBean leccionBean = (LeccionBean) query.uniqueResult();
+			leccion = leccionBean.pasarNegocio();
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return leccion;
+	}
 }

@@ -29,12 +29,12 @@ public class Ensenianza {
 	
 	
 	public int calcularNivelRefuerzo(boolean resultado) {
-		if (resultado)
+		if (resultado){
 			if (getNivelRefuerzo() < NivelMax)
 				nivelRefuerzo++;
 			else if (getNivelRefuerzo() >= NivelMax)
 				nivelRefuerzo = NivelMax;
-		else
+		}else
 			nivelRefuerzo = 1;
 		return nivelRefuerzo;
 	}

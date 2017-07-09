@@ -16,12 +16,13 @@ public class Alumno extends Persona {
 		this.usuario = usuario;
 		puntos = 0;
 		nivelLietner = 0;
+		nivelEnsenianza = 0;
 		activo = true;
 		ensenianzas = new ArrayList<Ensenianza>();
 		avatar = new Avatar();
 		AlumnoDao.getInstance().grabar(pasarBean());
 	}
-	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario, int puntos, int nivelLietner, boolean activo) {
+	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, String usuario, String password, String mail, int puntos, int nivelLietner, boolean activo) {
 		super(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 		this.id = id;
 		this.usuario = usuario;
@@ -41,6 +42,7 @@ public class Alumno extends Persona {
 	private int nivelLietner;
 	private boolean activo;
 	private String usuario;
+	private int nivelEnsenianza;
 	
 	public int agregarEnsenianza(Leccion leccion, boolean resultado) {
 		Ensenianza ensenianza = buscarEnsenianza(leccion);
@@ -77,19 +79,23 @@ public class Alumno extends Persona {
 	}
 	
 	private int calcularNivelSiguiente(Integer[] lietner){
-		this.setNivelLietner(getNivelLietner()+1);
-		Integer nuevoNivel = lietner[this.getNivelLietner()];
-		if (nuevoNivel == null){
+		try{
+			this.setNivelLietner(getNivelLietner()+1);
+			return lietner[this.getNivelLietner()];
+			
+		}catch(Exception e){
 			this.setNivelLietner(0);
 			return 0;
+		}finally{
+			setNivelEnsenianza(lietner[this.getNivelLietner()]);
 		}
-		return nuevoNivel;
 	}
-	public int calcularSiguienteLeccion(Integer[] lietner){
+	public Leccion calcularSiguienteLeccion(Integer[] lietner){
 		int nivel = calcularNivelSiguiente(lietner);
 		for (Ensenianza ensenianza: ensenianzas){
 			if (ensenianza.getNivelRefuerzo() == nivel)
-				return ensenianza.getLeccion().getId();
+				return ensenianza.getLeccion();
+				
 		}
 		return calcularSiguienteLeccion(lietner);
 	}
@@ -197,6 +203,12 @@ public class Alumno extends Persona {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	public int getNivelEnsenianza() {
+		return nivelEnsenianza;
+	}
+	public void setNivelEnsenianza(int nivelEnsenianza) {
+		this.nivelEnsenianza = nivelEnsenianza;
+	}
 
 	/*BEAN*/
 	public AlumnoBean pasarBean() {
@@ -220,5 +232,24 @@ public class Alumno extends Persona {
 		
 		return alumnoBean;
 	}
+	
+	
+	//TODO Creo que me equivoqué, ya estaba creada esta lógica de otra forma
+	
+	/*public Leccion buscarLeccion() {
+		Leccion leccionMasAntigua = null;
+		Date fechaRepasoMasAntiguo = new Fecha().fechaActual();
+		for (Ensenianza ensenianza: ensenianzas){
+			if (ensenianza.getNivelRefuerzo() == this.getNivelLietner() && ensenianza.getFechaUltRepaso().compareTo(fechaRepasoMasAntiguo) < 0){
+				fechaRepasoMasAntiguo = ensenianza.getFechaUltRepaso();
+				leccionMasAntigua = ensenianza.getLeccion();
+			}
+		}
+		if (leccionMasAntigua != null)
+			return leccionMasAntigua;
+		else{
+			return AlumnoDao.getInstance().buscarLeccionMasAntigua(this.id);
+		}
+	}*/
 
 }
