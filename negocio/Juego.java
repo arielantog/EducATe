@@ -65,17 +65,6 @@ public class Juego {
 		}
 		return 0;
 	}
-
-	//TODO ¿Se puede tirar esta y usar la de arriba?
-	public void eliminarLeccion(int leccion) {
-		for (Leccion leccion2: lecciones){
-			if (leccion2.getId() == leccion){
-				lecciones.remove(leccion2);
-				JuegoDao.getInstance().actualizar(pasarBean());
-				return;
-			}
-		}
-	}
 	
 	public void agregarLeccion(Leccion leccion, boolean b) {
 		lecciones.add(leccion);	

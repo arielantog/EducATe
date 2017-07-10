@@ -15,21 +15,21 @@ public class Alumno extends Persona {
 		id = ID++;
 		this.usuario = usuario;
 		puntos = 0;
-		nivelLietner = 0;
 		nivelEnsenianza = 0;
 		activo = true;
 		ensenianzas = new ArrayList<Ensenianza>();
 		avatar = new Avatar();
+		nivelEnsenianza = 0;
 		AlumnoDao.getInstance().grabar(pasarBean());
 	}
-	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, String usuario, String password, String mail, int puntos, int nivelLietner, boolean activo) {
+	public Alumno(int id,String tipoDocumento, int nroDocumento, String nombre, String apellido, String usuario, String password, String mail, int puntos, boolean activo) {
 		super(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 		this.id = id;
 		this.usuario = usuario;
 		this.puntos = puntos;
-		this.nivelLietner = nivelLietner;
 		this.activo = activo;
 		ensenianzas = new ArrayList<Ensenianza>();
+		this.nivelEnsenianza = 0;
 	}
 
 	private static int ID = 1;
@@ -39,7 +39,6 @@ public class Alumno extends Persona {
 	private int puntos;
 	private List<Ensenianza> ensenianzas;
 	private Avatar avatar;
-	private int nivelLietner;
 	private boolean activo;
 	private String usuario;
 	private int nivelEnsenianza;
@@ -78,25 +77,33 @@ public class Alumno extends Persona {
 		return null;
 	}
 	
-	private int calcularNivelSiguiente(Integer[] lietner){
-		try{
-			this.setNivelLietner(getNivelLietner()+1);
-			return lietner[this.getNivelLietner()];
-			
-		}catch(Exception e){
-			this.setNivelLietner(0);
-			return 0;
-		}finally{
-			setNivelEnsenianza(lietner[this.getNivelLietner()]);
-		}
+	private int calcularNivelSiguiente(Lietner lietner){
+		int nivel = lietner.getNivel();
+		return nivel;
 	}
-	public Leccion calcularSiguienteLeccion(Integer[] lietner){
+	public Leccion calcularSiguienteLeccion(Lietner lietner){
+		List<Leccion> lecciones = new ArrayList<Leccion>();
 		int nivel = calcularNivelSiguiente(lietner);
 		for (Ensenianza ensenianza: ensenianzas){
-			if (ensenianza.getNivelRefuerzo() == nivel)
-				return ensenianza.getLeccion();
+			if (ensenianza.getNivelRefuerzo() == nivel){
 				
+				lecciones.add(ensenianza.getLeccion());
+			}
 		}
+		if (lecciones.size() > 0){
+			lietner.setIteracion(0);
+			setNivelEnsenianza(nivel);
+			int aleatorio = new Random(System.currentTimeMillis()).nextInt(lecciones.size());
+			return lecciones.get(aleatorio);
+		}
+		
+		/*Se utiliza para que no genere siempre números random del 0 al 99.
+		 * A medida que se avanza y sólo quedan niveles de valor 4 o 5,
+		 * al hacer muchas iteraciones, pincha.
+		 * Por lo que en cada iteración, se acorta la brecha del random
+		 * así los mayores niveles tienen una mayor probabilidad.
+		 */
+		lietner.setIteracion(lietner.getIteracion()+1);
 		return calcularSiguienteLeccion(lietner);
 	}
 	public int alimentarAvatar(Alimento alimento) {
@@ -185,12 +192,6 @@ public class Alumno extends Persona {
 	public void setAvatar(Avatar avatar) {
 		this.avatar = avatar;
 	}
-	public int getNivelLietner() {
-		return nivelLietner;
-	}
-	public void setNivelLietner(int nivelLietner) {
-		this.nivelLietner = nivelLietner;
-	}
 	public boolean isActivo() {
 		return activo;
 	}
@@ -222,7 +223,7 @@ public class Alumno extends Persona {
 		alumnoBean.setMail(getMail());
 		alumnoBean.setUsuario(getUsuario());
 		alumnoBean.setPuntos(getPuntos());
-		alumnoBean.setNivelLietner(getNivelLietner());
+		//alumnoBean.setNivelLietner(getNivelLietner());
 		alumnoBean.setActivo(activo);
 		for (Ensenianza ensenianza: ensenianzas){
 			EnsenianzaBean ensenianzaBean = ensenianza.pasarBean();
@@ -232,24 +233,5 @@ public class Alumno extends Persona {
 		
 		return alumnoBean;
 	}
-	
-	
-	//TODO Creo que me equivoqué, ya estaba creada esta lógica de otra forma
-	
-	/*public Leccion buscarLeccion() {
-		Leccion leccionMasAntigua = null;
-		Date fechaRepasoMasAntiguo = new Fecha().fechaActual();
-		for (Ensenianza ensenianza: ensenianzas){
-			if (ensenianza.getNivelRefuerzo() == this.getNivelLietner() && ensenianza.getFechaUltRepaso().compareTo(fechaRepasoMasAntiguo) < 0){
-				fechaRepasoMasAntiguo = ensenianza.getFechaUltRepaso();
-				leccionMasAntigua = ensenianza.getLeccion();
-			}
-		}
-		if (leccionMasAntigua != null)
-			return leccionMasAntigua;
-		else{
-			return AlumnoDao.getInstance().buscarLeccionMasAntigua(this.id);
-		}
-	}*/
 
 }

@@ -7,10 +7,12 @@ public class Test {
 	public static void main(String[] args) {
 		Sistema sistema = new Sistema();
 				
-		sistema.agregarValorLietner(1,1);
-		sistema.agregarValorLietner(2,1);
-		sistema.agregarValorLietner(3,1);
-		sistema.agregarValorLietner(4,1);
+		sistema.agregarValorLietner(0,0,35);
+		sistema.agregarValorLietner(1,36,55);
+		sistema.agregarValorLietner(2,56,75);
+		sistema.agregarValorLietner(3,75,87);
+		sistema.agregarValorLietner(4,88,94);
+		sistema.agregarValorLietner(5,95,99);
 		
 		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa", "123456", "psarasa@uade.edu.ar");
 		
@@ -77,6 +79,7 @@ public class Test {
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		
  		sistema.alumnoAlimentarAvatar(alumno1, alimento1);
 		sistema.alumnoAlimentarAvatar(alumno1, alimento3);
 		sistema.alumnoRevivirAvatar(alumno1);
@@ -91,7 +94,8 @@ public class Test {
 		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa");
 		
 		sistema.eliminarValorLietner(4);
-		sistema.agregarValorLietner(4,1);
+		sistema.agregarValorLietner(4,88,95);
+		sistema.modificarValorLietner(4,88,94);
 		
 		sistema.eliminarTema(tema1);
 		int tema99 = sistema.nuevoTema("Divisiones políticas");

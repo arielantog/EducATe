@@ -22,7 +22,6 @@ public class AlumnoBean extends PersonaBean{
 	@OneToOne
 	@JoinColumn (name="avatarId")
 	private AvatarBean avatar;
-	private int nivelLietner;
 	private boolean activo;
 	
 	public AlumnoBean() {
@@ -53,12 +52,6 @@ public class AlumnoBean extends PersonaBean{
 	public void setAvatar(AvatarBean avatar) {
 		this.avatar = avatar;
 	}
-	public int getNivelLietner() {
-		return nivelLietner;
-	}
-	public void setNivelLietner(int nivelLietner) {
-		this.nivelLietner = nivelLietner;
-	}
 	public void agregarEnsenianza(EnsenianzaBean ensenianzaBean) {
 		ensenianzas.add(ensenianzaBean);
 	}
@@ -76,7 +69,7 @@ public class AlumnoBean extends PersonaBean{
 	}
 	/*NEGOCIO*/
 	public Alumno pasarNegocio() {
-		Alumno alumno = new Alumno(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, nivelLietner, activo);
+		Alumno alumno = new Alumno(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, activo);
 		alumno.setAvatar(avatar.pasarNegocio());
 		for (EnsenianzaBean ensenianzaBean: ensenianzas){
 			alumno.agregarEnsenianza(ensenianzaBean.pasarNegocio());
@@ -86,7 +79,7 @@ public class AlumnoBean extends PersonaBean{
 	
 	/*DTO*/
 	public AlumnoDTO pasarDTO() {
-		AlumnoDTO alumno = new AlumnoDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, nivelLietner, activo);
+		AlumnoDTO alumno = new AlumnoDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, activo);
 		alumno.setAvatar(avatar.pasarDTO());
 		for (EnsenianzaBean ensenianzaBean: ensenianzas){
 			alumno.agregarEnsenianzaDTO(ensenianzaBean.pasarDTO());

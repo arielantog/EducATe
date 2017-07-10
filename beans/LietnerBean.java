@@ -1,8 +1,13 @@
 package beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -11,19 +16,30 @@ public class LietnerBean {
 	@Id
 	@Column(name="lietnerId")
 	private int id;
-	private int valor;
-	
+	@OneToMany
+	@JoinColumn(name="lietnerId")
+	private List<ValorLietnerBean> valoresLietner;
+
+	public LietnerBean(){
+		valoresLietner = new ArrayList<ValorLietnerBean>();
+	}
 	
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getValor() {
-		return valor;
+	public List<ValorLietnerBean> getValoresLietner() {
+		return valoresLietner;
 	}
-	public void setValor(int valor) {
-		this.valor = valor;
+
+	public void setValoresLietner(List<ValorLietnerBean> valoresLietner) {
+		this.valoresLietner = valoresLietner;
+	}
+	
+	public void agregarValorLietner(ValorLietnerBean valorLietnet){
+		valoresLietner.add(valorLietnet);
 	}
 }

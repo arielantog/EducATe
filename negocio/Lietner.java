@@ -1,109 +1,116 @@
 package negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import daos.LietnerDao;
+import daos.ValorLietnerDao;
 import beans.LietnerBean;
 
 public class Lietner {
 	
 	
-	public Lietner(int pos, int valor) {
-		id = pos;
-		Valor = valor;
+	public Lietner(int id) {
+		setId(id);
+		valoresLietner = new ArrayList<ValorLietner>();
+		LietnerDao.getInstance().grabar(this.pasarBean());
 	}
+	
 	public Lietner() {
+		valoresLietner = new ArrayList<ValorLietner>();
 	}
 	
 	private int id;
-	private int Valor;
+	private int iteracion = 0;
+	private List<ValorLietner> valoresLietner;
 	
-	public Integer[] calcularLietner() {
-		Integer[] lietnerValores = cargarLietner();
-		Integer[] lietners = new Integer[100];
-		int contador = 0;
-		@SuppressWarnings("unused")
-		int posicion = 0;
-		int cantidad = cantidadVector(lietnerValores);
-		boolean noPrimero = false;
-		//Agrego el 0
-		for (int i = 0;i<lietnerValores[0];i++){
-			lietners[i] = contador;
-			posicion = i;
-		}
-		contador++;
-		posicion++;
+	public int agregarValorLietner(int nivel, int desde, int hasta) {
+		ValorLietner valorLietner = new ValorLietner(nivel,desde,hasta);
+		valoresLietner.add(valorLietner);
+		LietnerDao.getInstance().actualizar(this.pasarBean());
+		return valorLietner.getNivel();
+	}
+	
+	public void cargarValores() {
+		List<ValorLietner> valoresLietner = new ArrayList<ValorLietner>();
+		valoresLietner = ValorLietnerDao.getInstance().cargarValores();
+		for (ValorLietner valorLietner: valoresLietner)
+			this.valoresLietner.add(valorLietner);
+	}
+	
+	public int getNivel() {
+		//En caso de que no haya encontrado ninguno, vuelve a empezar.
+		if (iteracion == 99)
+			iteracion = 0;
 		
-		//Por cada otro nivel que haya
-		for (int i = 1;i<=cantidad;i++){
-			//Copio la cadena
-			int cantidadAct = cantidadVector(lietners);
-			for (int j = 0;j<=cantidadAct;j++)
-			{
-				lietners[cantidadAct+j+1] = lietners[j];
-			}
-			cantidadAct = cantidadVector(lietners);
-			//Agrego el 0
-			if (noPrimero){
-				for (int j = 0;j<lietnerValores[0];j++){
-					lietners[cantidadAct+1] = 0;
-					cantidadAct++;
-				}
-			}
-			noPrimero = true;
-			//Agrego el nuevo valor
-			for(int j = 0;j<lietnerValores[cantidad];j++){
-				lietners[cantidadAct+j+1] = contador;
-			}
-			contador++;
-			
+		//Genera un número Random entre el número de iteración y 99.
+		int aleatorio = new Random(System.currentTimeMillis()).nextInt(100-iteracion)+iteracion;
+		for (ValorLietner valorLietner: valoresLietner){
+			if (aleatorio >= valorLietner.getDesde() && aleatorio <= valorLietner.getHasta())
+				return valorLietner.getNivel();
 		}
-		
-		return lietners;
+		return 0;
+	}
+	
+	public boolean existeNivel(int nivel) {
+		for (ValorLietner valorLietner: valoresLietner)
+			if (valorLietner.getNivel() == nivel)
+				return true;
+		return false;
+	}
+	
+	public int modificarValor(int nivel, int desde, int hasta) {
+		for (ValorLietner valorLietner: valoresLietner)
+			if (valorLietner.getNivel() == nivel){
+				valorLietner.setDesde(desde);
+				valorLietner.setHasta(hasta);
+				ValorLietnerDao.getInstance().actualizar(valorLietner.pasarBean());
+				return nivel;
+			}
+		return 0;
 	}
 
-	private int cantidadVector(Integer[] lietnerValores) {
-		int cantidad = 0;
-		int c = 0;
-		while (lietnerValores[c]!= null){
-			cantidad = c;
-			c++;
-		}
-		return cantidad;
+	public int eliminarValorLietner(int nivel) {
+		for (ValorLietner valorLietner: valoresLietner)
+			if (valorLietner.getNivel() == nivel){
+				valoresLietner.remove(valorLietner);
+				ValorLietnerDao.getInstance().eliminar(valorLietner.pasarBean());
+				return nivel;
+			}
+		return 0;
 	}
-
-	private Integer[] cargarLietner() {
-		Integer[] lietnerValores = new Integer[10];
-		lietnerValores = LietnerDao.getInstance().cargarValores();
-		if (lietnerValores[0] == null){
-			//Default
-			lietnerValores[0] = 1;
-			lietnerValores[1] = 1;
-			lietnerValores[2] = 1;
-			lietnerValores[3] = 1;
-			lietnerValores[4] = 1;
-		}
-		return lietnerValores;
-	}
+	
 	
 	/*GETTERS Y SETTERS*/
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getValor() {
-		return Valor;
+	public List<ValorLietner> getValoresLietner() {
+		return valoresLietner;
 	}
-	public void setValor(int valor) {
-		Valor = valor;
+	public void setValoresLietner(List<ValorLietner> valoresLietner) {
+		this.valoresLietner = valoresLietner;
 	}
+	public int getIteracion() {
+		return iteracion;
+	}
+	public void setIteracion(int iteracion) {
+		this.iteracion = iteracion;
+	}
+	
 	/*BEAN*/
 	public LietnerBean pasarBean() {
 		LietnerBean lietnerBean = new LietnerBean();
-		lietnerBean.setId(id);
-		lietnerBean.setValor(Valor);
-		return lietnerBean;
 		
+		lietnerBean.setId(id);
+		for (ValorLietner valorLietner: valoresLietner)
+			lietnerBean.agregarValorLietner(valorLietner.pasarBean());
+		return lietnerBean;
 	}
 	
 }

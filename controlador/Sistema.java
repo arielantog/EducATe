@@ -4,7 +4,6 @@ import hibernate.HibernateUtil;
 
 import java.util.*;
 
-import beans.LietnerBean;
 import daos.AlimentoDao;
 import daos.AlumnoDao;
 import daos.AvatarDao;
@@ -41,9 +40,20 @@ public class Sistema {
 		alimentos = new ArrayList<Alimento>();
 		tipoAvatares = new ArrayList<TipoAvatar>();
 		cargarVariablesGlobales();
-		setLietner(calcularLietner());
+		cargarLietner();
 		TipoAvatarDao.getInstance().buscar(1);
 		cargarTimer();
+	}
+
+	private void cargarLietner() {
+		if (!LietnerDao.getInstance().existe(1)){
+			//Persiste en la base
+			lietner = new Lietner(1);
+		}else{
+			//No persiste en la base
+			lietner = new Lietner();
+			lietner.cargarValores();
+		};
 	}
 
 	private static Sistema singleton;
@@ -53,7 +63,7 @@ public class Sistema {
 	private List<Tema> temas;
 	private List<TipoAvatar> tipoAvatares;
 	private List<Alimento> alimentos;
-	private Integer[] lietner;
+	private Lietner lietner;
 
 
 	public static Sistema getInstance() {
@@ -486,28 +496,12 @@ public class Sistema {
 		}
 	}
 	
-	private Integer[] calcularLietner() {
+	/*private Integer[] calcularLietner() {
 		return new Lietner().calcularLietner();
-	}
-
-	public Integer[] getLietner() {
-		return lietner;
-	}
-
-	public void setLietner(Integer[] integers) {
-		lietner = integers;
-	}
+	}*/
 	
-	public int agregarValorLietner(int pos, int valor){
-		Lietner lietner2 = new negocio.Lietner(pos, valor);
-		LietnerBean lietnerBean = lietner2.pasarBean();
-		boolean existe = LietnerDao.getInstance().existe(pos);
-		if (existe)
-			LietnerDao.getInstance().actualizar(lietnerBean);
-		else
-			LietnerDao.getInstance().grabar(lietnerBean);
-		lietner = LietnerDao.getInstance().cargarValores();
-		return lietner2.getId();
+	public int agregarValorLietner(int nivel, int desde, int hasta){
+		return lietner.agregarValorLietner(nivel, desde, hasta);
 	}
 
 	public int eliminarAlumno(int alumno) {
@@ -553,15 +547,22 @@ public class Sistema {
 		return 0;
 		
 	}
-
-	public int eliminarValorLietner(int valor) {
-		negocio.Lietner lietner2 = new negocio.Lietner(valor, 0);
-		boolean existe = LietnerDao.getInstance().existe(valor);
+	
+	public int modificarValorLietner(int nivel, int desde, int hasta) {
+		boolean existe = lietner.existeNivel(nivel);
 		if (existe){
-			LietnerBean lietnerBean = lietner2.pasarBean();
-			LietnerDao.getInstance().eliminar(lietnerBean);
+			return lietner.modificarValor(nivel,desde,hasta);
 		}
-		lietner = LietnerDao.getInstance().cargarValores();
+		System.out.println("El nivel Lietner no existe");
+		return 0;
+		
+	}
+
+	public int eliminarValorLietner(int nivel) {
+		boolean existe = lietner.existeNivel(nivel);
+		if (existe){
+			return lietner.eliminarValorLietner(nivel);
+		}
 		return 0;
 	}
 
@@ -630,7 +631,7 @@ public class Sistema {
 			juegos = JuegoDao.getInstance().cargarJuegos();
 			for (Juego juego: juegos){
 				if (juego.buscarLeccion(leccion) != null)
-					juego.eliminarLeccion(leccion);
+					juego.quitarLeccion(leccion);
 			}
 			return 0;
 			
@@ -767,5 +768,6 @@ public class Sistema {
 			return alumno;
 		return null;
 	}
+
 
 }
