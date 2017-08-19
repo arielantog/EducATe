@@ -109,7 +109,7 @@ public class Sistema {
 	}
 	
 	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
-		Alumno alumno = buscarAlumno(tipoDocumento, nroDocumento);
+		Alumno alumno = buscarAlumno(usuario);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
 			for (Tema tema: temas)
@@ -119,8 +119,8 @@ public class Sistema {
 			alumnos.add(alumno);
 			return alumno.getId();
 		}
-		alumno.activar(nombre,apellido);
-		return alumno.getId();
+		System.out.println("El alumno ya existe");		
+		return 0;
 	}
 
 	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
@@ -349,11 +349,18 @@ public class Sistema {
 		return DocenteDao.getInstance().buscar(Id);
 	}
 
-	private Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
+	public Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
 		for (Alumno alumno: alumnos)
 			if (alumno.getTipoDocumento().equals(tipoDocumento) && alumno.getNroDocumento() == nroDocumento)
 				return alumno;
 		return AlumnoDao.getInstance().buscar(tipoDocumento, nroDocumento);
+	}
+	
+	private Alumno buscarAlumno(String usuario) {
+		for (Alumno alumno: alumnos)
+			if (alumno.getUsuario().equals(usuario))
+				return alumno;
+		return AlumnoDao.getInstance().buscar(usuario);
 	}
 	
 	private Alumno buscarAlumno(int Id) {

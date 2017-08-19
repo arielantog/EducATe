@@ -24,20 +24,24 @@ public class Test {
 		sistema.nuevoTema("Espacios urbanos");
 		
 		int juego1 = sistema.nuevoJuego("División política 1", tema1);
+		int juego2 = sistema.nuevoJuego("Condiciones naturales 1", tema2);
 		sistema.nuevoJuego("División política 2", tema1);
-		sistema.nuevoJuego("Condiciones naturales 1", tema2);
-
 		
 		int curso1 = sistema.docenteAgregarCurso(docente3, "Curso UADE Noche");
 
 		
-		int leccion1 = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
-		int leccion2 = sistema.temaAgregarLeccion(tema1, "Posición departamento Deseado");
-		int leccion3 = sistema.temaAgregarLeccion(tema1, "Posición departamento Güer Aike");
-		int leccion4 = sistema.temaAgregarLeccion(tema1, "Posición departamento Lago Argentino");
-		int leccion5 = sistema.temaAgregarLeccion(tema1, "Posición departamento Lago Buenos Aires");
-		int leccion6 = sistema.temaAgregarLeccion(tema1, "Posición departamento Magallanes");
-		int leccion7 = sistema.temaAgregarLeccion(tema1, "Posición departamento Río Chico");
+		int leccion1  = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
+		int leccion2  = sistema.temaAgregarLeccion(tema1, "Posición departamento Deseado");
+		int leccion3  = sistema.temaAgregarLeccion(tema1, "Posición departamento Güer Aike");
+		int leccion4  = sistema.temaAgregarLeccion(tema1, "Posición departamento Lago Argentino");
+		int leccion5  = sistema.temaAgregarLeccion(tema1, "Posición departamento Lago Buenos Aires");
+		int leccion6  = sistema.temaAgregarLeccion(tema1, "Posición departamento Magallanes");
+		int leccion7  = sistema.temaAgregarLeccion(tema1, "Posición departamento Río Chico");
+		
+		int leccion8  = sistema.temaAgregarLeccion(tema2, "Posición zona clima Frio nival");
+		int leccion9  = sistema.temaAgregarLeccion(tema2, "Posición zona clima Frio humedo");
+		int leccion10 = sistema.temaAgregarLeccion(tema2, "Posición zona clima Frio humedo austral");
+		int leccion11 = sistema.temaAgregarLeccion(tema2, "Posición zona clima Frio arido de la Patagonia");
 		
 
 		sistema.juegoAgregarLeccion(juego1, leccion1);
@@ -47,6 +51,11 @@ public class Test {
 		sistema.juegoAgregarLeccion(juego1, leccion5);
 		sistema.juegoAgregarLeccion(juego1, leccion6);
 		sistema.juegoAgregarLeccion(juego1, leccion7);
+		
+		sistema.juegoAgregarLeccion(juego2, leccion8);
+		sistema.juegoAgregarLeccion(juego2, leccion9);
+		sistema.juegoAgregarLeccion(juego2, leccion10);
+		sistema.juegoAgregarLeccion(juego2, leccion11);
 		
 		int alimento1 = sistema.nuevoAlimento("Comida1", 2, 20);
 		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40);
@@ -67,8 +76,8 @@ public class Test {
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
 		
 		
-		int juego2 =sistema.elegirJuegoSinTema(alumno1);
-		sistema.alumnoBuscarLeccion(alumno1, juego2);
+		int juego3 =sistema.elegirJuegoSinTema(alumno1);
+		sistema.alumnoBuscarLeccion(alumno1, juego3);
 		
 		sistema.elegirJuegoConTema(alumno1, tema1);
 		
@@ -114,11 +123,11 @@ public class Test {
 		int leccion99 = sistema.temaAgregarLeccion(tema1, "Posiciones departamento Corpen Aike");
 		sistema.temaModificarLeccion(tema1, leccion99,"Posición departamento Corpen Aike");
 		sistema.temaEliminarLeccion(tema1, leccion99);
-		int leccion9 = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
-		sistema.juegoAgregarLeccion(juego1, leccion9);
+		int leccion12 = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
+		sistema.juegoAgregarLeccion(juego1, leccion12);
 		
-		sistema.juegoQuitarLeccion(juego1, leccion9);
-		sistema.juegoAgregarLeccion(juego1, leccion9);
+		sistema.juegoQuitarLeccion(juego1, leccion12);
+		sistema.juegoAgregarLeccion(juego1, leccion12);
 
 		sistema.eliminarAlimento(alimento1);
 		int alimento99 = sistema.nuevoAlimento("Coomida1", 2, 20);

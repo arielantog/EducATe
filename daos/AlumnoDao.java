@@ -101,6 +101,24 @@ public class AlumnoDao {
 		session.close();
 		return alumno;
 	}
+	
+	public Alumno buscar(String usuario) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from AlumnoBean where usuario = ? " );
+		query.setString(0, usuario);
+		Alumno alumno = null;
+		try{
+			AlumnoBean alumnoBean = (AlumnoBean) query.uniqueResult();
+			alumno = alumnoBean.pasarNegocio();
+		}catch (Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return alumno;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Alumno> cargarAlumnos() {
