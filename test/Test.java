@@ -57,12 +57,12 @@ public class Test {
 		sistema.juegoAgregarLeccion(juego2, leccion10);
 		sistema.juegoAgregarLeccion(juego2, leccion11);
 		
-		int alimento1 = sistema.nuevoAlimento("Comida1", 2, 20);
-		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40);
-		int alimento3 = sistema.nuevoAlimento("Comida3", 5, 50);
+		int alimento1 = sistema.nuevoAlimento("Comida1", 2, 20, null);
+		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40, null);
+		int alimento3 = sistema.nuevoAlimento("Comida3", 5, 50, null);
 		
-		int tipoAvatar1 = sistema.nuevoTipoAvatar("Célula", 20, 2000,500,500);
-		int tipoAvatar2 = sistema.nuevoTipoAvatar("Pez", 100, 1000,2000,1500);
+		int tipoAvatar1 = sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
+		int tipoAvatar2 = sistema.nuevoTipoAvatar("Celentéreo 2", 100, 1000,2000,1500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/2.png");
 		
 		sistema.tipoAvatarAgregarAlimento(alimento1, tipoAvatar1);
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar1);
@@ -96,6 +96,7 @@ public class Test {
 		
 		sistema.eliminarAlumno(alumno1);
 		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
+		sistema.activarAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		sistema.modificarAlumno("DNI", 35730491, "Ariel", "Antognini");
 		
 		sistema.eliminarDocente(docente3);
@@ -130,16 +131,16 @@ public class Test {
 		sistema.juegoAgregarLeccion(juego1, leccion12);
 
 		sistema.eliminarAlimento(alimento1);
-		int alimento99 = sistema.nuevoAlimento("Coomida1", 2, 20);
-		sistema.modificarAlimento(alimento99,"Comida1", 2, 20);
+		int alimento99 = sistema.nuevoAlimento("Coomida1", 2, 20, null);
+		sistema.modificarAlimento(alimento99,"Comida1", 2, 20, null);
 		sistema.eliminarAlimento(alimento99);
-		sistema.nuevoAlimento("Comida1", 2, 20);
+		sistema.nuevoAlimento("Comida1", 2, 20, null);
 		
 		sistema.eliminarTipoAvatar(tipoAvatar1);
-		int tipoAvatar99 = sistema.nuevoTipoAvatar("Células", 20, 2000,500,500);
-		sistema.modificarTipoAvatar(tipoAvatar99,"Célula", 20, 2000,500,500);
+		int tipoAvatar99 = sistema.nuevoTipoAvatar("Celentéreo1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
+		sistema.modificarTipoAvatar(tipoAvatar99,"Celentéreo1", 20, 2000,500,500,"http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
 		sistema.eliminarTipoAvatar(tipoAvatar99);
-		sistema.nuevoTipoAvatar("Célula", 20, 2000,500,500);
+		sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
 		
 		sistema.docenteEliminarCurso(docente3,curso1);
 		int curso99 = sistema.docenteAgregarCurso(docente3, "Curso VADE Noche");

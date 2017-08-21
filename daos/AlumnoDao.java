@@ -112,7 +112,7 @@ public class AlumnoDao {
 			AlumnoBean alumnoBean = (AlumnoBean) query.uniqueResult();
 			alumno = alumnoBean.pasarNegocio();
 		}catch (Exception e){
-			System.out.println(e);
+			
 		}
 		session.flush();
 		session.getTransaction().commit();

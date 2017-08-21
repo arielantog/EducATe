@@ -146,9 +146,13 @@ public class Alumno extends Persona {
 		AlumnoDao.getInstance().actualizar(pasarBean());
 		
 	}
-	public void activar(String nombre, String apellido) {
+	public void activar(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
+		setTipoDocumento(tipoDocumento);
+		setNroDocumento(nroDocumento);
 		setNombre(nombre);
 		setApellido(apellido);
+		setPassword(password);
+		setMail(mail);
 		activo = true;
 		AlumnoDao.getInstance().actualizar(pasarBean());
 	}

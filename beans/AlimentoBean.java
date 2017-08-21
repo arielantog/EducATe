@@ -18,6 +18,7 @@ public class AlimentoBean {
 	private int proteinas;
 	private int precio;
 	private boolean activo;
+	private String url;
 	
 	/*GETTES Y SETTERS*/
 	public int getId() {
@@ -50,15 +51,21 @@ public class AlimentoBean {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	/*NEGOCIO*/
 	public Alimento pasarNegocio() {
-		Alimento alimento = new Alimento(id, nombre, proteinas, precio,activo);
+		Alimento alimento = new Alimento(id, nombre, proteinas, precio,activo,url);
 		return alimento;
 	}
 	/*DTO*/
 	public AlimentoDTO pasarDTO() {
-		AlimentoDTO alimento = new AlimentoDTO(id, nombre, proteinas, precio,activo);
+		AlimentoDTO alimento = new AlimentoDTO(id, nombre, proteinas, precio,activo,url);
 		return alimento;
 	}
-	
+
 }

@@ -31,10 +31,12 @@ public class TipoAvatarBean {
 				inverseJoinColumns	= @JoinColumn(name="alimentoId"))
 	private List<AlimentoBean> alimentos;
 	private boolean activo;
+	private String url;
 	
 	public TipoAvatarBean() {
 		alimentos = new ArrayList<AlimentoBean>();
 	}
+	
 	/*GETTERS Y SETTERS*/
 	public int getId() {
 		return id;
@@ -87,9 +89,16 @@ public class TipoAvatarBean {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	/*NEGOCIO*/
 	public TipoAvatar pasarNegocio() {
-		TipoAvatar tipoAvatar = new TipoAvatar(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
+		TipoAvatar tipoAvatar = new TipoAvatar(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo,url);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarNegocio());
 		}
@@ -97,7 +106,7 @@ public class TipoAvatarBean {
 	}
 	/*DTO*/
 	public TipoAvatarDTO pasarDTO() {
-		TipoAvatarDTO tipoAvatar = new TipoAvatarDTO(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo);
+		TipoAvatarDTO tipoAvatar = new TipoAvatarDTO(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo,url);
 		for(AlimentoBean alimento: alimentos){
 			tipoAvatar.agregarAlimento(alimento.pasarDTO());
 		}

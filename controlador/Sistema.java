@@ -122,6 +122,21 @@ public class Sistema {
 		System.out.println("El alumno ya existe");		
 		return 0;
 	}
+	
+	public int activarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
+		Alumno alumno = buscarAlumno(usuario);
+		if (alumno == null){
+			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
+			for (Tema tema: temas)
+				for (Leccion leccion: tema.getLecciones())
+					alumno.agregarEnsenianza(leccion, false);
+			AlumnoDao.getInstance().actualizar(alumno.pasarBean());
+			alumnos.add(alumno);
+			return alumno.getId();
+		}
+		alumno.activar(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
+		return 0;
+	}
 
 	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
@@ -163,25 +178,25 @@ public class Sistema {
 		return juego.getId();
 	}
 	
-	public int nuevoTipoAvatar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir){
+	public int nuevoTipoAvatar(String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir, String url){
 		TipoAvatar tipoAvatar = buscarTipoAvatar(nombre);
 		if (tipoAvatar == null){
-			tipoAvatar = new TipoAvatar(nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir);
+			tipoAvatar = new TipoAvatar(nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir, url);
 			tipoAvatares.add(tipoAvatar);
 			return tipoAvatar.getId();
 		}
-		tipoAvatar.activar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir);
+		tipoAvatar.activar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir, url);
 		return tipoAvatar.getId();
 	}
 	
-	public int nuevoAlimento(String nombre, int proteinas, int precio){
+	public int nuevoAlimento(String nombre, int proteinas, int precio, String url){
 		Alimento alimento = buscarAlimento(nombre);
 		if (alimento == null){
-			alimento = new Alimento(nombre, proteinas, precio);
+			alimento = new Alimento(nombre, proteinas, precio,url);
 			alimentos.add(alimento);
 			return alimento.getId();
 		}
-		alimento.activar(nombre,proteinas,precio);
+		alimento.activar(nombre,proteinas,precio,url);
 		return alimento.getId();
 	}
 	
@@ -680,12 +695,12 @@ public class Sistema {
 		return 0;
 	}
 
-	public int modificarAlimento(int alimento, String nombre, int proteinas, int precio) {
+	public int modificarAlimento(int alimento, String nombre, int proteinas, int precio,String url) {
 		Alimento alimento2 = buscarAlimento(alimento);
 		Alimento alimento3 = buscarAlimento(nombre);
 		if (alimento3 == null){
 			if (alimento2 != null && alimento2.isActivo()){
-				alimento2.modificar(nombre,proteinas,precio);
+				alimento2.modificar(nombre,proteinas,precio,url);
 				return alimento2.getId();
 			}
 			System.out.println("El alimento no existe");
@@ -706,12 +721,12 @@ public class Sistema {
 		return 0;
 	}
 
-	public int modificarTipoAvatar(int tipoAvatar, String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir) {
+	public int modificarTipoAvatar(int tipoAvatar, String nombre, int alimentoMax, int tiempoHambre, int precioEvolucion, int precioRevivir, String url) {
 		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar);
 		TipoAvatar tipoAvatar3 = buscarTipoAvatar(nombre);
 		if (tipoAvatar3 == null){
 			if (tipoAvatar2 != null && tipoAvatar2.isActivo()){
-				tipoAvatar2.modificar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir);
+				tipoAvatar2.modificar(nombre,alimentoMax,tiempoHambre,precioEvolucion,precioRevivir, url);
 				return tipoAvatar2.getId();
 			}
 			System.out.println("El tipo de avatar no existe");

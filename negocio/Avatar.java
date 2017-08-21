@@ -31,7 +31,7 @@ public class Avatar {
 		TipoAvatar tipoAvatar = TipoAvatarDao.getInstance().buscar(id);
 		if (tipoAvatar == null)
 			//Primer organismo si no existiese.
-			tipoAvatar = new TipoAvatar("Célula", 10,100,1000,500);
+			tipoAvatar = new TipoAvatar("Célula", 10,100,1000,500, null);
 		return tipoAvatar;
 	}
 	public int alimentar(Alimento alimento) {

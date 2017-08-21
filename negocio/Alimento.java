@@ -6,22 +6,24 @@ import beans.AlimentoBean;
 public class Alimento {
 	
 	
-	public Alimento(String nombre, int proteinas, int precio) {
+	public Alimento(String nombre, int proteinas, int precio, String url) {
 		id = ID++;
 		this.nombre = nombre;
 		this.proteinas = proteinas;
 		this.precio = precio;
 		this.activo = true;
+		this.setUrl(url);
 		AlimentoDao.getInstance().grabar(pasarBean());
 	}
 	
-	public Alimento(int id, String nombre, int proteinas, int precio, boolean activo) {
+	public Alimento(int id, String nombre, int proteinas, int precio, boolean activo, String url) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.proteinas = proteinas;
 		this.precio = precio;
 		this.activo = activo;
+		this.setUrl(url);
 	}
 
 	private static int ID = 1;
@@ -30,6 +32,7 @@ public class Alimento {
 	private int proteinas;
 	private int precio;
 	private boolean activo;
+	private String url;
 	
 	/*GETTES Y SETTERS*/
 	public static int getID() {
@@ -68,6 +71,12 @@ public class Alimento {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	/*BEAN*/
 	public AlimentoBean pasarBean() {
 		AlimentoBean alimentoBean = new AlimentoBean();
@@ -76,6 +85,7 @@ public class Alimento {
 		alimentoBean.setProteinas(proteinas);
 		alimentoBean.setPrecio(precio);
 		alimentoBean.setActivo(activo);
+		alimentoBean.setUrl(url);
 		return alimentoBean;
 	}
 	public void eliminar() {
@@ -83,17 +93,19 @@ public class Alimento {
 		AlimentoDao.getInstance().actualizar(pasarBean());
 		
 	}
-	public void activar(String nombre, int proteinas, int precio) {
+	public void activar(String nombre, int proteinas, int precio, String url) {
 		setNombre(nombre);
 		setProteinas(proteinas);
 		setPrecio(precio);
 		activo = true;
+		setUrl(url);
 		AlimentoDao.getInstance().actualizar(pasarBean());
 	}
-	public void modificar(String nombre, int proteinas, int precio) {
+	public void modificar(String nombre, int proteinas, int precio, String url) {
 		setNombre(nombre);
 		setProteinas(proteinas);
 		setPrecio(precio);
+		setUrl(url);
 		AlimentoDao.getInstance().actualizar(pasarBean());
 	}
 }
