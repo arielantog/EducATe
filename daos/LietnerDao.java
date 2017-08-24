@@ -45,7 +45,7 @@ public class LietnerDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		session.update(lietner);
-		session.flush();
+		session.flush();	
 		session.getTransaction().commit();
 		session.close();
 		

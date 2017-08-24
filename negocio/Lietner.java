@@ -18,6 +18,7 @@ public class Lietner {
 	}
 	
 	public Lietner() {
+		setId(1);
 		valoresLietner = new ArrayList<ValorLietner>();
 	}
 	
@@ -26,10 +27,21 @@ public class Lietner {
 	private List<ValorLietner> valoresLietner;
 	
 	public int agregarValorLietner(int nivel, int desde, int hasta) {
-		ValorLietner valorLietner = new ValorLietner(nivel,desde,hasta);
-		valoresLietner.add(valorLietner);
+		int flag = 0;
+		for (ValorLietner valorLietner2: valoresLietner){
+			if (valorLietner2.getNivel() == nivel){
+				valorLietner2.setDesde(desde);
+				valorLietner2.setHasta(hasta);;
+				flag = 1;
+				ValorLietnerDao.getInstance().actualizar(valorLietner2.pasarBean());
+			}
+		}
+		if (flag == 0){
+			ValorLietner valorLietner = new ValorLietner(nivel,desde,hasta);
+			valoresLietner.add(valorLietner);
+		}
 		LietnerDao.getInstance().actualizar(this.pasarBean());
-		return valorLietner.getNivel();
+		return nivel;
 	}
 	
 	public void cargarValores() {
