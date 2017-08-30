@@ -120,7 +120,7 @@ public class Sistema {
 			return alumno.getId();
 		}
 		System.out.println("El alumno ya existe");		
-		return 0;
+		return alumno.getId();
 	}
 	
 	public int activarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
@@ -315,10 +315,21 @@ public class Sistema {
 		if (alumno2 != null && alumno2.isActivo()){
 			Juego juego2 = buscarJuego(juego);
 			if (juego2 != null && juego2.isActivo()){
+				List<Leccion> lecciones = new ArrayList<Leccion>();
 				Leccion leccion = null;
 				while (leccion == null || !juego2.tengoLeccion(leccion)){
-					leccion = alumno2.calcularSiguienteLeccion(lietner);
+					lecciones = alumno2.calcularSiguienteLeccion(lietner);
+					List<Leccion> lecciones2 = new ArrayList<Leccion>();
+					for (Leccion leccion2:lecciones)
+						if (juego2.tengoLeccion(leccion2))
+							lecciones2.add(leccion2);
+					int aleatorio = 0;
+					if (lecciones2.size()> 0){
+						aleatorio = new Random(System.currentTimeMillis()).nextInt(lecciones2.size());
+						return lecciones2.get(aleatorio).getId();
+					}
 				}
+				lietner.setIteracion(0);
 				return leccion.getId();
 			}else
 				System.out.println("El juego no existe");
@@ -488,7 +499,9 @@ public class Sistema {
 	private Juego elegirJuego(int alumno) {
 		Alumno alumno2 = buscarAlumno(alumno);
 		if(alumno2!= null && alumno2.isActivo()){
-			Leccion leccion = alumno2.calcularSiguienteLeccion(lietner);
+			List<Leccion> lecciones = alumno2.calcularSiguienteLeccion(lietner);
+			int aleatorio = new Random(System.currentTimeMillis()).nextInt(lecciones.size());
+			Leccion leccion = lecciones.get(aleatorio);
 			comprobarJuegos();
 			for (Juego juego: juegos)
 				for (Leccion leccion2: juego.getLecciones())

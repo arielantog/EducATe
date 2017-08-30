@@ -81,7 +81,7 @@ public class Alumno extends Persona {
 		int nivel = lietner.getNivel();
 		return nivel;
 	}
-	public Leccion calcularSiguienteLeccion(Lietner lietner){
+	public List<Leccion> calcularSiguienteLeccion(Lietner lietner){
 		List<Leccion> lecciones = new ArrayList<Leccion>();
 		int nivel = calcularNivelSiguiente(lietner);
 		for (Ensenianza ensenianza: ensenianzas){
@@ -93,8 +93,7 @@ public class Alumno extends Persona {
 		if (lecciones.size() > 0){
 			lietner.setIteracion(0);
 			setNivelEnsenianza(nivel);
-			int aleatorio = new Random(System.currentTimeMillis()).nextInt(lecciones.size());
-			return lecciones.get(aleatorio);
+			return lecciones;
 		}
 		
 		/*Se utiliza para que no genere siempre números random del 0 al 99.
