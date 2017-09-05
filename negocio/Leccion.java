@@ -1,6 +1,7 @@
 package negocio;
 
 import daos.LeccionDao;
+import dto.LeccionDTO;
 import beans.LeccionBean;
 
 public class Leccion {
@@ -69,6 +70,11 @@ public class Leccion {
 		leccionBean.setDescripcion(getDescripcion());
 		leccionBean.setActivo(activo);
 		return leccionBean;
+	}
+	/*DTO*/
+	public LeccionDTO pasarDTO() {
+		LeccionDTO leccion = new LeccionDTO(id, descripcion, activo);
+		return leccion;
 	}
 	
 }

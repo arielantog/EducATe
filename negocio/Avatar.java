@@ -4,6 +4,7 @@ import java.util.Date;
 
 import daos.AvatarDao;
 import daos.TipoAvatarDao;
+import dto.AvatarDTO;
 import beans.AvatarBean;
 
 public class Avatar {
@@ -124,5 +125,11 @@ public class Avatar {
 		avatarBean.setHambre(hambre);
 		avatarBean.setUltimaComida(ultimaComida);
 		return avatarBean;
+	}
+	/*DTO*/
+	public AvatarDTO pasarDTO() {
+		AvatarDTO avatar = new AvatarDTO(id, hambre, ultimaComida);
+		avatar.setTipoAvatarDTO(tipoAvatar.pasarDTO());
+		return avatar;
 	}
 }

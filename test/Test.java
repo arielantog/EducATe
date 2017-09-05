@@ -135,7 +135,7 @@ public class Test {
 		sistema.eliminarAlumno(alumno1);
 		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		sistema.activarAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
-		sistema.modificarAlumno("DNI", 35730491, "Ariel", "Antognini");
+		sistema.modificarAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		
 		sistema.eliminarDocente(docente3);
 		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa", "123456", "pzarasa@uade.edu.ar");

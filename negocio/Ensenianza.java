@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import dto.EnsenianzaDTO;
 import beans.EnsenianzaBean;
 
 public class Ensenianza {
@@ -89,6 +90,13 @@ public class Ensenianza {
 		ensenianzaBean.setNivelRefuerzo(getNivelRefuerzo());
 		ensenianzaBean.setFechaUltRepaso(getFechaUltRepaso());
 		return ensenianzaBean;
+	}
+
+	/*DTO*/
+	public EnsenianzaDTO pasarDTO() {
+		EnsenianzaDTO ensenianza = new EnsenianzaDTO(id, nivelRefuerzo, fechaUltRepaso);
+		ensenianza.setLeccion(leccion.pasarDTO());
+		return ensenianza;
 	}
 	
 }

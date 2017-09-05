@@ -72,7 +72,7 @@ public class Lietner {
 		return false;
 	}
 	
-	public int modificarValor(int nivel, int desde, int hasta) {
+	public int modificarValorLietner(int nivel, int desde, int hasta) {
 		for (ValorLietner valorLietner: valoresLietner)
 			if (valorLietner.getNivel() == nivel){
 				valorLietner.setDesde(desde);

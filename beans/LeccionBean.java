@@ -1,8 +1,6 @@
 package beans;
 
 import javax.persistence.*;
-
-import dto.LeccionDTO;
 import negocio.Leccion;
 
 @Entity
@@ -38,11 +36,5 @@ public class LeccionBean {
 		Leccion leccion = new Leccion(id, descripcion, activo);
 		return leccion;
 	}
-	/*DTO*/
-	public LeccionDTO pasarDTO() {
-		LeccionDTO leccion = new LeccionDTO(id, descripcion, activo);
-		return leccion;
-	}
-	
 
 }

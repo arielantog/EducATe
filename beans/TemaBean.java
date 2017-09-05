@@ -52,10 +52,6 @@ public class TemaBean {
 
 	/*NEGOCIO*/
 	public Tema pasarNegocio(){
-		/*Turco: No entiendo por que en Tema hay un solo constructor y por ejemplo en Alumno hay dos
-		y el segundo se utiliza para esta parte*/
-		/*Ariel: Porque el primero le asigna un Id y lo guarda como un registro nuevo.
-		El segundo le asigna el Id que ya tenía y no lo guarda*/
 		Tema tema = new Tema(id, descripcion, activo);
 		for (LeccionBean leccionBean: lecciones)
 		{

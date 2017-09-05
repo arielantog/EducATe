@@ -1,6 +1,7 @@
 package negocio;
 
 import daos.AlimentoDao;
+import dto.AlimentoDTO;
 import beans.AlimentoBean;
 
 public class Alimento {
@@ -107,5 +108,11 @@ public class Alimento {
 		setPrecio(precio);
 		setUrl(url);
 		AlimentoDao.getInstance().actualizar(pasarBean());
+	}
+
+	/*DTO*/
+	public AlimentoDTO pasarDTO() {
+		AlimentoDTO alimento = new AlimentoDTO(id, nombre, proteinas, precio,activo,url);
+		return alimento;
 	}
 }

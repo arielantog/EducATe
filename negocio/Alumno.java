@@ -4,6 +4,7 @@ import java.util.*;
 
 import daos.AlumnoDao;
 import daos.EnsenianzaDao;
+import dto.AlumnoDTO;
 import beans.AlumnoBean;
 import beans.EnsenianzaBean;
 
@@ -155,14 +156,19 @@ public class Alumno extends Persona {
 		activo = true;
 		AlumnoDao.getInstance().actualizar(pasarBean());
 	}
-	public void modificar(String nombre, String apellido) {
+	public void modificar(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
+		setTipoDocumento(tipoDocumento);
+		setNroDocumento(nroDocumento);
 		setNombre(nombre);
 		setApellido(apellido);
+		setPassword(password);
+		setMail(mail);
 		AlumnoDao.getInstance().actualizar(pasarBean());
 	}
 	public void avatarDescontarHambre() {
 		avatar.descontarHambre();	
 	}
+	
 
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
@@ -235,6 +241,15 @@ public class Alumno extends Persona {
 		alumnoBean.setAvatar(getAvatar().pasarBean());
 		
 		return alumnoBean;
+	}
+	/*DTO*/
+	public AlumnoDTO pasarDTO() {
+		AlumnoDTO alumno = new AlumnoDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, activo);
+		alumno.setAvatar(avatar.pasarDTO());
+		for (Ensenianza ensenianza: ensenianzas){
+			alumno.agregarEnsenianzaDTO(ensenianza.pasarDTO());
+		}
+		return alumno;
 	}
 
 }

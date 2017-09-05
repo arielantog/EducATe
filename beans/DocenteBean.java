@@ -2,10 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
-
-import dto.DocenteDTO;
 import negocio.Docente;
 
 @Entity
@@ -53,12 +50,4 @@ public class DocenteBean extends PersonaBean{
 		cursos.add(cursoBean);
 	}
 	
-	/*DTO*/
-	public DocenteDTO pasarDTO() {
-		 DocenteDTO docente = new DocenteDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getPassword(), getMail(), isActivo());
-		 for (CursoBean cursoBean: cursos){
-			 docente.agregarCurso(cursoBean.pasarDTO());
-		 }
-		 return docente;
-	}
 }
