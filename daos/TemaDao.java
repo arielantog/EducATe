@@ -4,13 +4,15 @@ import hibernate.HibernateUtil;
 import negocio.Leccion;
 import negocio.Tema;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import beans.LeccionBean;
 import beans.TemaBean;
-
 
 public class TemaDao {
 	private static TemaDao instancia;
@@ -103,6 +105,31 @@ public class TemaDao {
 		session.getTransaction().commit();
 		session.close();
 		return leccion2;
+	}
+
+	@SuppressWarnings("unchecked")
+	//public List<TemaDTO> listarTemas() {
+	public List<Tema> listarTemas() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("FROM TemaBean WHERE activo = 1");
+		//List<TemaDTO> temas = new ArrayList<TemaDTO>();
+		List<Tema> temas = new ArrayList<Tema>();
+		try{
+			List<TemaBean> temasBean = new ArrayList<TemaBean>();
+			temasBean = query.list();
+			for (TemaBean temaBean : temasBean){
+				//TemaDTO tema = temaBean.pasarDTO();
+				Tema tema = temaBean.pasarNegocio();
+				temas.add(tema);
+			}
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return temas;
 	}
 	
 	

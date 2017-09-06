@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import dto.TemaDTO;
 import negocio.Leccion;
 import negocio.Tema;
 
@@ -66,5 +67,11 @@ public class TemaBean {
 	}
 	public void agregarLeccion(LeccionBean leccionBean) {
 		lecciones.add(leccionBean);
+	}
+	public TemaDTO pasarDTO() {
+		TemaDTO tema = new TemaDTO (id, getDescripcion(), isActivo());
+		tema.setActivo(isActivo());
+		tema.setDescripcion(getDescripcion());
+		return tema;
 	}
 }

@@ -6,6 +6,7 @@ import beans.LeccionBean;
 import beans.TemaBean;
 import daos.LeccionDao;
 import daos.TemaDao;
+import dto.TemaDTO;
 
 public class Tema {
 
@@ -145,6 +146,12 @@ public class Tema {
 			temaBean.agregarLeccion(leccionBean);
 		}
 		return temaBean;
+	}
+	
+	/* DTO */
+	public TemaDTO pasarDto() {
+		TemaDTO tema = new TemaDTO(id, getDescripcion(), isActivo());
+		return tema;
 	}
 	
 }

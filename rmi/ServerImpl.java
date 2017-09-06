@@ -2,10 +2,13 @@ package rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 import controlador.Sistema;
+import dto.AlimentoDTO;
 import dto.AlumnoDTO;
 import dto.DocenteDTO;
+import dto.TemaDTO;
 
 @SuppressWarnings("serial")
 public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
@@ -47,6 +50,14 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 	public int alumnoGetNivel(int alumno) throws RemoteException {
 		return Sistema.getInstance().alumnoGetNivel(alumno);
 		
+	}
+
+	public List<TemaDTO> listarTemas() {
+		return Sistema.getInstance().listarTemas();
+	}
+	
+	public List<AlimentoDTO> listarAlimentos() {
+		return Sistema.getInstance().listarAlimentos();
 	}
 
 }

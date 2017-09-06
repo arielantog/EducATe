@@ -3,6 +3,9 @@ package daos;
 import hibernate.HibernateUtil;
 import negocio.Alimento;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -81,5 +84,27 @@ public class AlimentoDao {
 		session.getTransaction().commit();
 		session.close();
 		return alimento;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Alimento> listarAlimentos() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("FROM AlimentoBean WHERE activo = 1");
+		List<Alimento> alimentos = new ArrayList<Alimento>();
+		try{
+			List<AlimentoBean> alimentosBean = new ArrayList<AlimentoBean>();
+			alimentosBean = query.list();
+			for (AlimentoBean alimentobean : alimentosBean){
+				Alimento alimento = alimentobean.pasarNegocio();
+				alimentos.add(alimento);
+			}
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return alimentos;
 	}
 }
