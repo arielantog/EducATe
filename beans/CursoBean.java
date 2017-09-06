@@ -2,10 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
-
-import dto.CursoDTO;
 import negocio.Curso;
 
 @Entity
@@ -63,14 +60,7 @@ public class CursoBean {
 		alumnos.add(alumnoBean);
 	}
 	
-	/*DTO*/
-	public CursoDTO pasarDTO() {
-		CursoDTO curso = new CursoDTO(id, descripcion,activo);
-		for (AlumnoBean alumnoBean: alumnos){
-			curso.agregarAlumnoDTO(alumnoBean.pasarDTO(),true);
-		}
-		return curso;
-	}
+	
 	public void agregarAlumnoDTO(AlumnoBean alumnoBean) {
 		alumnos.add(alumnoBean);
 	}

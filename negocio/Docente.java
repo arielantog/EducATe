@@ -4,6 +4,7 @@ import java.util.*;
 
 import daos.CursoDao;
 import daos.DocenteDao;
+import dto.DocenteDTO;
 import beans.CursoBean;
 import beans.DocenteBean;
 
@@ -46,18 +47,18 @@ public class Docente extends Persona {
 		cursos.add(curso);
 	}
 
-	public int cursoAgregarAlumno(int Curso, Alumno Alumno) {
-		Curso curso = buscarCurso(Curso);
+	public int cursoAgregarAlumno(int nroCurso, Alumno Alumno) {
+		Curso curso = buscarCurso(nroCurso);
 		if (curso != null)
 			return curso.agregarAlumno(Alumno);
 		return 0;
 	}
 
-	public Curso buscarCurso(int Curso) {
+	public Curso buscarCurso(int nroCurso) {
 		for (Curso curso: cursos)
 			if (curso.getId() == curso.getId())
 				return curso;
-		return CursoDao.getInstance().buscar(getId(), Curso);
+		return CursoDao.getInstance().buscar(getId(), nroCurso);
 	}
 	
 	public Curso buscarCurso(String descripcion) {
@@ -66,28 +67,28 @@ public class Docente extends Persona {
 				return curso;
 		return CursoDao.getInstance().buscar(descripcion);
 	}
-	public int cursoQuitarAlumno(int curso, int alumno) {
+	public int cursoQuitarAlumno(int curso, Alumno alumno) {
 		Curso curso2 = buscarCurso(curso);
 		if (curso2 != null && curso2.isActivo()){
-			curso2.quitarAlumno(alumno);
+			curso2.quitarAlumno(alumno.getId());
 			DocenteDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("El curso no existe");
 		}
 		return 0;
 	}
-	public int eliminarCurso(int curso) {
-		Curso curso2 = buscarCurso(curso);
-		if (curso2 != null && curso2.isActivo()){
-			cursos.remove(curso2);
+	public int eliminarCurso(int nroCurso) {
+		Curso curso = buscarCurso(nroCurso);
+		if (curso != null && curso.isActivo()){
+			cursos.remove(curso);
 			DocenteDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("El curso no existe");
 		}
 		return 0;
 	}
-	public int modificarCurso(int curso, String descripcion) {
-		Curso curso2 = buscarCurso(curso);
+	public int modificarCurso(int nroCurso, String descripcion) {
+		Curso curso2 = buscarCurso(nroCurso);
 		if (curso2 != null && curso2.isActivo()){
 			Curso curso3 = buscarCurso(descripcion);
 			if (curso3 == null){
@@ -161,6 +162,15 @@ public class Docente extends Persona {
 			
 		
 		return docenteBean;
+	}
+	
+	/*DTO*/
+	public DocenteDTO pasarDTO() {
+		 DocenteDTO docente = new DocenteDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getPassword(), getMail(), isActivo());
+		 for (Curso curso: cursos){
+			 docente.agregarCurso(curso.pasarDTO());
+		 }
+		 return docente;
 	}
 	
 }

@@ -19,6 +19,11 @@ public abstract class Persona {
 	private String password;
 	private String mail;
 	
+	public boolean validarLogin(String password) {
+		if (getPassword().equals(password))
+			return true;
+		return false;
+	}
 	
 	/*GETTERS Y SETTERS*/
 	public String getTipoDocumento() {

@@ -1,8 +1,9 @@
-package negocio;
+	package negocio;
 
 import java.util.*;
 
 import daos.CursoDao;
+import dto.CursoDTO;
 import beans.AlumnoBean;
 import beans.CursoBean;
 
@@ -51,6 +52,34 @@ public class Curso {
 		return CursoDao.getInstance().tengoAlumno(getId(), alumno.getId());
 	}
 	
+	public void agregarAlumno(Alumno alumno, boolean b) {
+		alumnos.add(alumno);
+	}
+	public int quitarAlumno(int alumno) {
+		Alumno alumno2 = buscarAlumno(alumno);
+		if (alumno2 != null){
+			alumnos.remove(alumno2);
+			CursoDao.getInstance().actualizar(pasarBean());
+		}else{
+			System.out.println("El alumno no existe");
+		}
+		return 0;
+	}
+	public void eliminar() {
+		activo = false;
+		CursoDao.getInstance().actualizar(pasarBean());
+		
+	}
+	public void activar(String descripcion) {
+		setDescripcion(descripcion);
+		activo = true;
+		CursoDao.getInstance().actualizar(pasarBean());
+	}
+	public void modificar(String descripcion) {
+		setDescripcion(descripcion);
+		CursoDao.getInstance().actualizar(pasarBean());
+	}
+	
 	/*GETTERS Y SETTERS*/
 	public static int getID() {
 		return ID;
@@ -88,32 +117,14 @@ public class Curso {
 		}
 		return cursoBean;
 	}
-	public void agregarAlumno(Alumno alumno, boolean b) {
-		alumnos.add(alumno);
-	}
-	public int quitarAlumno(int alumno) {
-		Alumno alumno2 = buscarAlumno(alumno);
-		if (alumno2 != null){
-			alumnos.remove(alumno2);
-			CursoDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("El alumno no existe");
+	/*DTO*/
+	public CursoDTO pasarDTO() {
+		CursoDTO curso = new CursoDTO(id, descripcion,activo);
+		for (Alumno alumno: alumnos){
+			curso.agregarAlumnoDTO(alumno.pasarDTO(),true);
 		}
-		return 0;
+		return curso;
 	}
-	public void eliminar() {
-		activo = false;
-		CursoDao.getInstance().actualizar(pasarBean());
-		
-	}
-	public void activar(String descripcion) {
-		setDescripcion(descripcion);
-		activo = true;
-		CursoDao.getInstance().actualizar(pasarBean());
-	}
-	public void modificar(String descripcion) {
-		setDescripcion(descripcion);
-		CursoDao.getInstance().actualizar(pasarBean());
-	}
+	
 	
 }

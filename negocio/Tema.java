@@ -69,12 +69,12 @@ public class Tema {
 		}
 		return 0;
 	}
-	public int modificarLeccion(int leccion, String descripcion) {
-		Leccion leccion2 = buscarLeccion(leccion);
-		if (leccion2 != null && leccion2.isActivo()){
-			Leccion leccion3 = buscarLeccion(descripcion);
-			if (leccion3 == null || leccion3.getId() == leccion){
-				leccion2.modificar(descripcion);
+	public int modificarLeccion(int nroLeccion, String descripcion) {
+		Leccion leccion = buscarLeccion(nroLeccion);
+		if (leccion != null && leccion.isActivo()){
+			Leccion leccion2 = buscarLeccion(descripcion);
+			if (leccion2 == null || leccion2.getId() == nroLeccion){
+				leccion.modificar(descripcion);
 				TemaDao.getInstance().actualizar(pasarBean());
 			}else{
 				System.out.println("Ya existe una lección con esta descripción");

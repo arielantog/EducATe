@@ -2,10 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
-
-import dto.AlumnoDTO;
 import negocio.Alumno;
 
 @Entity
@@ -73,16 +70,6 @@ public class AlumnoBean extends PersonaBean{
 		alumno.setAvatar(avatar.pasarNegocio());
 		for (EnsenianzaBean ensenianzaBean: ensenianzas){
 			alumno.agregarEnsenianza(ensenianzaBean.pasarNegocio());
-		}
-		return alumno;
-	}
-	
-	/*DTO*/
-	public AlumnoDTO pasarDTO() {
-		AlumnoDTO alumno = new AlumnoDTO(id, getTipoDocumento(), getNroDocumento(), getNombre(), getApellido(), getUsuario(), getPassword(), getMail(), puntos, activo);
-		alumno.setAvatar(avatar.pasarDTO());
-		for (EnsenianzaBean ensenianzaBean: ensenianzas){
-			alumno.agregarEnsenianzaDTO(ensenianzaBean.pasarDTO());
 		}
 		return alumno;
 	}

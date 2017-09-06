@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import daos.TipoAvatarDao;
+import dto.TipoAvatarDTO;
 import beans.AlimentoBean;
 import beans.TipoAvatarBean;
 
@@ -65,23 +66,14 @@ public class TipoAvatar {
 		return TipoAvatarDao.getInstance().tengoAlimento(this.getId(), alimento.getId());
 	}
 
-	public int quitarAlimento(int alimento) {
-		Alimento alimento2 = buscarAlimento(alimento);
-		if (alimento2 != null){
-			alimentos.remove(alimento2);
+	public int quitarAlimento(Alimento alimento) {
+		if (tengoAlimento(alimento)){
+			alimentos.remove(alimento);
 			TipoAvatarDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("El alimento no existe en el Tipo de Avatar");
 		}
 		return 0;
-	}
-
-	private Alimento buscarAlimento(int alimento) {
-		for (Alimento alimento2: alimentos){
-			if (alimento2.getId() == alimento)
-				return alimento2;
-		}
-		return TipoAvatarDao.getInstance().buscarAlimento(getId(),alimento);
 	}
 	
 	public void agregarAlimento(Alimento alimento) {
@@ -193,5 +185,14 @@ public class TipoAvatar {
 		tipoAvatarBean.setActivo(activo);
 		tipoAvatarBean.setUrl(url);
 		return tipoAvatarBean;
+	}
+
+	/*DTO*/
+	public TipoAvatarDTO pasarDTO() {
+		TipoAvatarDTO tipoAvatar = new TipoAvatarDTO(id, nombre, alimentoMax, tiempoHambre, precioEvolucion, precioRevivir,activo,url);
+		for(Alimento alimento: alimentos){
+			tipoAvatar.agregarAlimento(alimento.pasarDTO());
+		}
+		return tipoAvatar;
 	}
 }

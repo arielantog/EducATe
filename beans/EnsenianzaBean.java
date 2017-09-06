@@ -1,10 +1,7 @@
 package beans;
 
 import java.util.Date;
-
 import javax.persistence.*;
-
-import dto.EnsenianzaDTO;
 import negocio.Ensenianza;
 
 @Entity
@@ -55,13 +52,6 @@ public class EnsenianzaBean {
 	public Ensenianza pasarNegocio() {
 		Ensenianza ensenianza = new Ensenianza(id, nivelRefuerzo, fechaUltRepaso);
 		ensenianza.setLeccion(leccion.pasarNegocio());
-		return ensenianza;
-	}
-	
-	/*DTO*/
-	public EnsenianzaDTO pasarDTO() {
-		EnsenianzaDTO ensenianza = new EnsenianzaDTO(id, nivelRefuerzo, fechaUltRepaso);
-		ensenianza.setLeccion(leccion.pasarDTO());
 		return ensenianza;
 	}
 

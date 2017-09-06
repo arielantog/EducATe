@@ -41,9 +41,9 @@ public class Juego {
 		return leccion.getId();
 	}
 	
-	public Leccion buscarLeccion(int leccion) {
+	public Leccion buscarLeccion(int nroLeccion) {
 		for (Leccion leccion2: lecciones)
-			if(leccion2.getId()==leccion)
+			if(leccion2.getId() == nroLeccion)
 				return leccion2;
 		return null;
 	}
@@ -55,10 +55,10 @@ public class Juego {
 		return JuegoDao.getInstance().tengoLeccion(this.getId(), leccion.getId());
 	}
 
-	public int quitarLeccion(int leccion) {
-		Leccion leccion2 = buscarLeccion(leccion);
-		if (leccion2 != null && leccion2.isActivo()){
-			lecciones.remove(leccion2);
+	public int quitarLeccion(int nroLeccion) {
+		Leccion leccion = buscarLeccion(nroLeccion);
+		if (leccion != null && leccion.isActivo()){
+			lecciones.remove(leccion);
 			JuegoDao.getInstance().actualizar(pasarBean());
 		}else{
 			System.out.println("La lección no existe");
