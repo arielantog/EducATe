@@ -110,15 +110,9 @@ public class Alimento {
 		AlimentoDao.getInstance().actualizar(pasarBean());
 	}
 
-<<<<<<< HEAD
 	/* DTO */
 	public AlimentoDTO pasarDTO() {
 		AlimentoDTO alimento = new AlimentoDTO(id, getNombre(), getProteinas(), getPrecio(), activo, getUrl());
-=======
-	/*DTO*/
-	public AlimentoDTO pasarDTO() {
-		AlimentoDTO alimento = new AlimentoDTO(id, nombre, proteinas, precio,activo,url);
->>>>>>> refs/remotes/origin/master
 		return alimento;
 	}
 }
