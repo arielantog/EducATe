@@ -7,6 +7,7 @@ import java.util.List;
 import controlador.Sistema;
 import dto.AlimentoDTO;
 import dto.AlumnoDTO;
+import dto.CursoDTO;
 import dto.DocenteDTO;
 import dto.TemaDTO;
 
@@ -58,6 +59,28 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 	
 	public List<AlimentoDTO> listarAlimentos() {
 		return Sistema.getInstance().listarAlimentos();
+	}
+
+	public AlumnoDTO traerPerfilAlumno(String usuario) throws RemoteException {
+		return Sistema.getInstance().traerPerfilAlumno(usuario);
+	}
+
+	public int modificarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido,
+			String password, String mail, String usuario) throws RemoteException {
+		return Sistema.getInstance().modificarAlumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
+	}
+
+	public int modificarDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String mail,
+			String password) throws RemoteException {
+		return Sistema.getInstance().modificarDocente(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
+	}
+
+	public DocenteDTO traerPerfilDocente(String tipoDocumento, int nroDocumento) throws RemoteException {
+		return Sistema.getInstance().traerPerfilDocente(tipoDocumento, nroDocumento);
+	}
+
+	public List<CursoDTO> listarCursosPorDocente(int docente) throws RemoteException {
+		return Sistema.getInstance().listarCursosPorDocente(docente);
 	}
 
 }

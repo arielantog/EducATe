@@ -4,6 +4,9 @@ import hibernate.HibernateUtil;
 import negocio.Curso;
 import negocio.Docente;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -115,6 +118,33 @@ public class DocenteDao {
 		session.close();
 		return curso2;
 		
+	}
+	
+	//Lista los cursos activos para el docente pasado por parametro
+	@SuppressWarnings("unchecked")
+	public List<Curso> listarCursosPorDocente(int docente) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select c from DocenteBean d join d.cursos c "
+				+ "where d.id = ? and c.activo = 1");
+		//Query query = session.createQuery("select c from CursoBean c join d.cursos c "
+			//	+ "where d.id = ? and c.activo = 1");
+		query.setInteger(0, docente);
+		List<Curso> cursos = new ArrayList<Curso>();
+		try {
+			List<CursoBean> cursosBean = new ArrayList<CursoBean>();
+			cursosBean = query.list();
+			for(CursoBean cursoBean : cursosBean){
+				Curso curso = cursoBean.pasarNegocio();
+				cursos.add(curso);
+			}
+		}catch (Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return null;
 	}
 
 }

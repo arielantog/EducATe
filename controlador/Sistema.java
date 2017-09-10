@@ -18,6 +18,7 @@ import daos.TemaDao;
 import daos.TipoAvatarDao;
 import dto.AlimentoDTO;
 import dto.AlumnoDTO;
+import dto.CursoDTO;
 import dto.DocenteDTO;
 import dto.TemaDTO;
 import negocio.Alimento;
@@ -573,10 +574,10 @@ public class Sistema {
 		return 0;
 	}
 
-	public int modificarDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido) {
+	public int modificarDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
 		if (docente != null && docente.isActivo()){
-			docente.modificar(nombre,apellido);
+			docente.modificar(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 			return docente.getId();
 		}
 		System.out.println("El docente no existe");
@@ -867,5 +868,25 @@ public class Sistema {
 		return alimentoDTO;
 	}
 
+	public AlumnoDTO traerPerfilAlumno(String usuario) {
+		Alumno alumno = AlumnoDao.getInstance().buscar(usuario);
+		AlumnoDTO alumnoDTO = alumno.pasarDTO();
+		return alumnoDTO;
+	}
+
+	public DocenteDTO traerPerfilDocente(String tipoDocumento, int nroDocumento) {
+		Docente docente = DocenteDao.getInstance().buscar(tipoDocumento, nroDocumento);
+		DocenteDTO docenteDTO = docente.pasarDTO();
+		return docenteDTO;
+	}
+
+	public List<CursoDTO> listarCursosPorDocente(int docente) {
+		List<CursoDTO> cursosDTO = new ArrayList<CursoDTO>();
+		List<Curso> cursos = DocenteDao.getInstance().listarCursosPorDocente(docente);
+		for(Curso curso : cursos){
+			cursosDTO.add(curso.pasarDTO());
+		}
+		return cursosDTO;
+	}
 
 }

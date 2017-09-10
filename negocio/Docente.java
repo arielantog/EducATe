@@ -113,9 +113,13 @@ public class Docente extends Persona {
 		activo = true;
 		DocenteDao.getInstance().actualizar(pasarBean());
 	}
-	public void modificar(String nombre, String apellido) {
+	public void modificar(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
+		setTipoDocumento(tipoDocumento);
+		setNroDocumento(nroDocumento);
 		setNombre(nombre);
 		setApellido(apellido);
+		setPassword(password);
+		setMail(mail);
 		DocenteDao.getInstance().actualizar(pasarBean());
 	}
 	

@@ -139,7 +139,7 @@ public class Test {
 		
 		sistema.eliminarDocente(docente3);
 		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa", "123456", "pzarasa@uade.edu.ar");
-		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa");
+		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa", "pzarasa@uade.edu.ar", "123456");
 		
 		sistema.eliminarValorLietner(4);
 		sistema.agregarValorLietner(4,88,95);
