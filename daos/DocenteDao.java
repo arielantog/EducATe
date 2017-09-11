@@ -144,7 +144,7 @@ public class DocenteDao {
 		session.flush();
 		session.getTransaction().commit();
 		session.close();
-		return null;
+		return cursos;
 	}
 
 }

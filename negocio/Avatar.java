@@ -55,22 +55,18 @@ public class Avatar {
 	}
 	
 	public int revivir() {
-		if (hambre == 0){
-			this.hambre = tipoAvatar.getAlimentoMax() * 20/100;
-			this.ultimaComida = new Fecha().fechaActual();
-			AvatarDao.getInstance().actualizar(pasarBean());
-		}else{
-			System.out.println("El avatar ya se encuentra vivo.");
-		}
+		this.hambre = tipoAvatar.getAlimentoMax() * 20/100;
+		this.ultimaComida = new Fecha().fechaActual();
+		AvatarDao.getInstance().actualizar(pasarBean());
+		
 		return 0;
 	}
 	public int evolucionar() {
-		if (hambre >= 90){
-			this.hambre = 100;
-			this.ultimaComida = new Fecha().fechaActual();
-			tipoAvatar = buscarTipoAvatar(tipoAvatar.getId()+1);
-			AvatarDao.getInstance().actualizar(pasarBean());
-		}
+		this.hambre = 100;
+		this.ultimaComida = new Fecha().fechaActual();
+		tipoAvatar = buscarTipoAvatar(tipoAvatar.getId()+1);
+		AvatarDao.getInstance().actualizar(pasarBean());
+		
 		return 0;
 	}
 	public int descontarHambre() {

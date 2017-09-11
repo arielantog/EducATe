@@ -831,25 +831,6 @@ public class Sistema {
 	}
 
 	
-	/*** LOGICA VIEJA ***
-	public List<TemaDTO> listarTemas() {
-		List<TemaDTO> temas = TemaDao.getInstance().listarTemas();
-		if(temas != null)
-			return temas;
-		return null;
-	}
-	
-	
-	public List<TemaDTO> listarTemas() {
-		List<TemaDTO> temasDTO = new ArrayList<TemaDTO>();
-		List<Tema> temas = TemaDao.getInstance().listarTemas();
-		for(Tema tema: temas) {
-			temasDTO.add(tema.pasarDto());
-		}
-		return temasDTO;
-	}
-	*/
-	
 	public List<TemaDTO> listarTemas() {
 		List<TemaDTO> temasDTO = new ArrayList<TemaDTO>();
 		List<Tema> temas = TemaDao.getInstance().listarTemas();
