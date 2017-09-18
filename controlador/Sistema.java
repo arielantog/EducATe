@@ -870,4 +870,15 @@ public class Sistema {
 		return cursosDTO;
 	}
 
+	public CursoDTO traerCursoDocente(int nroDocente, int nroCurso) {
+		for (Docente docente: docentes){
+			if (docente.getId() == nroDocente){
+				Curso curso = docente.buscarCurso(nroCurso);
+				if (curso != null)
+					return curso.pasarDTO();
+			}
+		}
+		return DocenteDao.getInstance().buscarCurso(nroDocente, nroCurso).pasarDTO();
+	}
+	
 }
