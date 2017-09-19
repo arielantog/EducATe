@@ -27,7 +27,6 @@ public class Test {
 		int juego2 = sistema.nuevoJuego("Condiciones naturales 1", tema2);
 		int juego3 = sistema.nuevoJuego("Áreas protegidas 1", tema3);
 		int juego4 = sistema.nuevoJuego("Problemas ambientales 1", tema4);
-		sistema.nuevoJuego("División política 2", tema1);
 		
 		int curso1 = sistema.docenteAgregarCurso(docente3, "Curso UADE Noche");
 
