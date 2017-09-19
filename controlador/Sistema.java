@@ -111,7 +111,7 @@ public class Sistema {
 	     timer.schedule(timerTask, 0, 100000);
 	}
 	
-	public int nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
+	public AlumnoDTO nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
 		Alumno alumno = buscarAlumno(usuario);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
@@ -120,13 +120,13 @@ public class Sistema {
 					alumno.agregarEnsenianza(leccion, false);
 			AlumnoDao.getInstance().actualizar(alumno.pasarBean());
 			alumnos.add(alumno);
-			return alumno.getId();
+			return alumno.pasarDTO();
 		}
 		System.out.println("El alumno ya existe");		
-		return alumno.getId();
+		return alumno.pasarDTO();
 	}
 	
-	public int activarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
+	public AlumnoDTO activarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
 		Alumno alumno = buscarAlumno(usuario);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
@@ -135,21 +135,21 @@ public class Sistema {
 					alumno.agregarEnsenianza(leccion, false);
 			AlumnoDao.getInstance().actualizar(alumno.pasarBean());
 			alumnos.add(alumno);
-			return alumno.getId();
+			return alumno.pasarDTO();
 		}
 		alumno.activar(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
-		return 0;
+		return alumno.pasarDTO();
 	}
 
-	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
+	public DocenteDTO nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail) {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
 		if (docente == null){
 			docente = new Docente(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 			docentes.add(docente);
-			return docente.getId();
+			return docente.pasarDTO();
 		}
 		docente.activar(nombre,apellido);
-		return docente.getId();
+		return docente.pasarDTO();
 	}
 
 	public int nuevoTema(String descripcion) {
@@ -496,7 +496,7 @@ public class Sistema {
 					if (juego.getTema().getId() == nroTema)
 						return juego.getId();
 					else
-						elegirJuegoConTema(nroAlumno, nroTema);
+						return elegirJuegoConTema(nroAlumno, nroTema);
 			}else{
 				System.out.println("El tema no existe");
 			}

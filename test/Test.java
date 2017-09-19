@@ -1,6 +1,8 @@
 package test;
 
 import controlador.Sistema;
+import dto.AlumnoDTO;
+import dto.DocenteDTO;
 
 public class Test {
 
@@ -14,7 +16,7 @@ public class Test {
 		sistema.agregarValorLietner(4,88,94);
 		sistema.agregarValorLietner(5,95,99);
 		
-		int docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa", "123456", "psarasa@uade.edu.ar");
+		DocenteDTO docente3 = sistema.nuevoDocente("DNI", 20987641, "Paula", "Sarasa", "123456", "psarasa@uade.edu.ar");
 		
 		int tema1 = sistema.nuevoTema("División política");
 		int tema2 = sistema.nuevoTema("Condiciones naturales");
@@ -28,7 +30,7 @@ public class Test {
 		int juego3 = sistema.nuevoJuego("Áreas protegidas 1", tema3);
 		int juego4 = sistema.nuevoJuego("Problemas ambientales 1", tema4);
 		
-		int curso1 = sistema.docenteAgregarCurso(docente3, "Curso UADE Noche");
+		int curso1 = sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Noche");
 
 		
 		int leccion1  = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
@@ -106,38 +108,38 @@ public class Test {
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar2);
 		sistema.tipoAvatarAgregarAlimento(alimento3, tipoAvatar2);
 
-		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
-		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
-		int alumno3 = sistema.nuevoAlumno("DNI", 30321819, "Ferchy", "Vampy", "123456", "ferchy.vampy@gmail.com", "Ferchy");
+		AlumnoDTO alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
+		AlumnoDTO alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
+		AlumnoDTO alumno3 = sistema.nuevoAlumno("DNI", 30321819, "Ferchy", "Vampy", "123456", "ferchy.vampy@gmail.com", "Ferchy");
 
-		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
-		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno1.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno2.getId());
 		
 		
-		int juego98 =sistema.elegirJuegoSinTema(alumno1);
-		sistema.alumnoBuscarLeccion(alumno1, juego98);
+		int juego98 =sistema.elegirJuegoSinTema(alumno1.getId());
+		sistema.alumnoBuscarLeccion(alumno1.getId(), juego98);
 		
-		sistema.elegirJuegoConTema(alumno1, tema1);
+		sistema.elegirJuegoConTema(alumno1.getId(), tema1);
 		
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, false);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, false);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
-		sistema.alumnoAgregarEnsenianza(alumno1, leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, false);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, false);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
 		
- 		sistema.alumnoAlimentarAvatar(alumno1, alimento1);
-		sistema.alumnoAlimentarAvatar(alumno1, alimento3);
-		sistema.alumnoRevivirAvatar(alumno1);
-		sistema.alumnoEvolucionarAvatar(alumno1);
+ 		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento1);
+		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento3);
+		sistema.alumnoRevivirAvatar(alumno1.getId());
+		sistema.alumnoEvolucionarAvatar(alumno1.getId());
 		
-		sistema.eliminarAlumno(alumno1);
+		sistema.eliminarAlumno(alumno1.getId());
 		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		sistema.activarAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		sistema.modificarAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		
-		sistema.eliminarDocente(docente3);
+		sistema.eliminarDocente(docente3.getId());
 		sistema.nuevoDocente("DNI", 20987641, "Paula", "Zarasa", "123456", "pzarasa@uade.edu.ar");
 		sistema.modificarDocente("DNI", 20987641, "Paula", "Sarasa", "123456", "pzarasa@uade.edu.ar");
 		
@@ -180,26 +182,26 @@ public class Test {
 		sistema.eliminarTipoAvatar(tipoAvatar99);
 		sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
 		
-		sistema.docenteEliminarCurso(docente3,curso1);
-		int curso99 = sistema.docenteAgregarCurso(docente3, "Curso VADE Noche");
-		sistema.docenteModificarCurso(docente3, curso99,"Curso UADE Noche");
-		sistema.docenteEliminarCurso(docente3,curso99);
-		sistema.docenteAgregarCurso(docente3, "Curso UADE Noche");
+		sistema.docenteEliminarCurso(docente3.getId(),curso1);
+		int curso99 = sistema.docenteAgregarCurso(docente3.getId(), "Curso VADE Noche");
+		sistema.docenteModificarCurso(docente3.getId(), curso99,"Curso UADE Noche");
+		sistema.docenteEliminarCurso(docente3.getId(),curso99);
+		sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Noche");
 		
-		int curso2 = sistema.docenteAgregarCurso(docente3, "Curso UADE Mañana");
-		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
-		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
-		sistema.cursoAgregarAlumno(docente3, curso2, alumno3);
+		int curso2 = sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Mañana");
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno1.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno2.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso2, alumno3.getId());
 		
-		sistema.cursoQuitarAlumno(docente3, curso1, alumno1);
-		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
+		sistema.cursoQuitarAlumno(docente3.getId(), curso1, alumno1.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno1.getId());
 		
 		sistema.tipoAvatarQuitarAlimento(tipoAvatar1,alimento1);
 		sistema.tipoAvatarAgregarAlimento(tipoAvatar1,alimento1);
 		
 		sistema.alumnoBuscarLeccion(1, 3);
 		
-		sistema.listarCursosPorDocente(docente3);
+		sistema.listarCursosPorDocente(docente3.getId());
 		
 	} 
 }

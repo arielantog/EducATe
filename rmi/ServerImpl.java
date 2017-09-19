@@ -18,12 +18,12 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 		super();
 	}
 	
-	public int nuevoAlumno(String tipoDocumento, int nroDocumento,
+	public AlumnoDTO nuevoAlumno(String tipoDocumento, int nroDocumento,
 			String nombre, String apellido, String usuario, String password, String mail) throws RemoteException {
 		return Sistema.getInstance().nuevoAlumno(tipoDocumento, nroDocumento, nombre, apellido, usuario, password, mail);
 	}
 
-	public int nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password,
+	public DocenteDTO nuevoDocente(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password,
 			String mail) throws RemoteException {
 		return Sistema.getInstance().nuevoDocente(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 	}
