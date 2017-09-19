@@ -109,6 +109,7 @@ public class Test {
 
 		int alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		int alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
+		int alumno3 = sistema.nuevoAlumno("DNI", 30321819, "Ferchy", "Vampy", "123456", "ferchy.vampy@gmail.com", "Ferchy");
 
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
@@ -185,6 +186,11 @@ public class Test {
 		sistema.docenteModificarCurso(docente3, curso99,"Curso UADE Noche");
 		sistema.docenteEliminarCurso(docente3,curso99);
 		sistema.docenteAgregarCurso(docente3, "Curso UADE Noche");
+		
+		int curso2 = sistema.docenteAgregarCurso(docente3, "Curso UADE Mañana");
+		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);
+		sistema.cursoAgregarAlumno(docente3, curso1, alumno2);
+		sistema.cursoAgregarAlumno(docente3, curso2, alumno3);
 		
 		sistema.cursoQuitarAlumno(docente3, curso1, alumno1);
 		sistema.cursoAgregarAlumno(docente3, curso1, alumno1);

@@ -63,7 +63,7 @@ public class Docente extends Persona {
 	
 	public Curso buscarCurso(String descripcion) {
 		for (Curso curso: cursos)
-			if (curso.getDescripcion().equals(curso.getDescripcion()))
+			if (curso.getDescripcion().equals(descripcion))
 				return curso;
 		return CursoDao.getInstance().buscar(descripcion);
 	}
