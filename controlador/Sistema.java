@@ -840,6 +840,7 @@ public class Sistema {
 		return temasDTO;
 	}
 	
+	
 	public List<AlimentoDTO> listarAlimentos() {
 		List<AlimentoDTO> alimentoDTO = new ArrayList<AlimentoDTO>();
 		List<Alimento> alimentos = AlimentoDao.getInstance().listarAlimentos();
@@ -850,35 +851,53 @@ public class Sistema {
 	}
 
 	public AlumnoDTO traerPerfilAlumno(String usuario) {
-		Alumno alumno = AlumnoDao.getInstance().buscar(usuario);
-		AlumnoDTO alumnoDTO = alumno.pasarDTO();
-		return alumnoDTO;
+		Alumno alumno = buscarAlumno(usuario);
+		if (alumno != null && alumno.isActivo()){
+			AlumnoDTO alumnoDTO = alumno.pasarDTO();
+			return alumnoDTO;
+		}else{
+			System.out.println("El alumno no existe");
+		}
+		return null;	
 	}
 
 	public DocenteDTO traerPerfilDocente(String tipoDocumento, int nroDocumento) {
-		Docente docente = DocenteDao.getInstance().buscar(tipoDocumento, nroDocumento);
-		DocenteDTO docenteDTO = docente.pasarDTO();
-		return docenteDTO;
+		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
+		if (docente != null && docente.isActivo()){
+			DocenteDTO docenteDTO = docente.pasarDTO();
+			return docenteDTO;
+		}else{
+			System.out.println("El docente no existe");
+		}
+		return null;
 	}
 
-	public List<CursoDTO> listarCursosPorDocente(int docente) {
+	public List<CursoDTO> listarCursosPorDocente(int nroDocente) {
+		Docente docente = buscarDocente(nroDocente);
 		List<CursoDTO> cursosDTO = new ArrayList<CursoDTO>();
-		List<Curso> cursos = DocenteDao.getInstance().listarCursosPorDocente(docente);
-		for(Curso curso : cursos){
-			cursosDTO.add(curso.pasarDTO());
+		if (docente != null && docente.isActivo()){
+			List<Curso> cursos = docente.getCursos();
+			for (Curso curso: cursos)
+				cursosDTO.add(curso.pasarDTO());
+		}else{
+			System.out.println("El docente no existe");
 		}
 		return cursosDTO;
 	}
 
 	public CursoDTO traerCursoDocente(int nroDocente, int nroCurso) {
-		for (Docente docente: docentes){
-			if (docente.getId() == nroDocente){
-				Curso curso = docente.buscarCurso(nroCurso);
-				if (curso != null)
-					return curso.pasarDTO();
+		Docente docente = buscarDocente(nroDocente);
+		if (docente != null && docente.isActivo()){
+			Curso curso = docente.buscarCurso(nroCurso);
+			if (curso != null && curso.isActivo()){
+				return curso.pasarDTO();
+			}else{
+				System.out.println("El curso no existe");
 			}
+		}else{
+			System.out.println("El docente no existe");
 		}
-		return DocenteDao.getInstance().buscarCurso(nroDocente, nroCurso).pasarDTO();
+		return null;
 	}
 	
 }
