@@ -899,5 +899,21 @@ public class Sistema {
 		}
 		return null;
 	}
+
+	public AlumnoDTO buscarAlumnoAsignarCurso(String tipoDocumento, int nroDocumento) {
+		Alumno alumno = buscarAlumno(tipoDocumento, nroDocumento);
+		if(alumno != null && alumno.isActivo()){
+			return alumno.pasarDTO();
+		}else {
+			System.out.println("El alumno no existe o esta inactivo");
+		}
+		return null;
+	}
 	
+	private Alumno buscarAlumno(String tipoDocumento, int nroDocumento) {
+		for (Alumno alumno: alumnos)
+			if (alumno.getTipoDocumento().equals(tipoDocumento) && alumno.getNroDocumento() == nroDocumento)
+				return alumno;
+		return AlumnoDao.getInstance().buscar(tipoDocumento, nroDocumento);
+	}
 }
