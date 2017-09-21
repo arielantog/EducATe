@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/hibernate3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/hibernate-commons-annotations.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/javassist-3.4.GA.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/jtds-1.2.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/slf4j-api-1.5.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Turco/workspace/Restaurant/lib/slf4j-simple-1.5.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
 		<attributes>
@@ -26,5 +13,19 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/hsqldb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/javassist-3.4.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/jtds-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/slf4j-api-1.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desktop/Desktop/eclipse2/Libs Hibernate/slf4j-simple-1.5.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -280,17 +280,18 @@ public class Sistema {
 		return 0;
 	}
 
-	public int cursoAgregarAlumno(int nroDocente, int nroCurso, int nroAlumno) {
+	public CursoDTO cursoAgregarAlumno(int nroDocente, int nroCurso, int nroAlumno) {
 		Curso curso = docenteBuscarCurso(nroDocente, nroCurso);
 		if (curso != null){
 			Alumno alumno = buscarAlumno(nroAlumno);
-			if (alumno != null && alumno.isActivo())
-				return curso.agregarAlumno(alumno);
-			else
+			if (alumno != null && alumno.isActivo()){
+				curso.agregarAlumno(alumno);
+				return curso.pasarDTO();
+			}else
 				System.out.println("El alumno no existe");
 		}else
 			System.out.println("El curso no existe");
-		return 0;
+		return null;
 	}
 	
 	public int alumnoEvolucionarAvatar(int nroAlumno) {
