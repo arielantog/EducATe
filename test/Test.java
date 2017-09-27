@@ -2,6 +2,7 @@ package test;
 
 import controlador.Sistema;
 import dto.AlumnoDTO;
+import dto.CursoDTO;
 import dto.DocenteDTO;
 
 public class Test {
@@ -30,7 +31,7 @@ public class Test {
 		int juego3 = sistema.nuevoJuego("Áreas protegidas 1", tema3);
 		int juego4 = sistema.nuevoJuego("Problemas ambientales 1", tema4);
 		
-		int curso1 = sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Noche");
+		CursoDTO curso1 = sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Noche");
 
 		
 		int leccion1  = sistema.temaAgregarLeccion(tema1, "Posición departamento Corpen Aike");
@@ -112,8 +113,8 @@ public class Test {
 		AlumnoDTO alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
 		AlumnoDTO alumno3 = sistema.nuevoAlumno("DNI", 30321819, "Ferchy", "Vampy", "123456", "ferchy.vampy@gmail.com", "Ferchy");
 
-		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno1.getId());
-		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno2.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno1.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno2.getId());
 		
 		
 		int juego98 =sistema.elegirJuegoSinTema(alumno1.getId());
@@ -182,19 +183,19 @@ public class Test {
 		sistema.eliminarTipoAvatar(tipoAvatar99);
 		sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
 		
-		sistema.docenteEliminarCurso(docente3.getId(),curso1);
-		int curso99 = sistema.docenteAgregarCurso(docente3.getId(), "Curso VADE Noche");
-		sistema.docenteModificarCurso(docente3.getId(), curso99,"Curso UADE Noche");
-		sistema.docenteEliminarCurso(docente3.getId(),curso99);
+		sistema.docenteEliminarCurso(docente3.getId(),curso1.getId());
+		CursoDTO curso99 = sistema.docenteAgregarCurso(docente3.getId(), "Curso VADE Noche");
+		sistema.docenteModificarCurso(docente3.getId(), curso99.getId(),"Curso UADE Noche");
+		sistema.docenteEliminarCurso(docente3.getId(),curso99.getId());
 		sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Noche");
 		
-		int curso2 = sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Mañana");
-		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno1.getId());
-		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno2.getId());
-		sistema.cursoAgregarAlumno(docente3.getId(), curso2, alumno3.getId());
+		CursoDTO curso2 = sistema.docenteAgregarCurso(docente3.getId(), "Curso UADE Mañana");
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno1.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno2.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso2.getId(), alumno3.getId());
 		
-		sistema.cursoQuitarAlumno(docente3.getId(), curso1, alumno1.getId());
-		sistema.cursoAgregarAlumno(docente3.getId(), curso1, alumno1.getId());
+		sistema.cursoQuitarAlumno(docente3.getId(), curso1.getId(), alumno1.getId());
+		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno1.getId());
 		
 		sistema.tipoAvatarQuitarAlimento(tipoAvatar1,alimento1);
 		sistema.tipoAvatarAgregarAlimento(tipoAvatar1,alimento1);

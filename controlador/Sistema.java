@@ -216,7 +216,7 @@ public class Sistema {
 		return 0;
 	}
 	
-	public int alumnoAlimentarAvatar(int nroAlumno, int nroAlimento){
+	public AlumnoDTO alumnoAlimentarAvatar(int nroAlumno, int nroAlimento){
 		Alumno alumno = buscarAlumno(nroAlumno);
 		if (alumno != null && alumno.isActivo()){
 			Alimento alimento = buscarAlimento(nroAlimento);
@@ -229,20 +229,27 @@ public class Sistema {
 			}else{
 				System.out.println("No existe el alimento");
 			}
+			return alumno.pasarDTO();
 		}else{
 			System.out.println("No existe el alumno");
 		}
-		return 0;
+		return null;
 	}
 	
-	public int docenteAgregarCurso(int nroDocente, String descripcion) {
+	public CursoDTO docenteAgregarCurso(int nroDocente, String descripcion) {
 		Docente docente = buscarDocente(nroDocente);
-		if (docente != null && docente.isActivo())
-			return docente.agregarCurso(descripcion);
+		if (docente != null && docente.isActivo()){
+			docente.agregarCurso(descripcion);
+			docente.pasarDTO();
+			for(Curso curso : docente.getCursos()){
+				if(curso.getDescripcion().equals(descripcion))
+					return curso.pasarDTO();
+			}
+		}
 		System.out.println("El docente no existe");
-		return 0;
+		return null;
 	}
-	
+
 	public int temaAgregarLeccion(int nroTema, String descripcion) {
 		Tema tema = buscarTema(nroTema);
 		if (tema != null && tema.isActivo())
@@ -294,24 +301,26 @@ public class Sistema {
 		return null;
 	}
 	
-	public int alumnoEvolucionarAvatar(int nroAlumno) {
+	public AlumnoDTO alumnoEvolucionarAvatar(int nroAlumno) {
 		Alumno alumno = buscarAlumno(nroAlumno);
 		if (alumno != null && alumno.isActivo()){
 			alumno.evolucionarAvatar();
+			return alumno.pasarDTO();
 		}else{
 			System.out.println("El alumno no existe");
 		}
-		return 0;
+		return null;
 	}
 	
-	public int alumnoRevivirAvatar(int nroAlumno) {
+	public AlumnoDTO alumnoRevivirAvatar(int nroAlumno) {
 		Alumno alumno = buscarAlumno(nroAlumno);
 		if (alumno != null && alumno.isActivo()){
 			alumno.revivirAvatar();
+			return alumno.pasarDTO();
 		}else{
 			System.out.println("El alumno no existe");
 		}
-		return 0;
+		return null;
 	}
 	
 	public int alumnoBuscarLeccion(int nroAlumno, int nroJuego){
@@ -842,13 +851,16 @@ public class Sistema {
 	}
 	
 	
-	public List<AlimentoDTO> listarAlimentos() {
-		List<AlimentoDTO> alimentoDTO = new ArrayList<AlimentoDTO>();
-		List<Alimento> alimentos = AlimentoDao.getInstance().listarAlimentos();
-		for(Alimento alimento: alimentos) {
-			alimentoDTO.add(alimento.pasarDTO());
+	public List<AlimentoDTO> listarAlimentos(int nroTipoAvatar) {
+		TipoAvatar tipoAvatar= buscarTipoAvatar(nroTipoAvatar);
+		List<AlimentoDTO> alimentosDTO = new ArrayList<AlimentoDTO>();
+		if (tipoAvatar != null && tipoAvatar.isActivo()){
+			
+			List<Alimento> alimentos = AlimentoDao.getInstance().listarAlimentos(nroTipoAvatar);
+			for(Alimento alimento: alimentos) 
+				alimentosDTO.add(alimento.pasarDTO());
 		}
-		return alimentoDTO;
+		return alimentosDTO;		
 	}
 
 	public AlumnoDTO traerPerfilAlumno(String usuario) {

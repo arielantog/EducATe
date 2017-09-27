@@ -30,18 +30,18 @@ public class Docente extends Persona {
 	private List<Curso> cursos;
 	private boolean activo;
 
-	public int agregarCurso(String descripcion) {
+	public Curso agregarCurso(String descripcion) {
 		Curso curso = buscarCurso(descripcion);
 		if (curso == null){
 			Curso curso2 = new Curso(descripcion);
 			cursos.add(curso2);
 			DocenteDao.getInstance().actualizar(pasarBean());
-			return curso2.getId();
+			return curso2;
 		}
 		curso.activar(descripcion);
 		cursos.add(curso);
 		DocenteDao.getInstance().actualizar(pasarBean());
-		return curso.getId();
+		return curso;
 	}
 	public void agregarCurso(Curso curso) {
 		cursos.add(curso);

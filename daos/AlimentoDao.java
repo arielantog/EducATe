@@ -87,12 +87,19 @@ public class AlimentoDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Alimento> listarAlimentos() {
+	public List<Alimento> listarAlimentos(int nroTipoAvatar) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("FROM AlimentoBean WHERE activo = 1");
 		List<Alimento> alimentos = new ArrayList<Alimento>();
 		try{
+			Query query = session.createQuery("SELECT b "
+				+ "FROM TipoAvatarBean a "
+				+ "JOIN a.alimentos b "
+				+ "WHERE a.id = ? " 
+				+ "AND b.activo = 1 ");
+			query.setInteger(0, nroTipoAvatar);
+			
+		
 			List<AlimentoBean> alimentosBean = new ArrayList<AlimentoBean>();
 			alimentosBean = query.list();
 			for (AlimentoBean alimentobean : alimentosBean){
