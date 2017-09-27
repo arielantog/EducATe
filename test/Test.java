@@ -101,8 +101,22 @@ public class Test {
 		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40, null);
 		int alimento3 = sistema.nuevoAlimento("Comida3", 5, 50, null);
 		
-		int tipoAvatar1 = sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/1.png");
-		int tipoAvatar2 = sistema.nuevoTipoAvatar("Celentéreo 2", 100, 1000,2000,1500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/2.png");
+		int tipoAvatar1 = sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/01.png");
+		int tipoAvatar2 = sistema.nuevoTipoAvatar("Celentéreo 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/02.png");
+		sistema.nuevoTipoAvatar("Equinodermos 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Equinodermos/01.png");
+		sistema.nuevoTipoAvatar("Equinodermos 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Equinodermos/02.png");
+		sistema.nuevoTipoAvatar("Moluscos 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Moluscos/01.png");
+		sistema.nuevoTipoAvatar("Moluscos 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Moluscos/02.png");
+		sistema.nuevoTipoAvatar("Peces 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Peces/01.png");
+		sistema.nuevoTipoAvatar("Peces 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Peces/02.png");
+		sistema.nuevoTipoAvatar("Gusanos 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Gusanos/01.png");
+		sistema.nuevoTipoAvatar("Gusanos 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Gusanos/02.png");
+		sistema.nuevoTipoAvatar("Artrópodos 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Artrópodos/01.png");
+		sistema.nuevoTipoAvatar("Artrópodos 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Artrópodos/02.png");
+		sistema.nuevoTipoAvatar("Reptiles 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/01.png");
+		sistema.nuevoTipoAvatar("Reptiles 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/02.png");
+		sistema.nuevoTipoAvatar("Aves 1", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Aves/01.png");
+		sistema.nuevoTipoAvatar("Aves 2", 100, 1000,10,10, "http://localhost:7616/EducATe_-_FrontEnd/images/TipoAvatar/Aves/02.png");
 		
 		sistema.tipoAvatarAgregarAlimento(alimento1, tipoAvatar1);
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar1);
@@ -129,11 +143,20 @@ public class Test {
 		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
+		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
 		
  		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento1);
 		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento3);
 		sistema.alumnoRevivirAvatar(alumno1.getId());
-		sistema.alumnoEvolucionarAvatar(alumno1.getId());
+		//sistema.alumnoEvolucionarAvatar(alumno1.getId());
 		
 		sistema.eliminarAlumno(alumno1.getId());
 		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
