@@ -27,11 +27,7 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 			String mail) throws RemoteException {
 		return Sistema.getInstance().nuevoDocente(tipoDocumento, nroDocumento, nombre, apellido, password, mail);
 	}
-/*
-	public int loginDocente(String tipoDocumento, int nroDocumento, String password) throws RemoteException {
-		return Sistema.getInstance().loginDocente(tipoDocumento, nroDocumento, password);
-	}
-*/
+
 	public DocenteDTO loginDocente(String tipoDocumento, int nroDocumento, String password) throws RemoteException {
 		return Sistema.getInstance().loginDocente(tipoDocumento, nroDocumento, password);
 	}
@@ -49,16 +45,15 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 	}
 
 	public int alumnoGetNivel(int alumno) throws RemoteException {
-		return Sistema.getInstance().alumnoGetNivel(alumno);
-		
+		return Sistema.getInstance().alumnoGetNivel(alumno);		
 	}
 
 	public List<TemaDTO> listarTemas() {
 		return Sistema.getInstance().listarTemas();
 	}
 	
-	public List<AlimentoDTO> listarAlimentos() {
-		return Sistema.getInstance().listarAlimentos();
+	public List<AlimentoDTO> listarAlimentos(int nroTipoAvatar) {
+		return Sistema.getInstance().listarAlimentos(nroTipoAvatar);
 	}
 
 	public AlumnoDTO traerPerfilAlumno(String usuario) throws RemoteException {
@@ -95,12 +90,13 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 		return Sistema.getInstance().elegirJuegoConTema(nroAlumno, nroTema);
 	}
 
-	public void alumnoEvolucionarAvatar(int nroAlumno) throws RemoteException {
-		Sistema.getInstance().alumnoEvolucionarAvatar(nroAlumno);
+	public AlumnoDTO alumnoEvolucionarAvatar(int nroAlumno) throws RemoteException {
+		return Sistema.getInstance().alumnoEvolucionarAvatar(nroAlumno);
+		
 	}
 
-	public void alumnoRevivirAvatar(int nroAlumno) throws RemoteException {
-		Sistema.getInstance().alumnoRevivirAvatar(nroAlumno);
+	public AlumnoDTO alumnoRevivirAvatar(int nroAlumno) throws RemoteException {
+		return Sistema.getInstance().alumnoRevivirAvatar(nroAlumno);
 	}
 
 	public AlumnoDTO buscarAlumnoAsignarCurso(String tipoDocumento, int nroDocumento) throws RemoteException {
@@ -109,6 +105,16 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 
 	public CursoDTO cursoAgregarAlumno(int nroDocente, int nroCurso, int nroAlumno) throws RemoteException {
 		return Sistema.getInstance().cursoAgregarAlumno(nroDocente, nroCurso, nroAlumno);
+	}
+
+	public CursoDTO docenteAgregarCurso(int nroCurso, String descripcion) throws RemoteException {
+		return Sistema.getInstance().docenteAgregarCurso(nroCurso, descripcion);
+	}
+
+	public AlumnoDTO alumnoAlimentarAvatar(int nroAlumno, int nroAlimento)
+			throws RemoteException {
+		return Sistema.getInstance().alumnoAlimentarAvatar(nroAlumno, nroAlimento);
+		
 	}
 
 }

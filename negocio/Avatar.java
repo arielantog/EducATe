@@ -30,24 +30,31 @@ public class Avatar {
 
 	private TipoAvatar buscarTipoAvatar(int id) {
 		TipoAvatar tipoAvatar = TipoAvatarDao.getInstance().buscar(id);
-		if (tipoAvatar == null)
-			//Primer organismo si no existiese.
-			tipoAvatar = new TipoAvatar("Célula", 10,100,1000,500, null);
+		if (tipoAvatar == null){
+			tipoAvatar = TipoAvatarDao.getInstance().buscar(1);
+			if (tipoAvatar == null)
+				//XXX Primer organismo si no existiese.
+				return tipoAvatar = new TipoAvatar("Célula", 10,100,1000,500, null);
+			return null;
+		}
 		return tipoAvatar;
 	}
 	public int alimentar(Alimento alimento) {
 		if (hambre != 0){
-			if (tipoAvatar.tengoAlimento(alimento)){
-				this.hambre = this.hambre + alimento.getProteinas();
-				if (this.hambre > tipoAvatar.getAlimentoMax())
-					this.hambre = tipoAvatar.getAlimentoMax();
-				this.ultimaComida = new Fecha().fechaActual();
-				AvatarDao.getInstance().actualizar(pasarBean());
-				return 1;
-			}else{
-				System.out.println("El avatar no come ese tipo de alimento.");
+			if (hambre < tipoAvatar.getAlimentoMax())
+				if (tipoAvatar.tengoAlimento(alimento)){
+					this.hambre = this.hambre + alimento.getProteinas();
+					if (this.hambre > tipoAvatar.getAlimentoMax())
+						this.hambre = tipoAvatar.getAlimentoMax();
+					this.ultimaComida = new Fecha().fechaActual();
+					AvatarDao.getInstance().actualizar(pasarBean());
+					return 1;
+				}else{
+					System.out.println("El avatar no come ese tipo de alimento.");
+				}
+			else{
+				System.out.println("El avatar no tiene hambre.");
 			}
-				
 		}else{
 			System.out.println("El avatar ha muerto de hambre, comprar revivir.");
 		}
@@ -55,19 +62,26 @@ public class Avatar {
 	}
 	
 	public int revivir() {
-		this.hambre = tipoAvatar.getAlimentoMax() * 20/100;
+		this.hambre = (int) ((float)tipoAvatar.getAlimentoMax() * 20/100);
 		this.ultimaComida = new Fecha().fechaActual();
 		AvatarDao.getInstance().actualizar(pasarBean());
 		
 		return 0;
 	}
 	public int evolucionar() {
-		this.hambre = 100;
+		TipoAvatar tipoAvatar2 = buscarTipoAvatar(tipoAvatar.getId()+1);
+		while (tipoAvatar2 == null || !tipoAvatar2.isActivo()){
+			if (tipoAvatar2 == null){
+				System.out.println("No existen más tipos de avatares.");
+				return 0;
+			}
+			tipoAvatar2 = buscarTipoAvatar(tipoAvatar2.getId()+1);
+		}
+		tipoAvatar = tipoAvatar2;
 		this.ultimaComida = new Fecha().fechaActual();
-		tipoAvatar = buscarTipoAvatar(tipoAvatar.getId()+1);
+		this.hambre = (int) (this.getTipoAvatar().getAlimentoMax()*0.6);
 		AvatarDao.getInstance().actualizar(pasarBean());
-		
-		return 0;
+		return 1;
 	}
 	public int descontarHambre() {
 		Date fechaActual = new Fecha().fechaActual();

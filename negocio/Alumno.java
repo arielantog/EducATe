@@ -107,7 +107,8 @@ public class Alumno extends Persona {
 		return calcularSiguienteLeccion(lietner);
 	}
 	public int alimentarAvatar(Alimento alimento) {
-		if (avatar.alimentar(alimento) == 1){
+		int alimenta = avatar.alimentar(alimento);
+		if (alimenta == 1){
 			puntos = puntos - alimento.getPrecio();
 			AlumnoDao.getInstance().actualizar(pasarBean());
 		}
@@ -115,10 +116,12 @@ public class Alumno extends Persona {
 	}
 	public int evolucionarAvatar() {
 		if (getPuntos() >= avatar.getTipoAvatar().getPrecioEvolucion()){
-			if (avatar.getHambre() >= 90){
-				puntos = puntos - avatar.getTipoAvatar().getPrecioEvolucion();
-				avatar.evolucionar();
-				AlumnoDao.getInstance().actualizar(pasarBean());
+			if ((float)avatar.getHambre() / avatar.getTipoAvatar().getAlimentoMax() * 100 >= 75){
+				int evoluciono = avatar.evolucionar();
+				if (evoluciono == 1){
+					puntos = puntos - avatar.getTipoAvatar().getPrecioEvolucion();
+					AlumnoDao.getInstance().actualizar(pasarBean());
+				}
 			}else{
 				System.out.println("El avatar no puede evolucionar si tiene hambre.");
 			}
