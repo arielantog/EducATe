@@ -2,6 +2,7 @@ package controlador;
 
 import hibernate.HibernateUtil;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 import daos.AlimentoDao;
@@ -811,33 +812,35 @@ public class Sistema {
 		
 	}
 
-	public DocenteDTO loginDocente(String tipoDocumento, int nroDocumento, String password) {
+	public DocenteDTO loginDocente(String tipoDocumento, int nroDocumento, String password) throws RemoteException {
 		Docente docente = buscarDocente(tipoDocumento, nroDocumento);
 		if (docente != null && docente.isActivo()){
 			if (docente.validarLogin(password)){
 				return docente.pasarDTO();
 			}else{
 				System.out.println("Contraseña incorrecta");
+				throw new RemoteException("Usuario o contraseña incorrecta");
 			}
 		}else{
 			System.out.println("El docente no existe");
+			throw new RemoteException("Usuario o contraseña incorrecta");
 		}
-		return null;
 	}
 
 
-	public AlumnoDTO loginAlumno(String usuario, String password) {
+	public AlumnoDTO loginAlumno(String usuario, String password) throws RemoteException {
 		Alumno alumno = buscarAlumno(usuario);
 		if (alumno != null && alumno.isActivo()){
 			if (alumno.validarLogin(password)){
 				return alumno.pasarDTO();
 			}else{
 				System.out.println("Contraseña incorrecta");
+				throw new RemoteException("Usuario o contraseña incorrecta");
 			}
 		}else{
 			System.out.println("El alumno no existe");
+			throw new RemoteException ("Usuario o contraseña incorrecta");
 		}
-		return null;
 	}
 
 	
