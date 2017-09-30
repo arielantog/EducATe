@@ -1,5 +1,7 @@
 package test;
 
+import java.rmi.RemoteException;
+
 import controlador.Sistema;
 import dto.AlumnoDTO;
 import dto.CursoDTO;
@@ -7,7 +9,7 @@ import dto.DocenteDTO;
 
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RemoteException{
 		Sistema sistema = new Sistema();
 				
 		sistema.agregarValorLietner(0,0,35);
@@ -126,7 +128,8 @@ public class Test {
 		AlumnoDTO alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		AlumnoDTO alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
 		AlumnoDTO alumno3 = sistema.nuevoAlumno("DNI", 30321819, "Ferchy", "Vampy", "123456", "ferchy.vampy@gmail.com", "Ferchy");
-
+			
+				
 		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno1.getId());
 		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno2.getId());
 		

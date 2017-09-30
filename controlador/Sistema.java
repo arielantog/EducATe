@@ -112,7 +112,7 @@ public class Sistema {
 	     timer.schedule(timerTask, 0, 100000);
 	}
 	
-	public AlumnoDTO nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
+	public AlumnoDTO nuevoAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) throws RemoteException {
 		Alumno alumno = buscarAlumno(usuario);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
@@ -123,8 +123,8 @@ public class Sistema {
 			alumnos.add(alumno);
 			return alumno.pasarDTO();
 		}
-		System.out.println("El alumno ya existe");		
-		return alumno.pasarDTO();
+		System.out.println("El alumno ya existe");
+		throw new RemoteException("El usuario ya se encuentra registrado");
 	}
 	
 	public AlumnoDTO activarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
