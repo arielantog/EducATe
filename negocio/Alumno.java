@@ -1,5 +1,6 @@
 package negocio;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 import daos.AlumnoDao;
@@ -35,7 +36,7 @@ public class Alumno extends Persona {
 
 	private static int ID = 1;
 	private static final int PuntosRespuestaCorrecta = 100;
-	private static final int PuntosRespuestaIncorrecta = 20;
+	private static final int PuntosRespuestaIncorrecta = 10;
 	private int id;
 	private int puntos;
 	private List<Ensenianza> ensenianzas;
@@ -106,15 +107,20 @@ public class Alumno extends Persona {
 		lietner.setIteracion(lietner.getIteracion()+1);
 		return calcularSiguienteLeccion(lietner);
 	}
-	public int alimentarAvatar(Alimento alimento) {
-		int alimenta = avatar.alimentar(alimento);
-		if (alimenta == 1){
-			puntos = puntos - alimento.getPrecio();
-			AlumnoDao.getInstance().actualizar(pasarBean());
+	public int alimentarAvatar(Alimento alimento) throws RemoteException {
+		if (this.getPuntos()>= alimento.getPrecio()){
+			int alimenta = avatar.alimentar(alimento);
+			if (alimenta == 1){
+				puntos = puntos - alimento.getPrecio();
+				AlumnoDao.getInstance().actualizar(pasarBean());
+			}
+		}else{
+			System.out.println("No hay suficientes puntos.");
+			throw new RemoteException("No tienes suficientes puntos para comprar ese alimento.");
 		}
 		return 0;
 	}
-	public int evolucionarAvatar() {
+	public int evolucionarAvatar() throws RemoteException {
 		if (getPuntos() >= avatar.getTipoAvatar().getPrecioEvolucion()){
 			if ((float)avatar.getHambre() / avatar.getTipoAvatar().getAlimentoMax() * 100 >= 75){
 				int evoluciono = avatar.evolucionar();
@@ -124,13 +130,15 @@ public class Alumno extends Persona {
 				}
 			}else{
 				System.out.println("El avatar no puede evolucionar si tiene hambre.");
+				throw new RemoteException("El avatar no puede evolucionar si tiene hambre.");
 			}
 		}else{
 			System.out.println("Se necesitan más puntos para evolucionar.");
+			throw new RemoteException("No tienes puntos suficientes para evolucionar a tu avatar.");
 		}
 		return 0;
 	}
-	public int revivirAvatar() {
+	public int revivirAvatar() throws RemoteException {
 		if (avatar.getHambre() == 0){
 			if (getPuntos() >= avatar.getTipoAvatar().getPrecioRevivir()){
 				avatar.revivir();
@@ -138,9 +146,11 @@ public class Alumno extends Persona {
 				AlumnoDao.getInstance().actualizar(pasarBean());
 			}else{
 				System.out.println("Se necesitan más puntos para revivir.");
+				throw new RemoteException("No tienes puntos suficientes para revivir a tu avatar.");
 			}
 		}else {
 			System.out.println("El avatar se encuentra vivo.");
+			throw new RemoteException("El avatar ya se encuentra vivo.");
 		}
 		return 0;
 	}
