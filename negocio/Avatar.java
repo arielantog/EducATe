@@ -1,5 +1,6 @@
 package negocio;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 
 import daos.AvatarDao;
@@ -39,7 +40,7 @@ public class Avatar {
 		}
 		return tipoAvatar;
 	}
-	public int alimentar(Alimento alimento) {
+	public int alimentar(Alimento alimento) throws RemoteException {
 		if (hambre != 0){
 			if (hambre < tipoAvatar.getAlimentoMax())
 				if (tipoAvatar.tengoAlimento(alimento)){
@@ -51,14 +52,16 @@ public class Avatar {
 					return 1;
 				}else{
 					System.out.println("El avatar no come ese tipo de alimento.");
+					throw new RemoteException("El avatar no come ese tipo de alimento.");
 				}
 			else{
 				System.out.println("El avatar no tiene hambre.");
+				throw new RemoteException("El avatar no tiene hambre.");
 			}
 		}else{
 			System.out.println("El avatar ha muerto de hambre, comprar revivir.");
+			throw new RemoteException("El avatar ha muerto de hambre, debes revivirlo.");
 		}
-		return 0;
 	}
 	
 	public int revivir() {

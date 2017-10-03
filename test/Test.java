@@ -8,7 +8,8 @@ import dto.CursoDTO;
 import dto.DocenteDTO;
 
 public class Test {
-
+	
+	/*Usar solo con Create and Drop*/
 	public static void main(String[] args) throws RemoteException{
 		Sistema sistema = new Sistema();
 				
@@ -127,9 +128,9 @@ public class Test {
 
 		AlumnoDTO alumno1 = sistema.nuevoAlumno("DNI", 35730491, "Ariel", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		AlumnoDTO alumno2 = sistema.nuevoAlumno("DNI", 35491512, "Yamil", "Amado", "123456", "amado.yamil@gmail.com", "Turco");
-		AlumnoDTO alumno3 = sistema.nuevoAlumno("DNI", 30321819, "Ferchy", "Vampy", "123456", "ferchy.vampy@gmail.com", "Ferchy");
+		sistema.nuevoAlumno("DNI", 30321819, "Alumno3", "Alumno3", "123456", "alumno3@gmail.com", "Alu3");
 			
-				
+			
 		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno1.getId());
 		sistema.cursoAgregarAlumno(docente3.getId(), curso1.getId(), alumno2.getId());
 		
@@ -158,9 +159,13 @@ public class Test {
 		
  		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento1);
 		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento3);
-		sistema.alumnoRevivirAvatar(alumno1.getId());
 		//sistema.alumnoEvolucionarAvatar(alumno1.getId());
 		
+		/*
+		//sistema.alumnoRevivirAvatar(alumno1.getId());
+		
+		
+		No funciona desde las excepciones
 		sistema.eliminarAlumno(alumno1.getId());
 		sistema.nuevoAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
 		sistema.activarAlumno("DNI", 35730491, "Arielo", "Antognini", "123456", "arielantog@gmail.com", "Ari");
@@ -225,7 +230,7 @@ public class Test {
 		
 		sistema.tipoAvatarQuitarAlimento(tipoAvatar1,alimento1);
 		sistema.tipoAvatarAgregarAlimento(tipoAvatar1,alimento1);
-		
+		*/
 		sistema.alumnoBuscarLeccion(1, 3);
 		
 		sistema.listarCursosPorDocente(docente3.getId());

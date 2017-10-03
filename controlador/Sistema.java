@@ -217,24 +217,21 @@ public class Sistema {
 		return 0;
 	}
 	
-	public AlumnoDTO alumnoAlimentarAvatar(int nroAlumno, int nroAlimento){
+	public AlumnoDTO alumnoAlimentarAvatar(int nroAlumno, int nroAlimento) throws RemoteException{
 		Alumno alumno = buscarAlumno(nroAlumno);
 		if (alumno != null && alumno.isActivo()){
 			Alimento alimento = buscarAlimento(nroAlimento);
 			if (alimento != null){
-				if(alumno.getPuntos()>= alimento.getPrecio()){
-					alumno.alimentarAvatar(alimento);
-				}else{
-					System.out.println("No hay suficientes puntos"); 
-				}
+				alumno.alimentarAvatar(alimento);
 			}else{
 				System.out.println("No existe el alimento");
+				throw new RemoteException("El alimento no se encuentra disponible.");
 			}
 			return alumno.pasarDTO();
 		}else{
 			System.out.println("No existe el alumno");
+			throw new RemoteException("El alumno no existe.");
 		}
-		return null;
 	}
 	
 	public CursoDTO docenteAgregarCurso(int nroDocente, String descripcion) {
@@ -302,26 +299,26 @@ public class Sistema {
 		return null;
 	}
 	
-	public AlumnoDTO alumnoEvolucionarAvatar(int nroAlumno) {
+	public AlumnoDTO alumnoEvolucionarAvatar(int nroAlumno) throws RemoteException {
 		Alumno alumno = buscarAlumno(nroAlumno);
 		if (alumno != null && alumno.isActivo()){
 			alumno.evolucionarAvatar();
 			return alumno.pasarDTO();
 		}else{
 			System.out.println("El alumno no existe");
+			throw new RemoteException("El alumno no existe.");
 		}
-		return null;
 	}
 	
-	public AlumnoDTO alumnoRevivirAvatar(int nroAlumno) {
+	public AlumnoDTO alumnoRevivirAvatar(int nroAlumno) throws RemoteException {
 		Alumno alumno = buscarAlumno(nroAlumno);
 		if (alumno != null && alumno.isActivo()){
 			alumno.revivirAvatar();
 			return alumno.pasarDTO();
 		}else{
 			System.out.println("El alumno no existe");
+			throw new RemoteException("El alumno no existe.");
 		}
-		return null;
 	}
 	
 	public int alumnoBuscarLeccion(int nroAlumno, int nroJuego){

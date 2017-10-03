@@ -1,7 +1,6 @@
 package daos;
 
 import hibernate.HibernateUtil;
-import negocio.Alumno;
 import negocio.Ensenianza;
 
 import org.hibernate.Query;
@@ -28,7 +27,7 @@ public class EnsenianzaDao {
 		try{
 			Query query = session.createQuery("select MAX(a.id) from EnsenianzaBean a ");
 			int variableGlobal = (int) query.uniqueResult();
-			Alumno.setID(variableGlobal+1);
+			Ensenianza.setID(variableGlobal+1);
 		}
 		catch(Exception e){
 			System.out.println("No existen Ensenianzas");
