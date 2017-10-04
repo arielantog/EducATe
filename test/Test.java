@@ -157,8 +157,8 @@ public class Test {
 		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
 		sistema.alumnoAgregarEnsenianza(alumno1.getId(), leccion1, true);
 		
- 		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento1);
-		sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento3);
+ 		//sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento1);
+		//sistema.alumnoAlimentarAvatar(alumno1.getId(), alimento3);
 		//sistema.alumnoEvolucionarAvatar(alumno1.getId());
 		
 		/*
