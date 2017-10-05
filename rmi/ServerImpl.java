@@ -117,4 +117,8 @@ public class ServerImpl extends UnicastRemoteObject implements IRmiServer{
 		
 	}
 
+	public AlumnoDTO buscarAlumno(int nroAlumno) throws RemoteException {
+		return Sistema.getInstance().buscarAlumno(nroAlumno).pasarDTO();
+	}
+
 }

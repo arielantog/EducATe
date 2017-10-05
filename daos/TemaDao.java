@@ -131,6 +131,44 @@ public class TemaDao {
 		session.close();
 		return temas;
 	}
+
+	public int cantidadTemas() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("select COUNT(a.id) from TemaBean a ");
+		int cantidad = 0;
+		try{
+			long cantidad2 = (long) query.uniqueResult();
+			cantidad = (int) cantidad2;
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return cantidad;
+	}
+
+	public List<Tema> cargarTemas() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from TemaBean");
+		List<Tema> temas = new ArrayList<Tema>();
+		try{
+			@SuppressWarnings("unchecked")
+			List<TemaBean> temasBean = (List<TemaBean>) query.list();
+			for (TemaBean temaBean: temasBean){
+				Tema tema = temaBean.pasarNegocio();
+				temas.add(tema);
+			}
+		}catch(Exception e){
+			
+		}
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return temas;
+	}
 	
 	
 }

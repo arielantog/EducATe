@@ -116,6 +116,7 @@ public class Sistema {
 		Alumno alumno = buscarAlumno(usuario);
 		if (alumno == null){
 			alumno = new Alumno(tipoDocumento, nroDocumento, nombre, apellido, password, mail, usuario);
+			comprobarTemas();
 			for (Tema tema: temas)
 				for (Leccion leccion: tema.getLecciones())
 					alumno.agregarEnsenianza(leccion, false);
@@ -127,6 +128,26 @@ public class Sistema {
 		throw new RemoteException("El usuario ya se encuentra registrado");
 	}
 	
+	private void comprobarTemas() {
+		//Comprueba que todos los temas estén cargados en memoria
+		int cantidadTemas = TemaDao.getInstance().cantidadTemas();
+		if (temas.size() < cantidadTemas){
+			List<Tema> temas2 = TemaDao.getInstance().cargarTemas();
+			boolean existe = false;
+			for (Tema tema2: temas2){
+				for (Tema tema: temas){
+					if (tema.getId() == tema2.getId())
+						existe = true;
+				
+				}
+				if(existe != true)
+					temas.add(tema2);
+				existe = false;
+			}
+		}
+		
+	}
+
 	public AlumnoDTO activarAlumno(String tipoDocumento, int nroDocumento, String nombre, String apellido, String password, String mail, String usuario) {
 		Alumno alumno = buscarAlumno(usuario);
 		if (alumno == null){
@@ -394,7 +415,7 @@ public class Sistema {
 		return AlumnoDao.getInstance().buscar(usuario);
 	}
 	
-	private Alumno buscarAlumno(int nroAlumno) {
+	public Alumno buscarAlumno(int nroAlumno) {
 		for (Alumno alumno: alumnos)
 			if (alumno.getId() == nroAlumno)
 				return alumno;
