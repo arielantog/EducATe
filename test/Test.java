@@ -81,11 +81,11 @@ public class Test {
 		
 		
 		
-		int alimento1 = sistema.nuevoAlimento("Comida1", 2, 20, null);
-		int alimento2 = sistema.nuevoAlimento("Comida2", 4, 40, null);
-		int alimento3 = sistema.nuevoAlimento("Comida3", 5, 50, null);
+		int alimento1 = sistema.nuevoAlimento("Lechuga", 2, 20, "http://localhost:8080/EducATe_-_FrontEnd/images/Alimentos/Lechuga.png");
+		int alimento2 = sistema.nuevoAlimento("Tomate", 4, 40, "http://localhost:8080/EducATe_-_FrontEnd/images/Alimentos/Tomate.png");
+		int alimento3 = sistema.nuevoAlimento("Zanahoria", 5, 50,"http://localhost:8080/EducATe_-_FrontEnd/images/Alimentos/Zanahoria.png");
 		
-		int tipoAvatar1 = sistema.nuevoTipoAvatar("Celentéreo 1", 20, 2000,500,500, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/01.png");
+		int tipoAvatar1 = sistema.nuevoTipoAvatar("Reptiles 1", 20, 2000,500,500, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/11.png");
 		int tipoAvatar2 = sistema.nuevoTipoAvatar("Celentéreo 2", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Celentéreos/02.png");
 		sistema.nuevoTipoAvatar("Equinodermos 1", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Equinodermos/01.png");
 		sistema.nuevoTipoAvatar("Equinodermos 2", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Equinodermos/02.png");
@@ -97,13 +97,14 @@ public class Test {
 		sistema.nuevoTipoAvatar("Gusanos 2", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Gusanos/02.png");
 		sistema.nuevoTipoAvatar("Artrópodos 1", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Artrópodos/01.png");
 		sistema.nuevoTipoAvatar("Artrópodos 1", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Artrópodos/02.png");
-		sistema.nuevoTipoAvatar("Reptiles 1", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/01.png");
-		sistema.nuevoTipoAvatar("Reptiles 2", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/02.png");
+//		sistema.nuevoTipoAvatar("Reptiles 1", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/01.png");
+//		sistema.nuevoTipoAvatar("Reptiles 2", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Reptiles/02.png");
 		sistema.nuevoTipoAvatar("Aves 1", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Aves/01.png");
 		sistema.nuevoTipoAvatar("Aves 2", 100, 1000,10,10, "http://localhost:8080/EducATe_-_FrontEnd/images/TipoAvatar/Aves/02.png");
 		
 		sistema.tipoAvatarAgregarAlimento(alimento1, tipoAvatar1);
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar1);
+		sistema.tipoAvatarAgregarAlimento(alimento3, tipoAvatar1);
 		sistema.tipoAvatarAgregarAlimento(alimento2, tipoAvatar2);
 		sistema.tipoAvatarAgregarAlimento(alimento3, tipoAvatar2);
 
