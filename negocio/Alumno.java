@@ -123,10 +123,14 @@ public class Alumno extends Persona {
 	public int evolucionarAvatar() throws RemoteException {
 		if (getPuntos() >= avatar.getTipoAvatar().getPrecioEvolucion()){
 			if ((float)avatar.getHambre() / avatar.getTipoAvatar().getAlimentoMax() * 100 >= 75){
+				int precioEvolucionAnt = avatar.getTipoAvatar().getPrecioEvolucion();
 				int evoluciono = avatar.evolucionar();
 				if (evoluciono == 1){
-					puntos = puntos - avatar.getTipoAvatar().getPrecioEvolucion();
+					puntos = puntos - precioEvolucionAnt;
 					AlumnoDao.getInstance().actualizar(pasarBean());
+				}else{
+					//Mensaje del metodo avatar.evolucionar()
+					throw new RemoteException("No existen más tipos de avatares.");
 				}
 			}else{
 				System.out.println("El avatar no puede evolucionar si tiene hambre.");
